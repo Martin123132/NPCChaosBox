@@ -21,6 +21,19 @@ class StaticUiTests(unittest.TestCase):
         self.assertIn(".preset-grid", css)
         self.assertIn(".tune-preview", css)
 
+    def test_favourites_page_has_save_loop_guidance(self) -> None:
+        html = (ROOT / "npc_chaos_app" / "templates" / "index.html").read_text(encoding="utf-8")
+        js = (ROOT / "npc_chaos_app" / "static" / "app.js").read_text(encoding="utf-8")
+        css = (ROOT / "npc_chaos_app" / "static" / "app.css").read_text(encoding="utf-8")
+
+        self.assertIn('id="favouritesSummary"', html)
+        self.assertIn('id="favouritesGuide"', html)
+        self.assertIn("Save Loop", html)
+        self.assertIn("renderFavouritesStatus", js)
+        self.assertIn("saveFromFavouritesButton", js)
+        self.assertIn(".favourites-layout", css)
+        self.assertIn(".favourite-card", css)
+
 
 if __name__ == "__main__":
     unittest.main()

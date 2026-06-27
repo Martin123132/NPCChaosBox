@@ -92,6 +92,7 @@ let doctor = {};
 let currentNpc = null;
 let currentSeedTab = "names";
 let lastExport = null;
+let favouritesCache = [];
 
 const el = (id) => document.getElementById(id);
 
@@ -151,6 +152,7 @@ function bindControls() {
   el("openExportsButton").addEventListener("click", openExports);
   el("saveSeedsButton").addEventListener("click", saveSeeds);
   el("resetSeedsButton").addEventListener("click", resetSeeds);
+  el("saveFromFavouritesButton").addEventListener("click", saveFavourite);
   el("refreshFavouritesButton").addEventListener("click", loadFavourites);
 }
 
@@ -228,6 +230,9 @@ function showPage(page) {
   if (safePage === "exports") {
     renderExportSummary();
   }
+  if (safePage === "favourites") {
+    renderFavouritesStatus();
+  }
 }
 
 async function generateNpc(sameSeed) {
@@ -254,6 +259,7 @@ async function generateNpc(sameSeed) {
     renderNpcCard();
     renderResultActions();
     renderExportSummary();
+    renderFavouritesStatus();
     renderReadiness();
     renderNextSteps();
     setMessage("NPC generated.");
@@ -501,6 +507,7 @@ async function saveFavourite() {
   try {
     await api("/api/favourites", { method: "POST", body: JSON.stringify({ scene: currentNpc }) });
     await loadFavourites();
+    renderFavouritesStatus();
     setMessage("Favourite saved.");
   } catch (error) {
     setMessage(error.message);
@@ -519,15 +526,31 @@ function goToExports() {
 async function loadFavourites() {
   const data = await api("/api/favourites");
   const favourites = data.favourites || [];
-  el("favouritesList").innerHTML = favourites.length ? favourites.map((item) => `
-    <article class="list-item">
-      <h4>${escapeHtml(item.title)}</h4>
-      <p>Seed ${escapeHtml(item.seed)} | ${escapeHtml(item.mode)} | ${escapeHtml(item.created_at || "")}</p>
+  favouritesCache = favourites;
+  renderFavouritesStatus();
+  el("favouritesList").innerHTML = favourites.length ? favourites.map((item) => {
+    const npc = item.scene?.npc || {};
+    return `
+      <article class="list-item favourite-card">
+        <div>
+          <h4>${escapeHtml(item.title)}</h4>
+          <p>${escapeHtml(npc.role || "Saved NPC")} | Seed ${escapeHtml(item.seed)} | ${escapeHtml(item.mode)}</p>
+        </div>
+        <div class="favourite-card-foot">
+          <span>${escapeHtml(formatLocalDate(item.created_at))}</span>
+          <button data-fav="${escapeHtml(item.id)}">Load NPC</button>
+        </div>
+      </article>
+    `;
+  }).join("") : `
+    <div class="list-item empty-list">
+      <h4>No favourites yet</h4>
+      <p>Generate an NPC, then save the ones worth keeping. This shelf stays local on this machine.</p>
       <div class="button-row">
-        <button data-fav="${escapeHtml(item.id)}">Load</button>
+        <button data-go-page="generate">Go Generate</button>
       </div>
-    </article>
-  `).join("") : `<div class="list-item"><h4>No favourites yet</h4><p>Generate an NPC, then save the ones worth keeping.</p></div>`;
+    </div>
+  `;
   document.querySelectorAll("[data-fav]").forEach((button) => {
     button.addEventListener("click", () => {
       const item = favourites.find((fav) => fav.id === button.dataset.fav);
@@ -537,12 +560,56 @@ async function loadFavourites() {
         renderNpcCard();
         renderResultActions();
         renderExportSummary();
+        renderFavouritesStatus();
         renderNextSteps();
         showPage("generate");
         setMessage("Favourite loaded.");
       }
     });
   });
+  document.querySelectorAll("[data-go-page]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const page = button.dataset.goPage || "generate";
+      location.hash = page;
+      showPage(page);
+    });
+  });
+}
+
+function renderFavouritesStatus() {
+  const count = favouritesCache.length;
+  const hasCurrent = Boolean(currentNpc);
+  const saveButton = el("saveFromFavouritesButton");
+  saveButton.disabled = !hasCurrent;
+  el("favouritesSummary").innerHTML = `
+    <div class="traffic-strip compact">
+      ${statusPill({ light: count ? "green" : "amber", label: count ? `${count} saved` : "No saved NPCs yet" })}
+      ${statusPill({ light: hasCurrent ? "green" : "amber", label: hasCurrent ? "Current NPC ready" : "Generate before saving" })}
+    </div>
+    ${hasCurrent ? `
+      <div class="shelf-current">
+        <span>Current NPC</span>
+        <strong>${escapeHtml(currentNpc.title)}</strong>
+      </div>
+    ` : ""}
+  `;
+  const cards = [];
+  if (!hasCurrent) {
+    cards.push({ light: "amber", title: "Generate", body: "Make an NPC first, then this page can save it." });
+  } else {
+    cards.push({ light: "green", title: "Save", body: "Save the current NPC when it earns a place at the table." });
+  }
+  if (count) {
+    cards.push({ light: "green", title: "Load", body: "Load any saved NPC back onto the Generate page." });
+  } else {
+    cards.push({ light: "amber", title: "Build Shelf", body: "Keep only the useful ones so the list stays easy to scan." });
+  }
+  el("favouritesGuide").innerHTML = cards.map((card) => `
+    <div class="next-card ${card.light}">
+      <strong>${escapeHtml(card.title)}</strong>
+      <p>${escapeHtml(card.body)}</p>
+    </div>
+  `).join("");
 }
 
 async function exportNpc(format) {
@@ -650,6 +717,23 @@ function setMessage(message) {
 
 function labelFor(key) {
   return key.replace(/_/g, " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
+function formatLocalDate(value) {
+  if (!value) {
+    return "Local save";
+  }
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    return String(value);
+  }
+  return date.toLocaleString([], {
+    year: "numeric",
+    month: "short",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }
 
 function escapeHtml(value) {

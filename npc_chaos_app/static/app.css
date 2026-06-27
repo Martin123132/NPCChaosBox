@@ -252,6 +252,13 @@ textarea:focus-visible {
   align-items: start;
 }
 
+.favourites-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 820px) 330px;
+  gap: 18px;
+  align-items: start;
+}
+
 .work-panel,
 .guidance-panel {
   background: var(--panel-surface);
@@ -272,6 +279,10 @@ textarea:focus-visible {
   flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 16px;
+}
+
+.traffic-strip.compact {
+  margin-bottom: 10px;
 }
 
 .generate-actions {
@@ -737,6 +748,49 @@ input[type="checkbox"] {
   gap: 10px;
 }
 
+.favourites-summary {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fbfcfa;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.shelf-current {
+  display: grid;
+  gap: 3px;
+}
+
+.shelf-current span,
+.favourite-card-foot span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.shelf-current strong {
+  line-height: 1.35;
+}
+
+.favourite-card {
+  display: grid;
+  gap: 10px;
+}
+
+.favourite-card-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+}
+
+.empty-list {
+  border-left: 5px solid var(--amber);
+}
+
 .export-card {
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -805,6 +859,10 @@ input[type="checkbox"] {
     grid-template-columns: 1fr;
   }
 
+  .favourites-layout {
+    grid-template-columns: 1fr;
+  }
+
   .guidance-panel {
     position: static;
   }
@@ -844,6 +902,15 @@ input[type="checkbox"] {
 
   .primary-action,
   .secondary-action {
+    width: 100%;
+  }
+
+  .favourite-card-foot {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .favourite-card-foot button {
     width: 100%;
   }
 

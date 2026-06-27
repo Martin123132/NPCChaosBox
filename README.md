@@ -43,7 +43,7 @@ Tick `Add python.exe to PATH`, then double-click the launcher again.
 - `Generate`: pull one NPC card, then copy, save, or move to export.
 - `Tune`: pick a feel preset, then adjust mode, role, chaos, and seed lock.
 - `Seed Packs`: edit names, roles, places, wants, secrets, hooks, knowledge, offers, quotes, and rules.
-- `Favourites`: reload useful NPCs.
+- `Favourites`: save the current NPC and reload useful ones.
 - `Exports`: choose TXT/HTML for the current NPC and find saved files.
 - `Doctor`: check storage paths and seed-pack health.
 

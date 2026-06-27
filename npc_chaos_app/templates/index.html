@@ -137,16 +137,27 @@
         </section>
 
         <section class="page" id="page-favourites" aria-label="Saved favourites">
-          <section class="work-panel">
-            <div class="panel-head">
-              <div>
-                <h3>Favourites</h3>
-                <p>Saved NPCs stay in your local data folder.</p>
+          <div class="favourites-layout">
+            <section class="work-panel">
+              <div class="panel-head">
+                <div>
+                  <h3>Saved NPCs</h3>
+                  <p>Keep the characters worth bringing back.</p>
+                </div>
+                <div class="button-row">
+                  <button id="saveFromFavouritesButton">Save Current NPC</button>
+                  <button id="refreshFavouritesButton">Refresh</button>
+                </div>
               </div>
-              <button id="refreshFavouritesButton">Refresh</button>
-            </div>
-            <div id="favouritesList" class="list-panel"></div>
-          </section>
+              <div id="favouritesSummary" class="favourites-summary"></div>
+              <div id="favouritesList" class="list-panel"></div>
+            </section>
+
+            <aside class="guidance-panel">
+              <h3>Save Loop</h3>
+              <div id="favouritesGuide" class="next-step-list"></div>
+            </aside>
+          </div>
         </section>
 
         <section class="page" id="page-exports" aria-label="Exports">
