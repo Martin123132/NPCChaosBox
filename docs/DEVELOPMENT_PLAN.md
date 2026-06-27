@@ -43,6 +43,7 @@ Core NPC card fields:
 - Advanced tuning lives on the Tune page, with quick feel presets and a live effect summary.
 - TXT/HTML file choices live on the Exports page, with a clear export/open-folder loop.
 - Favourites is a saved-NPC shelf with a clear save/load loop.
+- Favourite cards should show one scannable preview, compact metadata, and one clear load action.
 - Seed editing lives on the Seed Packs page, with category health, save feedback, and a reset action separated from the main edit loop.
 
 ## Storage Rules

@@ -673,15 +673,31 @@ async function loadFavourites() {
   renderFavouritesStatus();
   el("favouritesList").innerHTML = favourites.length ? favourites.map((item) => {
     const npc = item.scene?.npc || {};
+    const mode = item.mode || item.scene?.mode || "Saved NPC";
+    const seed = item.seed ?? item.scene?.seed ?? "local";
+    const roleLine = [
+      npc.role || "Saved NPC",
+      npc.home ? `from ${npc.home}` : "",
+    ].filter(Boolean).join(" ");
+    const preview = npc.use_in_play || npc.problem_now || npc.quote || "Load this NPC back onto the Generate page.";
     return `
       <article class="list-item favourite-card">
-        <div>
-          <h4>${escapeHtml(item.title)}</h4>
-          <p>${escapeHtml(npc.role || "Saved NPC")} | Seed ${escapeHtml(item.seed)} | ${escapeHtml(item.mode)}</p>
+        <div class="favourite-card-main">
+          <div class="favourite-card-copy">
+            <span class="favourite-mode">${escapeHtml(mode)}</span>
+            <h4>${escapeHtml(item.title)}</h4>
+            <p>${escapeHtml(roleLine)}</p>
+          </div>
+          <button class="load-favourite-button" data-fav="${escapeHtml(item.id)}">Load NPC</button>
         </div>
-        <div class="favourite-card-foot">
+        <div class="favourite-card-preview">
+          <span>Use In Play</span>
+          <p>${escapeHtml(preview)}</p>
+        </div>
+        <div class="favourite-card-meta">
+          <span>Seed ${escapeHtml(seed)}</span>
+          <span>${escapeHtml(mode)}</span>
           <span>${escapeHtml(formatLocalDate(item.created_at))}</span>
-          <button data-fav="${escapeHtml(item.id)}">Load NPC</button>
         </div>
       </article>
     `;

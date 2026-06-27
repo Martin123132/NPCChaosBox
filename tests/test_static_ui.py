@@ -33,6 +33,11 @@ class StaticUiTests(unittest.TestCase):
         self.assertIn("saveFromFavouritesButton", js)
         self.assertIn(".favourites-layout", css)
         self.assertIn(".favourite-card", css)
+        self.assertIn("favourite-card-preview", js)
+        self.assertIn("favourite-card-meta", js)
+        self.assertIn("load-favourite-button", js)
+        self.assertIn(".favourite-card-main", css)
+        self.assertIn(".favourite-card-preview", css)
 
     def test_exports_page_has_guided_export_loop(self) -> None:
         html = (ROOT / "npc_chaos_app" / "templates" / "index.html").read_text(encoding="utf-8")

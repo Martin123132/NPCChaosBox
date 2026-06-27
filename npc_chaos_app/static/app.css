@@ -1143,7 +1143,8 @@ input[type="checkbox"] {
 }
 
 .shelf-current span,
-.favourite-card-foot span {
+.favourite-card-meta span,
+.favourite-card-preview span {
   color: var(--muted);
   font-size: 12px;
   font-weight: 800;
@@ -1156,16 +1157,86 @@ input[type="checkbox"] {
 
 .favourite-card {
   display: grid;
-  gap: 10px;
+  gap: 12px;
 }
 
-.favourite-card-foot {
-  display: flex;
-  justify-content: space-between;
+.favourite-card-main {
+  align-items: start;
+  display: grid;
   gap: 12px;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.favourite-card-copy {
+  min-width: 0;
+}
+
+.favourite-card-copy h4 {
+  font-size: 18px;
+  line-height: 1.25;
+  margin: 6px 0;
+  overflow-wrap: anywhere;
+}
+
+.favourite-card-copy p {
+  color: var(--muted);
+  line-height: 1.4;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.favourite-mode {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--teal-dark);
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 5px 8px;
+  text-transform: uppercase;
+}
+
+.load-favourite-button {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+  min-width: 112px;
+}
+
+.load-favourite-button:hover {
+  background: var(--teal-dark);
+  border-color: var(--teal-dark);
+  color: #fff;
+}
+
+.favourite-card-preview {
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--green);
+  border-radius: var(--radius);
+  background: #fbfcfa;
+  padding: 11px;
+}
+
+.favourite-card-preview p {
+  color: var(--ink);
+  line-height: 1.45;
+  margin: 5px 0 0;
+  overflow-wrap: anywhere;
+}
+
+.favourite-card-meta {
   align-items: center;
   border-top: 1px solid var(--line);
-  padding-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-top: 11px;
+}
+
+.favourite-card-meta span {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 9px;
 }
 
 .empty-list {
@@ -1433,12 +1504,21 @@ input[type="checkbox"] {
     grid-template-columns: 1fr;
   }
 
-  .favourite-card-foot {
+  .favourite-card-main {
     align-items: stretch;
-    flex-direction: column;
+    grid-template-columns: 1fr;
   }
 
-  .favourite-card-foot button {
+  .favourite-card-meta {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .favourite-card-meta span {
+    text-align: center;
+  }
+
+  .load-favourite-button {
     width: 100%;
   }
 
