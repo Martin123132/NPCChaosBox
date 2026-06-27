@@ -58,6 +58,22 @@ class StaticUiTests(unittest.TestCase):
         self.assertIn(".export-option-card", css)
         self.assertIn(".export-folder-card", css)
 
+    def test_doctor_page_has_plain_english_health_summary(self) -> None:
+        html = (ROOT / "npc_chaos_app" / "templates" / "index.html").read_text(encoding="utf-8")
+        js = (ROOT / "npc_chaos_app" / "static" / "app.js").read_text(encoding="utf-8")
+        css = (ROOT / "npc_chaos_app" / "static" / "app.css").read_text(encoding="utf-8")
+
+        self.assertIn('id="doctorPanel"', html)
+        self.assertIn("find local files", html)
+        self.assertIn("NPC Chaos Box is ready", js)
+        self.assertIn("Quick Check", js)
+        self.assertIn("Local Files", js)
+        self.assertIn("Seed Counts", js)
+        self.assertIn("seedCountSummary", js)
+        self.assertIn(".doctor-status-card", css)
+        self.assertIn(".doctor-grid", css)
+        self.assertIn(".doctor-count-pill", css)
+
     def test_seed_page_has_guided_edit_loop(self) -> None:
         html = (ROOT / "npc_chaos_app" / "templates" / "index.html").read_text(encoding="utf-8")
         js = (ROOT / "npc_chaos_app" / "static" / "app.js").read_text(encoding="utf-8")

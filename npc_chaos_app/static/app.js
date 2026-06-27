@@ -93,6 +93,7 @@ let currentNpc = null;
 let currentSeedTab = "names";
 let lastExport = null;
 let favouritesCache = [];
+let appVersion = "";
 
 const el = (id) => document.getElementById(id);
 
@@ -201,6 +202,7 @@ async function loadState() {
   const data = await api("/api/state");
   appState = data.state;
   doctor = data.doctor;
+  appVersion = data.version || "";
   el("versionText").textContent = `v${data.version} - local`;
   renderStorageStatus();
   renderRoleOptions();
@@ -883,22 +885,83 @@ function renderExportsGuide(result = null) {
 
 function renderDoctor(version = null) {
   const counts = doctor.category_counts || countCategories();
-  const rows = [
-    ["App", `NPC Chaos Box ${version || ""}`.trim()],
-    ["Storage", doctor.data_dir || ""],
-    ["Exports", doctor.exports_dir || ""],
-    ["Seed Pack", doctor.state_ok ? "Ready" : "Needs attention"],
-    ["Portable Default", doctor.portable_default || ""],
+  const versionText = version || appVersion;
+  const seedLight = doctor.state_ok ? "green" : "red";
+  const countEntries = Object.entries(counts);
+  const lowCounts = countEntries.filter(([, count]) => count < 4).length;
+  const thinCounts = countEntries.filter(([, count]) => count >= 4 && count < 8).length;
+  const readyTitle = doctor.state_ok ? "NPC Chaos Box is ready." : "NPC Chaos Box needs seed attention.";
+  const readyBody = doctor.state_ok
+    ? "Generation, storage, exports, and local seed data are available on this machine."
+    : "One or more required seed lists is too thin for reliable NPC generation.";
+  const setupRows = [
+    ["App", `NPC Chaos Box ${versionText || "local"}`],
     ["Internet", "Not required"],
-    ["Categories", Object.entries(counts).map(([key, count]) => `${labelFor(key)} ${count}`).join(", ")],
+    ["Seed Pack", doctor.state_ok ? "Ready" : "Needs attention"],
+    ["Saved NPCs", `${doctor.favourite_count ?? 0} favourite${doctor.favourite_count === 1 ? "" : "s"}`],
   ];
-  el("doctorPanel").innerHTML = rows.map(([name, value]) => `
-    <div class="doctor-row">
-      <strong>${escapeHtml(name)}</strong>
-      <span>${escapeHtml(value)}</span>
+  const pathRows = [
+    ["Data Folder", doctor.data_dir || "Not reported"],
+    ["Exports Folder", doctor.exports_dir || "Not reported"],
+    ["Portable Default", doctor.portable_default || "Not reported"],
+  ];
+  el("doctorPanel").innerHTML = `
+    <section class="doctor-status-card ${seedLight}">
+      <div class="doctor-status-head">
+        <span class="light ${seedLight}"></span>
+        <div>
+          <strong>${escapeHtml(readyTitle)}</strong>
+          <p>${escapeHtml(readyBody)}</p>
+        </div>
+      </div>
+      <div class="doctor-status-strip">
+        ${statusPill({ light: seedLight, label: doctor.state_ok ? "Seed pack ready" : "Seeds need work" })}
+        ${statusPill({ light: "green", label: "Local only" })}
+        ${statusPill({ light: "green", label: "No API keys" })}
+      </div>
+    </section>
+    <div class="doctor-grid">
+      ${doctorSection("Quick Check", setupRows)}
+      ${doctorSection("Local Files", pathRows)}
     </div>
-  `).join("");
+    <section class="doctor-section">
+      <div class="doctor-section-head">
+        <h4>Seed Counts</h4>
+        <p>${escapeHtml(seedCountSummary(lowCounts, thinCounts))}</p>
+      </div>
+      <div class="doctor-count-grid">
+        ${countEntries.map(([key, count]) => {
+          const light = count >= 8 ? "green" : count >= 4 ? "amber" : "red";
+          return `<span class="doctor-count-pill"><span class="light ${light}"></span>${escapeHtml(labelFor(key))} ${escapeHtml(count)}</span>`;
+        }).join("")}
+      </div>
+    </section>
+  `;
   renderExportsStrip();
+}
+
+function doctorSection(title, rows) {
+  return `
+    <section class="doctor-section">
+      <h4>${escapeHtml(title)}</h4>
+      ${rows.map(([name, value]) => `
+        <div class="doctor-row">
+          <strong>${escapeHtml(name)}</strong>
+          <span>${escapeHtml(value)}</span>
+        </div>
+      `).join("")}
+    </section>
+  `;
+}
+
+function seedCountSummary(lowCounts, thinCounts) {
+  if (lowCounts) {
+    return `${lowCounts} seed list${lowCounts === 1 ? "" : "s"} need more entries.`;
+  }
+  if (thinCounts) {
+    return `${thinCounts} seed list${thinCounts === 1 ? "" : "s"} usable but could repeat sooner.`;
+  }
+  return "All required seed lists are comfortably filled.";
 }
 
 async function copyText(text) {
