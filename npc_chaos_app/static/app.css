@@ -302,9 +302,10 @@ textarea:focus-visible {
 }
 
 .generate-actions {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(220px, 320px) minmax(0, 1fr);
   gap: 12px;
-  flex-wrap: wrap;
+  align-items: stretch;
   margin-bottom: 16px;
 }
 
@@ -315,6 +316,7 @@ textarea:focus-visible {
   min-height: 62px;
   padding: 0 28px;
   font-size: 18px;
+  width: 100%;
 }
 
 .primary-action:hover {
@@ -322,8 +324,44 @@ textarea:focus-visible {
   color: #fff;
 }
 
-.secondary-action {
+.repeat-seed-panel {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fbfcfa;
+  display: grid;
+  align-items: center;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
   min-height: 62px;
+  min-width: 0;
+  padding: 10px 10px 10px 13px;
+}
+
+.repeat-seed-panel span {
+  color: var(--muted);
+  display: block;
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 3px;
+  text-transform: uppercase;
+}
+
+.repeat-seed-panel strong {
+  display: block;
+  font-size: 13px;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+  white-space: nowrap;
+}
+
+.quiet-action {
+  background: transparent;
+  min-height: 40px;
+  padding: 0 12px;
+}
+
+.quiet-action:hover {
+  background: #edf6f2;
 }
 
 .npc-card {
@@ -1243,8 +1281,20 @@ input[type="checkbox"] {
     grid-template-columns: 1fr;
   }
 
-  .primary-action,
-  .secondary-action {
+  .generate-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .primary-action {
+    width: 100%;
+  }
+
+  .repeat-seed-panel {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .quiet-action {
     width: 100%;
   }
 

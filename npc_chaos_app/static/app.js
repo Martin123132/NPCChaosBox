@@ -269,7 +269,7 @@ async function generateNpc(sameSeed) {
     renderFavouritesStatus();
     renderReadiness();
     renderNextSteps();
-    setMessage("NPC generated.");
+    setMessage(sameSeed ? "Seed repeated." : "NPC generated.");
     showPage("generate");
   } catch (error) {
     setMessage(error.message);
@@ -341,6 +341,10 @@ function renderNpcCard() {
 
 function renderResultActions() {
   el("resultActions").hidden = !currentNpc;
+  el("repeatSeedPanel").hidden = !currentNpc;
+  if (currentNpc) {
+    el("repeatSeedValue").textContent = String(currentNpc.seed || "auto");
+  }
 }
 
 function npcSpotlight(label, value) {

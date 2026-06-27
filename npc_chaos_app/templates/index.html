@@ -49,7 +49,13 @@
               <div class="traffic-strip" id="readinessStrip"></div>
               <div class="generate-actions">
                 <button class="primary-action" id="generateButton">Generate NPC</button>
-                <button class="secondary-action" id="sameSeedButton">Regenerate Same Seed</button>
+                <div class="repeat-seed-panel" id="repeatSeedPanel" hidden>
+                  <div>
+                    <span>Seed</span>
+                    <strong id="repeatSeedValue">auto</strong>
+                  </div>
+                  <button class="quiet-action" id="sameSeedButton">Repeat Seed</button>
+                </div>
               </div>
               <article class="npc-card" id="npcCard">
                 <div class="empty-state">

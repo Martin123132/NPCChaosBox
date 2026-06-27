@@ -73,6 +73,18 @@ class StaticUiTests(unittest.TestCase):
         self.assertIn(".npc-priority-grid", css)
         self.assertIn(".trace-details", css)
 
+    def test_generate_page_has_quiet_repeat_seed_control(self) -> None:
+        html = (ROOT / "npc_chaos_app" / "templates" / "index.html").read_text(encoding="utf-8")
+        js = (ROOT / "npc_chaos_app" / "static" / "app.js").read_text(encoding="utf-8")
+        css = (ROOT / "npc_chaos_app" / "static" / "app.css").read_text(encoding="utf-8")
+
+        self.assertIn('id="repeatSeedPanel" hidden', html)
+        self.assertIn("Repeat Seed", html)
+        self.assertIn("repeatSeedPanel", js)
+        self.assertIn("Seed repeated.", js)
+        self.assertIn(".repeat-seed-panel", css)
+        self.assertIn(".quiet-action", css)
+
     def test_mobile_shell_uses_compact_navigation(self) -> None:
         css = (ROOT / "npc_chaos_app" / "static" / "app.css").read_text(encoding="utf-8")
 
