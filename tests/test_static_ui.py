@@ -144,8 +144,15 @@ class StaticUiTests(unittest.TestCase):
         self.assertIn("grid-template-columns: repeat(3, minmax(0, 1fr))", css)
 
     def test_mobile_shell_uses_compact_navigation(self) -> None:
+        html = (ROOT / "npc_chaos_app" / "templates" / "index.html").read_text(encoding="utf-8")
         css = (ROOT / "npc_chaos_app" / "static" / "app.css").read_text(encoding="utf-8")
 
+        self.assertIn('aria-label="Generate"', html)
+        self.assertIn("Make one now", html)
+        self.assertIn("Set the feel", html)
+        self.assertIn("Bring back keepers", html)
+        self.assertIn(".nav-copy", css)
+        self.assertIn(".nav-hint", css)
         self.assertIn(".nav-list::-webkit-scrollbar", css)
         self.assertIn("overflow-x: auto", css)
         self.assertIn("white-space: nowrap", css)

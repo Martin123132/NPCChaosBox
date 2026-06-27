@@ -135,20 +135,44 @@ textarea:focus-visible {
 
 .nav-item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
   width: 100%;
   justify-content: flex-start;
   color: #dbe7e2;
   background: transparent;
   border-color: rgba(255, 255, 255, 0.12);
-  min-height: 44px;
+  min-height: 54px;
+  text-align: left;
 }
 
 .nav-item.active {
   background: #e8f1ec;
   color: #17211f;
   border-color: #e8f1ec;
+}
+
+.nav-copy {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.nav-label {
+  font-weight: 850;
+  line-height: 1.2;
+}
+
+.nav-hint {
+  color: #9fb2ab;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.nav-item.active .nav-hint {
+  color: #52645f;
 }
 
 .nav-icon {
@@ -1553,6 +1577,15 @@ input[type="checkbox"] {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .nav-item {
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .nav-hint {
+    display: none;
+  }
+
   .generate-grid {
     grid-template-columns: 1fr;
   }
@@ -1642,6 +1675,10 @@ input[type="checkbox"] {
     padding: 0 12px;
     width: auto;
     white-space: nowrap;
+  }
+
+  .nav-copy {
+    display: block;
   }
 
   .nav-icon {

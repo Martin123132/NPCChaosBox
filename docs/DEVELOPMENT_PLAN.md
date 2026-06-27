@@ -34,6 +34,7 @@ Core NPC card fields:
 - Do not cram every control onto the first page.
 - Use traffic-light guidance for readiness and next steps.
 - Mobile navigation should stay compact so the working page starts quickly.
+- Desktop navigation may teach each page's job with short helper text; compact navigation should keep labels tight.
 - The Generate page is the first screen.
 - The first Generate state should have one obvious main action; repeat-seed controls appear only after an NPC exists.
 - Generated NPC cards should be scan-first: use-now guidance, read-aloud quote, immediate pressure, then supporting detail.
