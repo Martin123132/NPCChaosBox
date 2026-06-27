@@ -98,6 +98,17 @@ class StaticUiTests(unittest.TestCase):
         self.assertIn(".coach-card", css)
         self.assertIn(".coach-option-grid", css)
 
+    def test_generate_result_actions_are_grouped(self) -> None:
+        html = (ROOT / "npc_chaos_app" / "templates" / "index.html").read_text(encoding="utf-8")
+        css = (ROOT / "npc_chaos_app" / "static" / "app.css").read_text(encoding="utf-8")
+
+        self.assertIn("result-action-head", html)
+        self.assertIn("result-action-buttons", html)
+        self.assertIn("Card Actions", html)
+        self.assertIn(".result-action-head", css)
+        self.assertIn(".result-action-buttons", css)
+        self.assertIn("grid-template-columns: repeat(3, minmax(0, 1fr))", css)
+
     def test_mobile_shell_uses_compact_navigation(self) -> None:
         css = (ROOT / "npc_chaos_app" / "static" / "app.css").read_text(encoding="utf-8")
 

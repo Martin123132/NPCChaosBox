@@ -626,8 +626,7 @@ textarea:focus-visible {
   line-height: 1.4;
 }
 
-.button-row,
-.result-actions {
+.button-row {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
@@ -635,19 +634,53 @@ textarea:focus-visible {
 }
 
 .result-actions {
-  align-items: center;
   border-top: 1px solid var(--line);
+  display: grid;
+  gap: 12px;
+  margin-top: 14px;
   padding-top: 14px;
 }
 
-.result-actions button:first-child,
+.result-action-head {
+  align-items: end;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.result-action-head span {
+  color: var(--muted);
+  flex: 0 0 auto;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.result-action-head strong {
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.35;
+  text-align: right;
+}
+
+.result-action-buttons {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.result-action-buttons button {
+  min-width: 0;
+}
+
+.result-action-buttons button:first-child,
 .export-choice-grid button:first-child {
   background: var(--ink);
   color: #fff;
   border-color: var(--ink);
 }
 
-.result-actions button:first-child:hover,
+.result-action-buttons button:first-child:hover,
 .export-choice-grid button:first-child:hover {
   background: var(--teal-dark);
   border-color: var(--teal-dark);
@@ -1384,6 +1417,20 @@ input[type="checkbox"] {
 
   .npc-quote-block p {
     font-size: 18px;
+  }
+
+  .result-action-head {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .result-action-head strong {
+    text-align: left;
+  }
+
+  .result-action-buttons {
+    grid-template-columns: 1fr;
   }
 
   .favourite-card-foot {
