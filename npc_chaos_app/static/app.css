@@ -92,6 +92,7 @@ textarea:focus-visible {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  min-width: 0;
 }
 
 .brand {
@@ -279,6 +280,7 @@ textarea:focus-visible {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+  min-width: 0;
   padding: 18px;
   backdrop-filter: blur(8px);
 }
@@ -1173,13 +1175,66 @@ input[type="checkbox"] {
     padding: 16px;
   }
 
+  .sidebar {
+    gap: 12px;
+  }
+
+  .brand {
+    grid-template-columns: 40px minmax(0, 1fr);
+  }
+
+  .brand-mark {
+    height: 40px;
+    width: 40px;
+  }
+
+  .brand h1 {
+    font-size: 17px;
+  }
+
+  .brand p {
+    margin-top: 3px;
+  }
+
+  .nav-list {
+    display: flex;
+    gap: 8px;
+    margin: 0;
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: auto;
+    padding: 0 0 2px;
+    scrollbar-width: none;
+    width: 100%;
+  }
+
+  .nav-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-item {
+    flex: 0 0 auto;
+    min-height: 40px;
+    padding: 0 12px;
+    width: auto;
+    white-space: nowrap;
+  }
+
+  .nav-icon {
+    height: 19px;
+    width: 19px;
+  }
+
+  .sidebar-foot {
+    display: none;
+  }
+
   .topbar,
   .panel-head {
     align-items: stretch;
     flex-direction: column;
   }
 
-  .nav-list,
   .form-grid,
   .field-grid,
   .preset-grid,

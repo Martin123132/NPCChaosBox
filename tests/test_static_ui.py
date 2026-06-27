@@ -73,6 +73,15 @@ class StaticUiTests(unittest.TestCase):
         self.assertIn(".npc-priority-grid", css)
         self.assertIn(".trace-details", css)
 
+    def test_mobile_shell_uses_compact_navigation(self) -> None:
+        css = (ROOT / "npc_chaos_app" / "static" / "app.css").read_text(encoding="utf-8")
+
+        self.assertIn(".nav-list::-webkit-scrollbar", css)
+        self.assertIn("overflow-x: auto", css)
+        self.assertIn("white-space: nowrap", css)
+        self.assertIn(".sidebar-foot", css)
+        self.assertIn("display: none", css)
+
 
 if __name__ == "__main__":
     unittest.main()

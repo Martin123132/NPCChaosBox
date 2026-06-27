@@ -33,6 +33,7 @@ Core NPC card fields:
 - Use separate pages for separate jobs.
 - Do not cram every control onto the first page.
 - Use traffic-light guidance for readiness and next steps.
+- Mobile navigation should stay compact so the working page starts quickly.
 - The Generate page is the first screen.
 - Generated NPC cards should be scan-first: use-now guidance, read-aloud quote, immediate pressure, then supporting detail.
 - The Generate page should show only the current result actions, not every possible file-format choice.
