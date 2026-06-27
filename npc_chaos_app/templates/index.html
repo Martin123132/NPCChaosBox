@@ -74,33 +74,41 @@
         </section>
 
         <section class="page" id="page-tune" aria-label="Tune generation">
-          <section class="work-panel narrow">
-            <div class="page-intro">
-              <h3>Tune the next pull</h3>
-              <p>Small controls, clear effect.</p>
-            </div>
-            <div class="form-grid">
-              <label>
-                Mode
-                <select id="modeSelect"></select>
-              </label>
-              <label>
-                Role
-                <select id="roleSelect"></select>
-              </label>
-              <label>
-                Chaos
-                <input id="chaosInput" type="range" min="0" max="100" value="55" />
-                <span id="chaosValue">55</span>
-              </label>
-              <label class="seed-row">
-                Seed
-                <input id="seedInput" type="text" inputmode="numeric" placeholder="auto" />
-                <span><input id="lockSeedInput" type="checkbox" /> lock</span>
-              </label>
-            </div>
-            <div class="traffic-strip" id="tuneStrip"></div>
-          </section>
+          <div class="tune-layout">
+            <section class="work-panel">
+              <div class="page-intro">
+                <h3>Tune the next pull</h3>
+                <p>Pick the feel first. Fine tune only when you need to.</p>
+              </div>
+              <div class="preset-grid" id="tunePresets" aria-label="Quick tune presets"></div>
+              <div class="form-grid tune-controls">
+                <label>
+                  Mode
+                  <select id="modeSelect"></select>
+                </label>
+                <label>
+                  Role
+                  <select id="roleSelect"></select>
+                </label>
+                <label>
+                  Chaos
+                  <input id="chaosInput" type="range" min="0" max="100" value="55" />
+                  <span id="chaosValue">55</span>
+                </label>
+                <label class="seed-row">
+                  Seed
+                  <input id="seedInput" type="text" inputmode="numeric" placeholder="auto" />
+                  <span><input id="lockSeedInput" type="checkbox" /> lock</span>
+                </label>
+              </div>
+              <div class="traffic-strip" id="tuneStrip"></div>
+            </section>
+
+            <aside class="guidance-panel">
+              <h3>What This Will Do</h3>
+              <div id="tunePreview" class="tune-preview"></div>
+            </aside>
+          </div>
         </section>
 
         <section class="page" id="page-seeds" aria-label="Seed pack editor">

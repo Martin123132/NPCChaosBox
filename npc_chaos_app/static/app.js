@@ -7,6 +7,39 @@ const MODES = [
   "Shopkeeper With A Problem",
 ];
 
+const TUNE_PRESETS = [
+  {
+    id: "grounded",
+    label: "Grounded",
+    chaos: 25,
+    light: "green",
+    body: "Useful contact, one odd detail, low table risk.",
+  },
+  {
+    id: "trouble",
+    label: "Trouble",
+    chaos: 55,
+    light: "amber",
+    body: "Stronger contradiction, immediate problem, easy to drop in.",
+  },
+  {
+    id: "wild",
+    label: "Wild Hook",
+    chaos: 82,
+    light: "red",
+    body: "Big pressure, stranger collision, use when the scene needs a shove.",
+  },
+];
+
+const MODE_HINTS = {
+  Random: "Lets the box choose a scene shape.",
+  "Fantasy Tavern": "Good for first meetings, gossip, jobs, and messy introductions.",
+  "Village Weird": "Turns local drama into a playable problem.",
+  "Quest Giver Gone Wrong": "Makes the job useful but bent.",
+  "Villain Contact": "Creates a clue-bearer, informant, or dangerous middle step.",
+  "Shopkeeper With A Problem": "Makes a practical NPC with a problem attached to trade.",
+};
+
 const SEED_KEYS = [
   "names",
   "epithets",
@@ -101,8 +134,15 @@ function bindControls() {
   el("chaosInput").addEventListener("input", () => {
     el("chaosValue").textContent = el("chaosInput").value;
     renderTuneStrip();
+    renderTunePreview();
   });
-  el("lockSeedInput").addEventListener("change", renderTuneStrip);
+  el("modeSelect").addEventListener("change", renderTunePreview);
+  el("roleSelect").addEventListener("change", renderTunePreview);
+  el("seedInput").addEventListener("input", renderTunePreview);
+  el("lockSeedInput").addEventListener("change", () => {
+    renderTuneStrip();
+    renderTunePreview();
+  });
   el("copyButton").addEventListener("click", copyCurrentNpc);
   el("saveButton").addEventListener("click", saveFavourite);
   el("goExportsButton").addEventListener("click", goToExports);
@@ -116,6 +156,37 @@ function bindControls() {
 
 function populateModes() {
   el("modeSelect").innerHTML = MODES.map((mode) => `<option>${escapeHtml(mode)}</option>`).join("");
+  renderTunePresets();
+}
+
+function renderTunePresets() {
+  const currentChaos = Number(el("chaosInput")?.value || 55);
+  el("tunePresets").innerHTML = TUNE_PRESETS.map((preset) => `
+    <button class="preset-button ${nearestPreset(currentChaos)?.id === preset.id ? "active" : ""}" data-preset="${escapeHtml(preset.id)}">
+      <span class="preset-title"><span class="light ${preset.light}"></span>${escapeHtml(preset.label)}</span>
+      <span class="preset-body">${escapeHtml(preset.body)}</span>
+    </button>
+  `).join("");
+  document.querySelectorAll("[data-preset]").forEach((button) => {
+    button.addEventListener("click", () => applyTunePreset(button.dataset.preset));
+  });
+}
+
+function nearestPreset(chaos) {
+  return TUNE_PRESETS.reduce((best, preset) => {
+    const bestDistance = Math.abs(chaos - best.chaos);
+    const nextDistance = Math.abs(chaos - preset.chaos);
+    return nextDistance < bestDistance ? preset : best;
+  }, TUNE_PRESETS[0]);
+}
+
+function applyTunePreset(id) {
+  const preset = TUNE_PRESETS.find((item) => item.id === id) || TUNE_PRESETS[1];
+  el("chaosInput").value = String(preset.chaos);
+  el("chaosValue").textContent = String(preset.chaos);
+  renderTuneStrip();
+  renderTunePreview();
+  setMessage(`${preset.label} feel selected.`);
 }
 
 async function loadState() {
@@ -130,6 +201,7 @@ async function loadState() {
   renderSeedHealth();
   renderReadiness();
   renderTuneStrip();
+  renderTunePreview();
   renderDoctor(data.version);
   renderResultActions();
   renderExportSummary();
@@ -243,6 +315,41 @@ function renderTuneStrip() {
     statusPill({ light, label: text }),
     statusPill({ light: el("lockSeedInput").checked ? "green" : "amber", label: el("lockSeedInput").checked ? "Seed locked" : "Seed will move" }),
   ].join("");
+  renderTunePresets();
+}
+
+function renderTunePreview() {
+  const mode = el("modeSelect").value || "Random";
+  const role = el("roleSelect").value || "Any Role";
+  const chaos = Number(el("chaosInput").value || 0);
+  const seedText = el("seedInput").value.trim();
+  const locked = el("lockSeedInput").checked;
+  const chaosLight = chaos > 75 ? "red" : chaos > 45 ? "amber" : "green";
+  const chaosLabel = chaos > 75 ? "Loud and risky" : chaos > 45 ? "Playable trouble" : "Grounded and steady";
+  const seedLine = seedText
+    ? `Seed ${seedText}${locked ? " will repeat exactly." : " is set for the next pull."}`
+    : locked && currentNpc
+      ? `Locks the current seed ${currentNpc.seed}.`
+      : "No seed set, so each pull can surprise you.";
+  el("tunePreview").innerHTML = `
+    <div class="preview-lede ${chaosLight}">
+      <span class="light ${chaosLight}"></span>
+      <strong>${escapeHtml(chaosLabel)}</strong>
+      <p>${escapeHtml(MODE_HINTS[mode] || MODE_HINTS.Random)}</p>
+    </div>
+    <div class="preview-row">
+      <span>Mode</span>
+      <strong>${escapeHtml(mode)}</strong>
+    </div>
+    <div class="preview-row">
+      <span>Role</span>
+      <strong>${escapeHtml(role === "Any Role" ? "Box chooses" : role)}</strong>
+    </div>
+    <div class="preview-row">
+      <span>Seed</span>
+      <strong>${escapeHtml(seedLine)}</strong>
+    </div>
+  `;
 }
 
 function renderNextSteps() {
