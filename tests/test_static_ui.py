@@ -85,6 +85,19 @@ class StaticUiTests(unittest.TestCase):
         self.assertIn(".repeat-seed-panel", css)
         self.assertIn(".quiet-action", css)
 
+    def test_generate_next_move_uses_flow_coach(self) -> None:
+        html = (ROOT / "npc_chaos_app" / "templates" / "index.html").read_text(encoding="utf-8")
+        js = (ROOT / "npc_chaos_app" / "static" / "app.js").read_text(encoding="utf-8")
+        css = (ROOT / "npc_chaos_app" / "static" / "app.css").read_text(encoding="utf-8")
+
+        self.assertIn("Next Move", html)
+        self.assertIn("coachCard", js)
+        self.assertIn("coachOption", js)
+        self.assertIn("Use this NPC", js)
+        self.assertIn("Tune if nearly right", js)
+        self.assertIn(".coach-card", css)
+        self.assertIn(".coach-option-grid", css)
+
     def test_mobile_shell_uses_compact_navigation(self) -> None:
         css = (ROOT / "npc_chaos_app" / "static" / "app.css").read_text(encoding="utf-8")
 

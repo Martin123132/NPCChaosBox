@@ -422,24 +422,52 @@ function renderTunePreview() {
 }
 
 function renderNextSteps() {
-  const cards = [];
   const overall = overallSeedStatus();
+  const seedWarning = overall.light !== "green"
+    ? `<div class="next-card ${overall.light}">
+        <strong>Seed Pack</strong>
+        <p>${escapeHtml(overall.body)}</p>
+      </div>`
+    : "";
+
   if (!currentNpc) {
-    cards.push({ light: overall.light, title: "Generate", body: overall.light === "red" ? "Fix the red seed categories first." : "Press Generate NPC. The first useful card is one click away." });
-  } else {
-    cards.push({ light: "green", title: "Use", body: currentNpc.guidance?.next_step || "Drop this NPC into the next scene." });
-    cards.push({ light: "amber", title: "Tune", body: "Change mode, role, chaos, or seed if the NPC is nearly right." });
-    cards.push({ light: "green", title: "Keep", body: "Copy it, save it, or open Exports when the card works." });
+    const body = overall.light === "red"
+      ? "Fix the red seed categories first."
+      : "Press Generate NPC. The first useful card is one click away.";
+    el("nextStepList").innerHTML = [
+      coachCard(overall.light, "Now", "Generate one NPC", body),
+      seedWarning,
+    ].join("");
+    return;
   }
-  if (overall.light !== "green") {
-    cards.push({ light: overall.light, title: "Seed Pack", body: overall.body });
-  }
-  el("nextStepList").innerHTML = cards.map((card) => `
-    <div class="next-card ${card.light}">
-      <strong>${escapeHtml(card.title)}</strong>
-      <p>${escapeHtml(card.body)}</p>
+
+  el("nextStepList").innerHTML = `
+    ${coachCard("green", "Now", "Use this NPC", currentNpc.guidance?.next_step || "Drop this NPC into the next scene.")}
+    <div class="coach-option-grid">
+      ${coachOption("amber", "Tune if nearly right", "Change mode, role, chaos, or seed only when the idea is close.")}
+      ${coachOption("green", "Keep when it works", "Copy, save, or export once the card earns a place at the table.")}
     </div>
-  `).join("");
+    ${seedWarning}
+  `;
+}
+
+function coachCard(light, label, title, body) {
+  return `
+    <div class="coach-card ${light}">
+      <span>${escapeHtml(label)}</span>
+      <strong>${escapeHtml(title)}</strong>
+      <p>${escapeHtml(body)}</p>
+    </div>
+  `;
+}
+
+function coachOption(light, title, body) {
+  return `
+    <div class="coach-option ${light}">
+      <strong>${escapeHtml(title)}</strong>
+      <p>${escapeHtml(body)}</p>
+    </div>
+  `;
 }
 
 function seedStatusItems() {
