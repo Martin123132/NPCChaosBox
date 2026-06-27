@@ -1,0 +1,24 @@
+Mara Bellweather, who speaks fluent candle
+
+Role: shopkeeper selling objects that miss their owners
+Home: the courthouse broom cupboard
+Faction: The Bell-Ringers Who Deny Everything
+Wants: to keep the village peaceful until the pie contest ends
+Secret: they sold the same alibi to both sides of a feud
+Contradiction: cowardly in battle, fearless in paperwork
+Problem Now: a map insists their house is a dungeon
+Object: a ledger page that bleeds ink near cowards
+First Move: they hand over a sealed note and ask the players not to read it aloud, carrying a ledger page that bleeds ink near cowards wrapped in a parish notice.
+What They Know: which rumour is true but too useful to say plainly
+Wants From Players: they will remove one accusation from the record, but a ghost considers this legally binding before sunset.
+Quote: "The truth is upstairs refusing visitors."
+Use In Play: Use them when a simple errand needs a human complication. Make The Bell-Ringers Who Deny Everything treat this like a civic emergency. High chaos: preserve the truth until the table has to choose a side.
+Danger: Amber: complicated but usable
+
+Seed: 707 | Mode: Village Weird | Chaos: 90
+
+CHAOS TRACE
+Prime field Z17, seed 11, seven-step trace [6, 8, 12, 2, 5, 2, 7].
+Drift: preserve; chaos 90; mode Village Weird.
+Rule: If the last step is high, make the secret more dangerous than the problem.
+Collision: Mara Bellweather wants 'to keep the village peaceful until the pie contest ends' but the scene pushes 'a map insists their house is a dungeon'.

@@ -1,0 +1,24 @@
+Rook Marlow, who keeps receipts for thunder
+
+Role: tax collector for imaginary kingdoms
+Home: the duck pond with a witness box
+Faction: The Lantern Regulars
+Wants: to hide a door that keeps choosing witnesses, but for the opposite reason
+Secret: they have been feeding evidence to the wrong shrine, but for the opposite reason
+Contradiction: helps everyone, trusts nobody who says thank you
+Problem Now: a respectable family is trying to auction off an inherited accusation
+Object: a referee whistle for moral fouls
+First Move: they ask for protection from something polite enough to knock, then lock the shop door from the outside.
+What They Know: where the next public mistake will happen
+Wants From Players: they can hide the players for one night above the kitchen, though someone has already written the players' names into the minutes.
+Quote: "We can solve this quietly, or we can involve the choir."
+Use In Play: Use them when the players need a social scene with a real lever. Every price includes one favour and one uncomfortable question.
+Danger: Green: safe to introduce now
+
+Seed: 505 | Mode: Shopkeeper With A Problem | Chaos: 48
+
+CHAOS TRACE
+Prime field Z19, seed 9, seven-step trace [13, 1, 3, 7, 14, 16, 1].
+Drift: invert; chaos 48; mode Shopkeeper With A Problem.
+Rule: If the last step is low, let a faction misunderstand the NPC.
+Collision: Rook Marlow wants 'to hide a door that keeps choosing witnesses' but the scene pushes 'a respectable family is trying to auction off an inherited accusation'.

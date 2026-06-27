@@ -1,0 +1,24 @@
+Mara Bellweather, who speaks fluent candle
+
+Role: locksmith for doors that are still deciding
+Home: the bell tower tea room
+Faction: The Union of Respectable Liars
+Wants: to win a feud nobody else remembers, but for the opposite reason
+Secret: they signed the village charter under the wrong species, but for the opposite reason
+Contradiction: kind to strangers, suspicious of furniture
+Problem Now: a respectable family is trying to auction off an inherited accusation
+Object: a referee whistle for moral fouls
+First Move: they spill a drink, apologise to the wrong person, and expose a clue, then name the villain only after checking the windows.
+What They Know: which rumour is true but too useful to say plainly, but for the opposite reason
+Wants From Players: they can arrange safe passage through a place that dislikes visitors, though someone has already written the players' names into the minutes.
+Quote: "You can keep the coin. I want the room to remember this."
+Use In Play: Use them when the players need a social scene with a real lever. They are not the villain, which somehow makes them worse.
+Danger: Amber: complicated but usable
+
+Seed: 909 | Mode: Villain Contact | Chaos: 58
+
+CHAOS TRACE
+Prime field Z19, seed 13, seven-step trace [17, 12, 11, 4, 6, 4, 8].
+Drift: invert; chaos 58; mode Villain Contact.
+Rule: If the last step is high, make the secret more dangerous than the problem.
+Collision: Mara Bellweather wants 'to win a feud nobody else remembers' but the scene pushes 'a respectable family is trying to auction off an inherited accusation'.

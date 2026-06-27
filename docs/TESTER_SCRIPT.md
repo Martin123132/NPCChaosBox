@@ -1,0 +1,30 @@
+# NPC Chaos Box Tester Script
+
+This is the phone-call test. A non-technical tester should be able to generate
+and export an NPC without opening a command prompt.
+
+## What To Say
+
+1. Download or unzip NPC Chaos Box somewhere easy.
+2. Open the folder.
+3. Double-click `START_NPCChaos_WINDOWS.bat`.
+4. When the browser opens, press `Generate NPC`.
+5. Save a favourite.
+6. Export TXT.
+
+## What To Watch For
+
+- Time to first NPC.
+- Did Python block them?
+- Did Windows show a warning?
+- Did the browser open by itself?
+- Did the traffic lights make the next step obvious?
+- Did separate pages make the app calmer?
+- Could they find exports?
+- Was the NPC useful at a table or in a story?
+
+## Pass Standard
+
+The tester should generate, save, and export an NPC in under 10 minutes with
+plain-English guidance only.
+

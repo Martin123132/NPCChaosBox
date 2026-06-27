@@ -1,0 +1,32 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  unittest:
+    runs-on: windows-latest
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      NPC_CHAOS_HOME: ${{ runner.temp }}\NPCChaosData
+      NPC_CHAOS_DISABLE_OPEN: "1"
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Run unit tests
+        run: python -m unittest discover -s tests
+
+      - name: Compile Python files
+        run: python -m compileall npc_chaos_app tests scripts
+
+      - name: Generate samples
+        run: python scripts\sample_npcs.py --count 2
+

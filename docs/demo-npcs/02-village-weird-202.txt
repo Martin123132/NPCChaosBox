@@ -1,0 +1,24 @@
+Silas Brindle, with a pocket full of verdicts
+
+Role: locksmith for doors that are still deciding
+Home: the bridge that invoices travellers
+Faction: The Committee for Unclaimed Relics
+Wants: to win a feud nobody else remembers, though they only admit half of it
+Secret: they have been feeding evidence to the wrong shrine, though they only admit half of it
+Contradiction: kind to strangers, suspicious of furniture
+Problem Now: the tavern sign has started listing crimes in alphabetical order
+Object: a folded warrant addressed to whoever reads it
+First Move: they interrupt a toast with a legal objection nobody expected, carrying a folded warrant addressed to whoever reads it wrapped in a parish notice.
+What They Know: which door in town opens only for cowards, though they only admit half of it
+Wants From Players: they can make a guard look the wrong way at the right time, though a ghost considers this legally binding.
+Quote: "I am helping. The panic is decorative."
+Use In Play: Use them when the village needs a secret that can talk back. Let one ordinary village rule suddenly matter far too much.
+Danger: Amber: complicated but usable
+
+Seed: 202 | Mode: Village Weird | Chaos: 72
+
+CHAOS TRACE
+Prime field Z41, seed 25, seven-step trace [7, 6, 16, 9, 32, 31, 0].
+Drift: fragment; chaos 72; mode Village Weird.
+Rule: If chaos is high, add a second obligation the NPC cannot admit.
+Collision: Silas Brindle wants 'to win a feud nobody else remembers' but the scene pushes 'the tavern sign has started listing crimes in alphabetical order'.

@@ -1,0 +1,24 @@
+Tomas Wren, who rents out grudges
+
+Role: lamplighter who blackmails shadows
+Home: the bridge that invoices travellers
+Faction: The Society for Returning Bad Luck
+Wants: to stop the tavern sign from naming suspects, though they only admit half of it
+Secret: they signed the village charter under the wrong species, though they only admit half of it
+Contradiction: hates drama, travels with receipts
+Problem Now: the mayor wants them gone before the bell rings thirteen
+Object: a folded warrant addressed to whoever reads it
+First Move: they confess to a crime that has not happened yet, then put a folded warrant addressed to whoever reads it on the nearest dry table.
+What They Know: which door in town opens only for cowards, though they only admit half of it
+Wants From Players: they can identify the relic if nobody asks where they learned how, though the witness will only talk if fed, flattered, or frightened.
+Quote: "I brought cake because knives felt repetitive."
+Use In Play: Use them when the next scene needs a witness with a problem. Let the tavern room go quiet when The Society for Returning Bad Luck is mentioned.
+Danger: Amber: complicated but usable
+
+Seed: 101 | Mode: Fantasy Tavern | Chaos: 55
+
+CHAOS TRACE
+Prime field Z31, seed 28, seven-step trace [6, 17, 13, 13, 14, 23, 3].
+Drift: fragment; chaos 55; mode Fantasy Tavern.
+Rule: If the trace repeats, make the NPC misremember their own motive.
+Collision: Tomas Wren wants 'to stop the tavern sign from naming suspects' but the scene pushes 'the mayor wants them gone before the bell rings thirteen'.

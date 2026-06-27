@@ -1,0 +1,24 @@
+Tilda Ash, of the seventh receipt
+
+Role: retired bandit now running etiquette lessons
+Home: the lane that returns borrowed lies
+Faction: The Soft Knife Society
+Wants: to hide a door that keeps choosing witnesses, except their version keeps changing
+Secret: their diary is writing back in legal language, except their version keeps changing
+Contradiction: soft-spoken until money becomes theological
+Problem Now: the tavern cellar is refusing to return a missing customer
+Object: a wooden saint with a removable smile
+First Move: they warn the room that the bell tower has chosen a defendant, then admit the reward has developed opinions.
+What They Know: why the harmless object is being watched by three factions, except their version keeps changing
+Wants From Players: they will name the villain's contact, though a rival wants the same favour done louder.
+Quote: "I have retired from violence, but not from standards."
+Use In Play: Use them when a quest giver should be funny without becoming useless. They give a real quest, but the reason is badly bent.
+Danger: Amber: complicated but usable
+
+Seed: 303 | Mode: Quest Giver Gone Wrong | Chaos: 66
+
+CHAOS TRACE
+Prime field Z17, seed 8, seven-step trace [9, 6, 2, 2, 3, 0, 13].
+Drift: misremember; chaos 66; mode Quest Giver Gone Wrong.
+Rule: If chaos is high, add a second obligation the NPC cannot admit.
+Collision: Tilda Ash wants 'to hide a door that keeps choosing witnesses' but the scene pushes 'the tavern cellar is refusing to return a missing customer'.

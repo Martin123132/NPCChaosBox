@@ -1,0 +1,54 @@
+# NPC Chaos Box Development Plan
+
+## V0.1 Goal
+
+Build a standalone Windows-first local app:
+
+1. Double-click `START_NPCChaos_WINDOWS.bat`.
+2. Browser opens.
+3. Press `Generate NPC`.
+4. Get a usable NPC in under 30 seconds.
+
+## Product Shape
+
+NPC Chaos Box is not a scene writer. It is a guided character workstation.
+
+Core NPC card fields:
+
+- name,
+- role,
+- home,
+- faction,
+- wants,
+- secret,
+- contradiction,
+- immediate problem,
+- object,
+- quote,
+- use in play,
+- chaos trace.
+
+## UI Rules
+
+- Use separate pages for separate jobs.
+- Do not cram every control onto the first page.
+- Use traffic-light guidance for readiness and next steps.
+- The Generate page is the first screen.
+- Advanced tuning lives on the Tune page.
+- Seed editing lives on the Seed Packs page.
+
+## Storage Rules
+
+- Default storage is `user-data` beside the app.
+- Launcher also sets `TEMP` and `TMP` to `temp` beside the app.
+- `NPC_CHAOS_HOME` can override storage, for example `D:\NPCChaosData`.
+- Do not rely on `%LOCALAPPDATA%` for V0.1.
+
+## Deferred
+
+- More seed packs.
+- PNG character cards.
+- DOCX import.
+- Local LLM embellishment.
+- EXE packaging.
+

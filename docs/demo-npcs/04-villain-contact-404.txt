@@ -1,0 +1,24 @@
+Bram Voss, with the reversible funeral
+
+Role: failed cult treasurer
+Home: the lane that returns borrowed lies
+Faction: The Guild of Small Omens
+Wants: to keep the village peaceful until the pie contest ends, tied to a promise they cannot break
+Secret: they can identify the villain by the way their cup cools, tied to a promise they cannot break
+Contradiction: never lies, but edits silence professionally
+Problem Now: a rival has started telling the truth as a form of sabotage
+Object: a wooden saint with a removable smile
+First Move: they warn the room that the bell tower has chosen a defendant, then name the villain only after checking the windows.
+What They Know: which witness lied because they were paid and which lied for love, tied to a promise they cannot break
+Wants From Players: they will trade a clue for a promise made in public, but a ghost considers this legally binding before sunset.
+Quote: "Please stop making eye contact with the evidence."
+Use In Play: Use them when a simple errand needs a human complication. They are not the villain, which somehow makes them worse. High chaos: bind the truth until the table has to choose a side.
+Danger: Amber: complicated but usable
+
+Seed: 404 | Mode: Villain Contact | Chaos: 80
+
+CHAOS TRACE
+Prime field Z17, seed 13, seven-step trace [12, 11, 10, 9, 8, 7, 6].
+Drift: bind; chaos 80; mode Villain Contact.
+Rule: If chaos is high, add a second obligation the NPC cannot admit.
+Collision: Bram Voss wants 'to keep the village peaceful until the pie contest ends' but the scene pushes 'a rival has started telling the truth as a form of sabotage'.

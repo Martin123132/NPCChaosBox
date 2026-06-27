@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NPC Chaos Box</title>
+    <link rel="stylesheet" href="/static/app.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">NC</div>
+          <div>
+            <h1>NPC Chaos Box</h1>
+            <p id="versionText">Local first</p>
+          </div>
+        </div>
+        <nav class="nav-list" aria-label="Main pages">
+          <button class="nav-item active" data-page="generate"><span class="nav-icon">+</span>Generate</button>
+          <button class="nav-item" data-page="tune"><span class="nav-icon">~</span>Tune</button>
+          <button class="nav-item" data-page="seeds"><span class="nav-icon">#</span>Seed Packs</button>
+          <button class="nav-item" data-page="favourites"><span class="nav-icon">*</span>Favourites</button>
+          <button class="nav-item" data-page="exports"><span class="nav-icon">></span>Exports</button>
+          <button class="nav-item" data-page="doctor"><span class="nav-icon">i</span>Doctor</button>
+        </nav>
+        <div class="sidebar-foot">
+          <span class="light green"></span>
+          <span>No API keys. No cloud calls.</span>
+        </div>
+      </aside>
+
+      <main class="main-shell">
+        <header class="topbar">
+          <div>
+            <p class="section-label" id="pageLabel">Generate</p>
+            <h2 id="pageTitle">Make an NPC you can use now</h2>
+          </div>
+          <div class="status-pill" id="storageStatus">
+            <span class="light amber"></span>
+            Loading
+          </div>
+        </header>
+
+        <section class="page active" id="page-generate" aria-label="Generate NPC">
+          <div class="generate-grid">
+            <section class="work-panel">
+              <div class="traffic-strip" id="readinessStrip"></div>
+              <div class="generate-actions">
+                <button class="primary-action" id="generateButton">Generate NPC</button>
+                <button class="secondary-action" id="sameSeedButton">Regenerate Same Seed</button>
+              </div>
+              <article class="npc-card" id="npcCard">
+                <div class="empty-state">
+                  <h3>The box is shut.</h3>
+                  <p>Press Generate NPC to pull out a usable character.</p>
+                </div>
+              </article>
+              <div class="button-row">
+                <button id="copyButton">Copy NPC</button>
+                <button id="saveButton">Save Favourite</button>
+                <button id="exportTxtButton">Export TXT</button>
+                <button id="exportHtmlButton">Export HTML</button>
+              </div>
+              <textarea id="copyFallback" class="copy-fallback" readonly hidden></textarea>
+              <p class="action-message" id="actionMessage"></p>
+            </section>
+
+            <aside class="guidance-panel">
+              <h3>Next Step</h3>
+              <div id="nextStepList" class="next-step-list"></div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="page" id="page-tune" aria-label="Tune generation">
+          <section class="work-panel narrow">
+            <div class="page-intro">
+              <h3>Tune the next pull</h3>
+              <p>Small controls, clear effect.</p>
+            </div>
+            <div class="form-grid">
+              <label>
+                Mode
+                <select id="modeSelect"></select>
+              </label>
+              <label>
+                Role
+                <select id="roleSelect"></select>
+              </label>
+              <label>
+                Chaos
+                <input id="chaosInput" type="range" min="0" max="100" value="55" />
+                <span id="chaosValue">55</span>
+              </label>
+              <label class="seed-row">
+                Seed
+                <input id="seedInput" type="text" inputmode="numeric" placeholder="auto" />
+                <span><input id="lockSeedInput" type="checkbox" /> lock</span>
+              </label>
+            </div>
+            <div class="traffic-strip" id="tuneStrip"></div>
+          </section>
+        </section>
+
+        <section class="page" id="page-seeds" aria-label="Seed pack editor">
+          <section class="work-panel">
+            <div class="panel-head">
+              <div>
+                <h3 id="seedPackTitle">Seed Pack</h3>
+                <p id="seedPackNote">Edit one item per line.</p>
+              </div>
+              <div class="button-row">
+                <button id="saveSeedsButton">Save Seeds</button>
+                <button id="resetSeedsButton">Reset Crooked Lantern</button>
+              </div>
+            </div>
+            <div class="seed-health" id="seedHealth"></div>
+            <nav class="tabs" aria-label="Seed categories" id="seedTabs"></nav>
+            <textarea id="seedEditor" class="seed-editor" spellcheck="false"></textarea>
+          </section>
+        </section>
+
+        <section class="page" id="page-favourites" aria-label="Saved favourites">
+          <section class="work-panel">
+            <div class="panel-head">
+              <div>
+                <h3>Favourites</h3>
+                <p>Saved NPCs stay in your local data folder.</p>
+              </div>
+              <button id="refreshFavouritesButton">Refresh</button>
+            </div>
+            <div id="favouritesList" class="list-panel"></div>
+          </section>
+        </section>
+
+        <section class="page" id="page-exports" aria-label="Exports">
+          <section class="work-panel narrow">
+            <div class="page-intro">
+              <h3>Exports</h3>
+              <p id="lastExportText">Exported files will appear here after the first save.</p>
+            </div>
+            <div class="button-row">
+              <button id="openExportsButton">Open Exports Folder</button>
+            </div>
+            <div class="traffic-strip" id="exportsStrip"></div>
+          </section>
+        </section>
+
+        <section class="page" id="page-doctor" aria-label="Doctor">
+          <section class="work-panel">
+            <div class="page-intro">
+              <h3>Doctor</h3>
+              <p>Local health, paths, and seed-pack readiness.</p>
+            </div>
+            <div id="doctorPanel" class="doctor-panel"></div>
+          </section>
+        </section>
+      </main>
+    </div>
+    <script src="/static/app.js"></script>
+  </body>
+</html>
+

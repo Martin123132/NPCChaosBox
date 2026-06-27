@@ -1,0 +1,24 @@
+Father Button, who once married a map
+
+Role: stablehand responsible for one impossible horse
+Home: the lane that returns borrowed lies
+Faction: The Bell-Ringers Who Deny Everything
+Wants: to make the players accuse the right enemy for the wrong reason, except their version keeps changing
+Secret: they signed the village charter under the wrong species, except their version keeps changing
+Contradiction: helps everyone, trusts nobody who says thank you
+Problem Now: someone has pawned a memory that belongs to the players
+Object: a silver button that remembers uniforms
+First Move: they arrive followed by a child, a constable, and a guilty-looking chicken, but start with the apology instead of the quest.
+What They Know: where the stolen relic will be hidden after midnight
+Wants From Players: they can turn a private rumour into public leverage, though the price includes returning something that wants to stay lost.
+Quote: "I can forgive betrayal, but not bad minutes."
+Use In Play: Use them when the party needs charm, threat, and admin at the same table. They give a real quest, but the reason is badly bent.
+Danger: Green: safe to introduce now
+
+Seed: 808 | Mode: Quest Giver Gone Wrong | Chaos: 42
+
+CHAOS TRACE
+Prime field Z23, seed 15, seven-step trace [9, 13, 12, 2, 8, 6, 8].
+Drift: misremember; chaos 42; mode Quest Giver Gone Wrong.
+Rule: If the trace repeats, make the NPC misremember their own motive.
+Collision: Father Button wants 'to make the players accuse the right enemy for the wrong reason' but the scene pushes 'someone has pawned a memory that belongs to the players'.

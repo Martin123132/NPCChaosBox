@@ -1,0 +1,24 @@
+Tomas Wren, of the breakfast warrant
+
+Role: graveyard clerk with excellent handwriting
+Home: the bell tower tea room
+Faction: The Widow's Choir of Evidence
+Wants: to be forgiven by someone who has not arrived yet, except their version keeps changing
+Secret: they know why the moon refuses the west window, except their version keeps changing
+Contradiction: never lies, but edits silence professionally
+Problem Now: a sealed letter has started coughing up names
+Object: a ledger page that bleeds ink near cowards
+First Move: they hand over a sealed note and ask the players not to read it aloud, then lock the shop door from the outside.
+What They Know: which witness lied because they were paid and which lied for love, except their version keeps changing
+Wants From Players: they will introduce the players to a useful liar, but someone has already written the players' names into the minutes before sunset.
+Quote: "We can solve this quietly, or we can involve the choir."
+Use In Play: Use them when a tavern scene needs instant tension. They will sell a ledger page that bleeds ink near cowards, but only if the players fix the immediate mess. High chaos: misremember the truth until the table has to choose a side.
+Danger: Amber: complicated but usable
+
+Seed: 1001 | Mode: Shopkeeper With A Problem | Chaos: 76
+
+CHAOS TRACE
+Prime field Z41, seed 4, seven-step trace [21, 14, 40, 36, 22, 32, 9].
+Drift: misremember; chaos 76; mode Shopkeeper With A Problem.
+Rule: If the last step is high, make the secret more dangerous than the problem.
+Collision: Tomas Wren wants 'to be forgiven by someone who has not arrived yet' but the scene pushes 'a sealed letter has started coughing up names'.
