@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>NPC Chaos Box</title>
+    <link rel="preload" href="/static/art/npc-chaos-mural.png" as="image" />
     <link rel="stylesheet" href="/static/app.css" />
   </head>
   <body>
@@ -56,11 +57,10 @@
                   <p>Press Generate NPC to pull out a usable character.</p>
                 </div>
               </article>
-              <div class="button-row">
+              <div class="result-actions" id="resultActions" hidden>
                 <button id="copyButton">Copy NPC</button>
                 <button id="saveButton">Save Favourite</button>
-                <button id="exportTxtButton">Export TXT</button>
-                <button id="exportHtmlButton">Export HTML</button>
+                <button id="goExportsButton">Export</button>
               </div>
               <textarea id="copyFallback" class="copy-fallback" readonly hidden></textarea>
               <p class="action-message" id="actionMessage"></p>
@@ -116,6 +116,13 @@
               </div>
             </div>
             <div class="seed-health" id="seedHealth"></div>
+            <div class="seed-editor-meta">
+              <div>
+                <strong id="currentSeedLabel">Names</strong>
+                <p id="currentSeedHelp">Edit one item per line.</p>
+              </div>
+              <div class="traffic-item" id="currentSeedStatus"><span class="light amber"></span>Loading</div>
+            </div>
             <nav class="tabs" aria-label="Seed categories" id="seedTabs"></nav>
             <textarea id="seedEditor" class="seed-editor" spellcheck="false"></textarea>
           </section>
@@ -138,7 +145,12 @@
           <section class="work-panel narrow">
             <div class="page-intro">
               <h3>Exports</h3>
-              <p id="lastExportText">Exported files will appear here after the first save.</p>
+              <p id="lastExportText">Choose a format when an NPC is ready.</p>
+            </div>
+            <div class="export-card" id="exportCurrentCard"></div>
+            <div class="export-choice-grid">
+              <button id="exportTxtButton">Export TXT</button>
+              <button id="exportHtmlButton">Export HTML</button>
             </div>
             <div class="button-row">
               <button id="openExportsButton">Open Exports Folder</button>
@@ -161,4 +173,3 @@
     <script src="/static/app.js"></script>
   </body>
 </html>
-

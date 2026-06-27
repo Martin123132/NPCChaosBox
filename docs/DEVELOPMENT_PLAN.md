@@ -34,7 +34,9 @@ Core NPC card fields:
 - Do not cram every control onto the first page.
 - Use traffic-light guidance for readiness and next steps.
 - The Generate page is the first screen.
+- The Generate page should show only the current result actions, not every possible file-format choice.
 - Advanced tuning lives on the Tune page.
+- TXT/HTML file choices live on the Exports page.
 - Seed editing lives on the Seed Packs page.
 
 ## Storage Rules
@@ -51,4 +53,3 @@ Core NPC card fields:
 - DOCX import.
 - Local LLM embellishment.
 - EXE packaging.
-

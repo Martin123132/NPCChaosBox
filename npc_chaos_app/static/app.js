@@ -27,6 +27,33 @@ const SEED_KEYS = [
   "chaos_rules",
 ];
 
+const SEED_GROUPS = [
+  { title: "Core", keys: ["names", "roles", "places", "factions"] },
+  { title: "Motives", keys: ["wants", "secrets", "contradictions", "problems"] },
+  { title: "At The Table", keys: ["hooks", "knowledge", "offers", "complications"] },
+  { title: "Voice", keys: ["objects", "quotes", "epithets", "use_cases", "chaos_rules"] },
+];
+
+const SEED_HELP = {
+  names: "People the box can pull from the crowd.",
+  epithets: "Short odd tags that make names memorable.",
+  roles: "Jobs, archetypes, and table-facing functions.",
+  places: "Where the NPC belongs or first appears.",
+  factions: "Groups that can apply pressure.",
+  wants: "What the NPC is trying to make happen.",
+  secrets: "What makes them useful, risky, or funny.",
+  contradictions: "The human twist that stops them feeling flat.",
+  problems: "The immediate trouble they bring into play.",
+  objects: "Props, clues, and strange leverage.",
+  hooks: "How they enter the scene.",
+  knowledge: "What they can tell the players.",
+  offers: "What they can do for the players.",
+  complications: "The catch attached to their help.",
+  quotes: "Voice lines worth reading aloud.",
+  use_cases: "When this NPC is useful at the table.",
+  chaos_rules: "How traces bend the result.",
+};
+
 let appState = {};
 let doctor = {};
 let currentNpc = null;
@@ -78,6 +105,7 @@ function bindControls() {
   el("lockSeedInput").addEventListener("change", renderTuneStrip);
   el("copyButton").addEventListener("click", copyCurrentNpc);
   el("saveButton").addEventListener("click", saveFavourite);
+  el("goExportsButton").addEventListener("click", goToExports);
   el("exportTxtButton").addEventListener("click", () => exportNpc("txt"));
   el("exportHtmlButton").addEventListener("click", () => exportNpc("html"));
   el("openExportsButton").addEventListener("click", openExports);
@@ -103,6 +131,8 @@ async function loadState() {
   renderReadiness();
   renderTuneStrip();
   renderDoctor(data.version);
+  renderResultActions();
+  renderExportSummary();
   await loadFavourites();
 }
 
@@ -117,12 +147,15 @@ function showPage(page) {
     tune: ["Tune", "Set the next pull"],
     seeds: ["Seed Packs", "Keep the ingredients healthy"],
     favourites: ["Favourites", "Bring back the useful ones"],
-    exports: ["Exports", "Find what you saved"],
+    exports: ["Exports", "Export the current NPC"],
     doctor: ["Doctor", "Check the local setup"],
   };
   const [label, title] = titles[safePage] || titles.generate;
   el("pageLabel").textContent = label;
   el("pageTitle").textContent = title;
+  if (safePage === "exports") {
+    renderExportSummary();
+  }
 }
 
 async function generateNpc(sameSeed) {
@@ -147,6 +180,8 @@ async function generateNpc(sameSeed) {
     currentNpc = data.scene;
     seedInput.value = String(currentNpc.seed);
     renderNpcCard();
+    renderResultActions();
+    renderExportSummary();
     renderReadiness();
     renderNextSteps();
     setMessage("NPC generated.");
@@ -179,6 +214,10 @@ function renderNpcCard() {
       ${field("Chaos Trace", (currentNpc.trace_lines || []).join(" "), true)}
     </div>
   `;
+}
+
+function renderResultActions() {
+  el("resultActions").hidden = !currentNpc;
 }
 
 function field(label, value, wide = false) {
@@ -214,7 +253,7 @@ function renderNextSteps() {
   } else {
     cards.push({ light: "green", title: "Use", body: currentNpc.guidance?.next_step || "Drop this NPC into the next scene." });
     cards.push({ light: "amber", title: "Tune", body: "Change mode, role, chaos, or seed if the NPC is nearly right." });
-    cards.push({ light: "green", title: "Save", body: "Save a favourite or export TXT/HTML when the card works." });
+    cards.push({ light: "green", title: "Keep", body: "Copy it, save it, or open Exports when the card works." });
   }
   if (overall.light !== "green") {
     cards.push({ light: overall.light, title: "Seed Pack", body: overall.body });
@@ -261,7 +300,14 @@ function renderRoleOptions() {
 }
 
 function renderSeedTabs() {
-  el("seedTabs").innerHTML = SEED_KEYS.map((key) => `<button class="tab ${key === currentSeedTab ? "active" : ""}" data-key="${key}">${escapeHtml(labelFor(key))}</button>`).join("");
+  el("seedTabs").innerHTML = SEED_GROUPS.map((group) => `
+    <div class="tab-group">
+      <strong>${escapeHtml(group.title)}</strong>
+      <div class="tab-row">
+        ${group.keys.map((key) => `<button class="tab ${key === currentSeedTab ? "active" : ""}" data-key="${key}">${escapeHtml(labelFor(key))}</button>`).join("")}
+      </div>
+    </div>
+  `).join("");
   document.querySelectorAll(".tab").forEach((button) => {
     button.addEventListener("click", () => {
       syncSeedEditor();
@@ -276,10 +322,20 @@ function renderSeedEditor() {
   el("seedPackTitle").textContent = appState.world_name || "Seed Pack";
   el("seedPackNote").textContent = appState.world_note || "Edit one item per line.";
   el("seedEditor").value = (appState[currentSeedTab] || []).join("\n");
+  renderCurrentSeedStatus();
 }
 
 function renderSeedHealth() {
   el("seedHealth").innerHTML = seedStatusItems().map(statusPill).join("");
+  renderCurrentSeedStatus();
+}
+
+function renderCurrentSeedStatus() {
+  const count = Array.isArray(appState[currentSeedTab]) ? appState[currentSeedTab].length : 0;
+  const light = count >= 8 ? "green" : count >= 4 ? "amber" : "red";
+  el("currentSeedLabel").textContent = `${labelFor(currentSeedTab)} (${count})`;
+  el("currentSeedHelp").textContent = SEED_HELP[currentSeedTab] || "Edit one item per line.";
+  el("currentSeedStatus").innerHTML = `<span class="light ${light}"></span>${count >= 8 ? "Healthy" : count >= 4 ? "Thin but usable" : "Needs more"}`;
 }
 
 async function saveSeeds() {
@@ -344,6 +400,15 @@ async function saveFavourite() {
   }
 }
 
+function goToExports() {
+  if (!currentNpc) {
+    setMessage("Generate an NPC first.");
+    return;
+  }
+  location.hash = "exports";
+  showPage("exports");
+}
+
 async function loadFavourites() {
   const data = await api("/api/favourites");
   const favourites = data.favourites || [];
@@ -363,6 +428,8 @@ async function loadFavourites() {
         currentNpc = item.scene;
         el("seedInput").value = String(currentNpc.seed || "");
         renderNpcCard();
+        renderResultActions();
+        renderExportSummary();
         renderNextSteps();
         showPage("generate");
         setMessage("Favourite loaded.");
@@ -380,6 +447,7 @@ async function exportNpc(format) {
     const data = await api("/api/export", { method: "POST", body: JSON.stringify({ scene: currentNpc, format }) });
     lastExport = data.export;
     el("lastExportText").textContent = `${data.export.format.toUpperCase()} saved: ${data.export.path}`;
+    renderExportSummary();
     renderExportsStrip();
     setMessage(`${data.export.format.toUpperCase()} exported.`);
   } catch (error) {
@@ -403,6 +471,26 @@ function renderExportsStrip(result = null) {
     ? { light: "amber", label: "Folder not opened" }
     : { light: lastExport ? "green" : "amber", label: lastExport ? "Export ready" : "No export yet" };
   el("exportsStrip").innerHTML = statusPill(item);
+}
+
+function renderExportSummary() {
+  const txtButton = el("exportTxtButton");
+  const htmlButton = el("exportHtmlButton");
+  txtButton.disabled = !currentNpc;
+  htmlButton.disabled = !currentNpc;
+
+  if (!currentNpc) {
+    el("exportCurrentCard").innerHTML = `
+      <h4>No NPC ready yet</h4>
+      <p>Generate an NPC first, then come back here to choose TXT or HTML.</p>
+    `;
+    return;
+  }
+
+  el("exportCurrentCard").innerHTML = `
+    <h4>${escapeHtml(currentNpc.title)}</h4>
+    <p>Seed ${escapeHtml(currentNpc.seed)} | ${escapeHtml(currentNpc.mode)} | Chaos ${escapeHtml(currentNpc.chaos)}</p>
+  `;
 }
 
 function renderDoctor(version = null) {

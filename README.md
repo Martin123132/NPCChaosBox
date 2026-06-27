@@ -12,6 +12,10 @@ The app uses traffic-light status:
 - Amber: usable, but worth improving.
 - Red: blocked or too thin.
 
+The game-scene background is original generated art made for this project. It
+is there to make the tool feel like an NPC box for games, without using anyone
+else's characters, logos, or settings.
+
 ## Start On Windows
 
 1. Unzip the folder somewhere easy, preferably on the D drive.
@@ -36,11 +40,11 @@ Tick `Add python.exe to PATH`, then double-click the launcher again.
 
 ## Pages
 
-- `Generate`: pull one NPC card and see the next useful step.
+- `Generate`: pull one NPC card, then copy, save, or move to export.
 - `Tune`: choose mode, role, chaos, and seed lock.
 - `Seed Packs`: edit names, roles, places, wants, secrets, hooks, knowledge, offers, quotes, and rules.
 - `Favourites`: reload useful NPCs.
-- `Exports`: find TXT/HTML exports.
+- `Exports`: choose TXT/HTML for the current NPC and find saved files.
 - `Doctor`: check storage paths and seed-pack health.
 
 ## D-Drive Development Setup

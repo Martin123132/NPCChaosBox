@@ -27,8 +27,10 @@ Copy this section once per tester run.
 - Generated an NPC:
 - Used Tune:
 - Saved a favourite:
+- Generate page felt calm:
 - Exported TXT:
 - Exported HTML:
+- Understood Exports page:
 - Opened exports folder:
 - Edited a seed category:
 - Understood the traffic lights:
@@ -52,4 +54,3 @@ Copy this section once per tester run.
 
 - Pass under 10 minutes:
 - Fix before next release:
-

@@ -10,12 +10,18 @@
   --green: #2f9d58;
   --amber: #c98723;
   --red: #c4473d;
+  --panel-surface: rgba(255, 255, 255, 0.94);
+  --panel-soft: rgba(251, 252, 250, 0.94);
   --shadow: 0 16px 36px rgba(23, 33, 31, 0.08);
   --radius: 8px;
 }
 
 * {
   box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
 }
 
 html,
@@ -25,10 +31,16 @@ body {
 
 body {
   margin: 0;
-  background:
-    linear-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)),
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(90deg, rgba(247, 248, 245, 0.97) 0%, rgba(247, 248, 245, 0.84) 34%, rgba(247, 248, 245, 0.68) 63%, rgba(247, 248, 245, 0.9) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(247, 248, 245, 0.94)),
     repeating-linear-gradient(90deg, rgba(23, 33, 31, 0.018) 0, rgba(23, 33, 31, 0.018) 1px, transparent 1px, transparent 28px),
-    var(--bg);
+    url("/static/art/npc-chaos-mural.png");
+  background-size: auto, auto, auto, cover;
+  background-position: center, center, 0 0, center;
+  background-repeat: no-repeat, no-repeat, repeat, no-repeat;
+  background-attachment: fixed, fixed, scroll, fixed;
   color: var(--ink);
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
@@ -235,11 +247,12 @@ textarea:focus-visible {
 
 .work-panel,
 .guidance-panel {
-  background: var(--surface);
+  background: var(--panel-surface);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   padding: 18px;
+  backdrop-filter: blur(8px);
 }
 
 .work-panel.narrow {
@@ -282,17 +295,44 @@ textarea:focus-visible {
 .npc-card {
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: linear-gradient(180deg, #ffffff, #fbfcfa);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), var(--panel-soft));
   min-height: 420px;
   padding: 20px;
 }
 
 .empty-state {
+  position: relative;
+  overflow: hidden;
   min-height: 360px;
   display: grid;
   place-content: center;
   text-align: center;
   color: var(--muted);
+  border-radius: calc(var(--radius) - 2px);
+  padding: 24px;
+  isolation: isolate;
+}
+
+.empty-state::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.74), rgba(255, 255, 255, 0.82)),
+    url("/static/art/npc-chaos-mural.png") center / cover;
+  opacity: 0.72;
+  z-index: -1;
+}
+
+.empty-state h3,
+.empty-state p {
+  max-width: 360px;
+}
+
+.empty-state p {
+  margin: 8px auto 0;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
 }
 
 .empty-state h3,
@@ -351,11 +391,39 @@ textarea:focus-visible {
   line-height: 1.4;
 }
 
-.button-row {
+.button-row,
+.result-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 14px;
+}
+
+.result-actions {
+  align-items: center;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+}
+
+.result-actions button:first-child,
+.export-choice-grid button:first-child {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+}
+
+.result-actions button:first-child:hover,
+.export-choice-grid button:first-child:hover {
+  background: var(--teal-dark);
+  border-color: var(--teal-dark);
+}
+
+button:disabled {
+  background: #f4f6f4 !important;
+  border-color: var(--line) !important;
+  color: var(--muted) !important;
+  cursor: not-allowed;
+  opacity: 0.55;
 }
 
 .action-message {
@@ -479,11 +547,55 @@ input[type="range"] {
   font-weight: 700;
 }
 
+.seed-editor-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fbfcfa;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.seed-editor-meta strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.seed-editor-meta p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
 .tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.tab-group {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 10px;
+  background: #fbfcfa;
+}
+
+.tab-group strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.tab-row {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 12px;
 }
 
 .tab.active {
@@ -501,6 +613,31 @@ input[type="range"] {
 .list-panel,
 .doctor-panel {
   display: grid;
+  gap: 10px;
+}
+
+.export-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fbfcfa;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+.export-card h4 {
+  margin: 0 0 6px;
+}
+
+.export-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.export-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
 }
 
@@ -549,6 +686,17 @@ input[type="range"] {
 }
 
 @media (max-width: 640px) {
+  body {
+    background-image:
+      linear-gradient(rgba(247, 248, 245, 0.92), rgba(247, 248, 245, 0.98)),
+      repeating-linear-gradient(90deg, rgba(23, 33, 31, 0.018) 0, rgba(23, 33, 31, 0.018) 1px, transparent 1px, transparent 28px),
+      url("/static/art/npc-chaos-mural.png");
+    background-attachment: scroll, scroll, scroll;
+    background-position: center top, 0 0, center top;
+    background-size: auto, auto, auto 520px;
+    background-repeat: no-repeat, repeat, no-repeat;
+  }
+
   .main-shell,
   .sidebar {
     padding: 16px;
@@ -562,7 +710,9 @@ input[type="range"] {
 
   .nav-list,
   .form-grid,
-  .field-grid {
+  .field-grid,
+  .tabs,
+  .export-choice-grid {
     grid-template-columns: 1fr;
   }
 
@@ -571,8 +721,11 @@ input[type="range"] {
     width: 100%;
   }
 
+  .seed-editor-meta {
+    flex-direction: column;
+  }
+
   .topbar h2 {
     font-size: 24px;
   }
 }
-

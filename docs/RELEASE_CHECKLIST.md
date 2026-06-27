@@ -34,11 +34,13 @@ In the browser:
 2. Open Tune and change chaos.
 3. Regenerate the same seed.
 4. Save a favourite.
-5. Export TXT.
-6. Export HTML.
-7. Open Exports.
-8. Open Seed Packs and check traffic lights.
-9. Open Doctor and confirm the data folder is on D.
+5. Open Exports.
+6. Export TXT.
+7. Export HTML.
+8. Open Seed Packs and confirm categories are grouped.
+9. Check traffic lights.
+10. Confirm the game-scene background is visible but panels remain readable.
+11. Open Doctor and confirm the data folder is on D.
 
 ## Release ZIP
 
@@ -53,6 +55,7 @@ Check the ZIP contains:
 - `START_NPCChaos_WINDOWS.bat`
 - `README.md`
 - `npc_chaos_app\`
+- `npc_chaos_app\static\art\npc-chaos-mural.png`
 - `scripts\`
 - `docs\`
 - `tests\`
