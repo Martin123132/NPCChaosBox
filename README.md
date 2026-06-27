@@ -73,6 +73,13 @@ http://127.0.0.1:53842
 
 Close the terminal window, or press `Ctrl+C`, to stop it.
 
+If a test run or agent leaves a local app process open, stop only NPC Chaos Box
+dev processes with:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\stop_dev.ps1
+```
+
 ## Health Check
 
 ```powershell

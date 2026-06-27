@@ -259,6 +259,13 @@ textarea:focus-visible {
   align-items: start;
 }
 
+.exports-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 760px) 330px;
+  gap: 18px;
+  align-items: start;
+}
+
 .work-panel,
 .guidance-panel {
   background: var(--panel-surface);
@@ -816,6 +823,45 @@ input[type="checkbox"] {
   gap: 10px;
 }
 
+.export-format-note {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.export-format-note span {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  padding: 7px 10px;
+}
+
+.export-folder-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fbfcfa;
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 12px;
+}
+
+.export-folder-card button {
+  justify-self: start;
+}
+
+.export-folder-card p {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
 .list-item,
 .doctor-row {
   border: 1px solid var(--line);
@@ -860,6 +906,10 @@ input[type="checkbox"] {
   }
 
   .favourites-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .exports-layout {
     grid-template-columns: 1fr;
   }
 
@@ -912,6 +962,10 @@ input[type="checkbox"] {
 
   .favourite-card-foot button {
     width: 100%;
+  }
+
+  .export-folder-card button {
+    justify-self: stretch;
   }
 
   .seed-editor-meta {

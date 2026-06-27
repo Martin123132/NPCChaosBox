@@ -620,7 +620,8 @@ async function exportNpc(format) {
   try {
     const data = await api("/api/export", { method: "POST", body: JSON.stringify({ scene: currentNpc, format }) });
     lastExport = data.export;
-    el("lastExportText").textContent = `${data.export.format.toUpperCase()} saved: ${data.export.path}`;
+    el("lastExportText").textContent = `${data.export.format.toUpperCase()} saved in your exports folder.`;
+    el("lastExportPath").textContent = data.export.path;
     renderExportSummary();
     renderExportsStrip();
     setMessage(`${data.export.format.toUpperCase()} exported.`);
@@ -633,8 +634,10 @@ async function openExports() {
   try {
     const data = await api("/api/open-exports", { method: "POST", body: JSON.stringify({}) });
     const result = data.export_folder;
-    el("lastExportText").textContent = result.opened ? `Opened: ${result.path}` : `Exports folder: ${result.path}`;
+    el("lastExportText").textContent = result.opened ? "Exports folder opened." : "Exports folder is ready.";
+    el("lastExportPath").textContent = result.path;
     renderExportsStrip(result);
+    renderExportsGuide(result);
   } catch (error) {
     el("lastExportText").textContent = error.message;
   }
@@ -656,15 +659,48 @@ function renderExportSummary() {
   if (!currentNpc) {
     el("exportCurrentCard").innerHTML = `
       <h4>No NPC ready yet</h4>
-      <p>Generate an NPC first, then come back here to choose TXT or HTML.</p>
+      <p>Generate an NPC first. Then choose TXT for notes or HTML for a browser-friendly copy.</p>
     `;
+    el("lastExportPath").textContent = lastExport?.path || "Exports stay local on this machine.";
+    renderExportsStrip();
+    renderExportsGuide();
     return;
   }
 
   el("exportCurrentCard").innerHTML = `
     <h4>${escapeHtml(currentNpc.title)}</h4>
-    <p>Seed ${escapeHtml(currentNpc.seed)} | ${escapeHtml(currentNpc.mode)} | Chaos ${escapeHtml(currentNpc.chaos)}</p>
+    <p>${escapeHtml(currentNpc.npc?.role || "NPC")} | Seed ${escapeHtml(currentNpc.seed)} | ${escapeHtml(currentNpc.mode)} | Chaos ${escapeHtml(currentNpc.chaos)}</p>
+    <div class="export-format-note">
+      <span>TXT is best for notes.</span>
+      <span>HTML is best for a clean saved card.</span>
+    </div>
   `;
+  el("lastExportPath").textContent = lastExport?.path || "No file exported from this session yet.";
+  renderExportsStrip();
+  renderExportsGuide();
+}
+
+function renderExportsGuide(result = null) {
+  const cards = [];
+  if (!currentNpc) {
+    cards.push({ light: "amber", title: "Generate", body: "Make or load an NPC before exporting." });
+  } else {
+    cards.push({ light: "green", title: "Choose Format", body: "TXT for notes, HTML for a readable saved card." });
+  }
+  if (lastExport) {
+    cards.push({ light: "green", title: "Find File", body: "Open the exports folder when you want the saved file." });
+  } else {
+    cards.push({ light: "amber", title: "Export Once", body: "Pick one format. You can export the other later." });
+  }
+  if (result?.error) {
+    cards.push({ light: "amber", title: "Folder", body: "The file was saved, but Windows did not open the folder." });
+  }
+  el("exportsGuide").innerHTML = cards.map((card) => `
+    <div class="next-card ${card.light}">
+      <strong>${escapeHtml(card.title)}</strong>
+      <p>${escapeHtml(card.body)}</p>
+    </div>
+  `).join("");
 }
 
 function renderDoctor(version = null) {

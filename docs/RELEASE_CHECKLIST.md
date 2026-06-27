@@ -42,6 +42,16 @@ In the browser:
 10. Confirm the game-scene background is visible but panels remain readable.
 11. Open Doctor and confirm the data folder is on D.
 
+## Cleanup
+
+Run this before handing the stage back:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\stop_dev.ps1
+```
+
+Then confirm no `python -m npc_chaos_app.app` process is still running.
+
 ## Release ZIP
 
 ```powershell

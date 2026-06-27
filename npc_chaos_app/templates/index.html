@@ -161,21 +161,29 @@
         </section>
 
         <section class="page" id="page-exports" aria-label="Exports">
-          <section class="work-panel narrow">
-            <div class="page-intro">
-              <h3>Exports</h3>
-              <p id="lastExportText">Choose a format when an NPC is ready.</p>
-            </div>
-            <div class="export-card" id="exportCurrentCard"></div>
-            <div class="export-choice-grid">
-              <button id="exportTxtButton">Export TXT</button>
-              <button id="exportHtmlButton">Export HTML</button>
-            </div>
-            <div class="button-row">
-              <button id="openExportsButton">Open Exports Folder</button>
-            </div>
-            <div class="traffic-strip" id="exportsStrip"></div>
-          </section>
+          <div class="exports-layout">
+            <section class="work-panel">
+              <div class="page-intro">
+                <h3>Export for your notes</h3>
+                <p id="lastExportText">Choose a format when an NPC is ready.</p>
+              </div>
+              <div class="export-card" id="exportCurrentCard"></div>
+              <div class="export-choice-grid">
+                <button id="exportTxtButton">Export TXT</button>
+                <button id="exportHtmlButton">Export HTML</button>
+              </div>
+              <div class="export-folder-card">
+                <button id="openExportsButton">Open Exports Folder</button>
+                <p id="lastExportPath">Exports stay local on this machine.</p>
+              </div>
+              <div class="traffic-strip" id="exportsStrip"></div>
+            </section>
+
+            <aside class="guidance-panel">
+              <h3>Export Loop</h3>
+              <div id="exportsGuide" class="next-step-list"></div>
+            </aside>
+          </div>
         </section>
 
         <section class="page" id="page-doctor" aria-label="Doctor">

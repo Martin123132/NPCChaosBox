@@ -9,6 +9,34 @@ import zipfile
 
 
 class ReleaseScriptTests(unittest.TestCase):
+    def test_stop_dev_dry_run_is_scoped(self) -> None:
+        if sys.platform != "win32":
+            self.skipTest("PowerShell cleanup is Windows-first.")
+
+        repo = Path(__file__).resolve().parents[1]
+        script = repo / "scripts" / "stop_dev.ps1"
+        script_text = script.read_text(encoding="utf-8")
+        self.assertIn("npc_chaos_app\\.app", script_text)
+        self.assertNotIn("Stop-Process -Name python", script_text)
+
+        result = subprocess.run(
+            [
+                "powershell",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                str(script),
+                "-DryRun",
+            ],
+            cwd=repo,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            timeout=30,
+        )
+        self.assertEqual(result.returncode, 0, result.stdout)
+        self.assertIn("NPC Chaos Box cleanup dry run complete", result.stdout)
+
     def test_verify_release_zip_accepts_valid_zip(self) -> None:
         if sys.platform != "win32":
             self.skipTest("PowerShell release verification is Windows-first.")
@@ -50,4 +78,3 @@ class ReleaseScriptTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

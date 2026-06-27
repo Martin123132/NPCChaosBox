@@ -34,6 +34,19 @@ class StaticUiTests(unittest.TestCase):
         self.assertIn(".favourites-layout", css)
         self.assertIn(".favourite-card", css)
 
+    def test_exports_page_has_guided_export_loop(self) -> None:
+        html = (ROOT / "npc_chaos_app" / "templates" / "index.html").read_text(encoding="utf-8")
+        js = (ROOT / "npc_chaos_app" / "static" / "app.js").read_text(encoding="utf-8")
+        css = (ROOT / "npc_chaos_app" / "static" / "app.css").read_text(encoding="utf-8")
+
+        self.assertIn('id="exportsGuide"', html)
+        self.assertIn('id="lastExportPath"', html)
+        self.assertIn("Export Loop", html)
+        self.assertIn("renderExportsGuide", js)
+        self.assertIn("HTML is best for a clean saved card", js)
+        self.assertIn(".exports-layout", css)
+        self.assertIn(".export-folder-card", css)
+
 
 if __name__ == "__main__":
     unittest.main()

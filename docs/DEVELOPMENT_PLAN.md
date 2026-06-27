@@ -36,7 +36,7 @@ Core NPC card fields:
 - The Generate page is the first screen.
 - The Generate page should show only the current result actions, not every possible file-format choice.
 - Advanced tuning lives on the Tune page, with quick feel presets and a live effect summary.
-- TXT/HTML file choices live on the Exports page.
+- TXT/HTML file choices live on the Exports page, with a clear export/open-folder loop.
 - Favourites is a saved-NPC shelf with a clear save/load loop.
 - Seed editing lives on the Seed Packs page.
 
