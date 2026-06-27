@@ -45,6 +45,7 @@ Core NPC card fields:
 - Favourites is a saved-NPC shelf with a clear save/load loop.
 - Favourite cards should show one scannable preview, compact metadata, and one clear load action.
 - Seed editing lives on the Seed Packs page, with category health, save feedback, and a reset action separated from the main edit loop.
+- Seed editing should teach the format, healthy target, and current list preview beside the editor without adding extra action buttons.
 
 ## Storage Rules
 

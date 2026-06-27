@@ -59,11 +59,18 @@ class StaticUiTests(unittest.TestCase):
 
         self.assertIn('id="seedGuide"', html)
         self.assertIn('id="seedActionMessage"', html)
+        self.assertIn('id="seedEditorCoach"', html)
+        self.assertIn('id="seedLineTarget"', html)
+        self.assertIn("Healthy Target", html)
         self.assertIn("Seed Pack Loop", html)
         self.assertIn("renderSeedGuide", js)
+        self.assertIn("seedSample", js)
         self.assertIn("Unsaved seed edits", js)
+        self.assertIn(".seed-editor-coach", css)
+        self.assertIn(".seed-coach-card", css)
         self.assertIn(".seeds-layout", css)
         self.assertIn(".maintenance-card", css)
+        self.assertIn(".seed-reset-card", css)
 
     def test_generate_card_has_scan_first_character_sheet(self) -> None:
         js = (ROOT / "npc_chaos_app" / "static" / "app.js").read_text(encoding="utf-8")

@@ -138,6 +138,23 @@
                 </div>
                 <div class="traffic-item" id="currentSeedStatus"><span class="light amber"></span>Loading</div>
               </div>
+              <div class="seed-editor-coach" id="seedEditorCoach">
+                <div class="seed-coach-card">
+                  <span>Format</span>
+                  <strong>One idea per line</strong>
+                  <p>Short entries mix better than long paragraphs.</p>
+                </div>
+                <div class="seed-coach-card">
+                  <span>Healthy Target</span>
+                  <strong id="seedLineTarget">8+ lines</strong>
+                  <p id="seedLineCount">Loading this list.</p>
+                </div>
+                <div class="seed-coach-card">
+                  <span>Preview</span>
+                  <strong id="seedSampleLine">Pick a category.</strong>
+                  <p>The box pulls from this list when generating NPCs.</p>
+                </div>
+              </div>
               <nav class="tabs" aria-label="Seed categories" id="seedTabs"></nav>
               <textarea id="seedEditor" class="seed-editor" spellcheck="false"></textarea>
               <div class="seed-save-row">
@@ -149,7 +166,7 @@
             <aside class="guidance-panel">
               <h3>Seed Pack Loop</h3>
               <div id="seedGuide" class="next-step-list"></div>
-              <div class="maintenance-card">
+              <div class="maintenance-card seed-reset-card">
                 <strong>Restore Default Pack</strong>
                 <p>Use this only when you want the original Crooked Lantern ingredients back.</p>
                 <button id="resetSeedsButton">Reset Crooked Lantern</button>

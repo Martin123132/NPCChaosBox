@@ -526,6 +526,7 @@ function renderSeedEditor() {
   el("seedPackTitle").textContent = appState.world_name || "Seed Pack";
   el("seedPackNote").textContent = appState.world_note || "Edit one item per line.";
   el("seedEditor").value = (appState[currentSeedTab] || []).join("\n");
+  el("seedEditor").placeholder = `Add ${labelFor(currentSeedTab).toLowerCase()} here.\nOne idea per line.`;
   renderCurrentSeedStatus();
 }
 
@@ -535,12 +536,27 @@ function renderSeedHealth() {
 }
 
 function renderCurrentSeedStatus() {
-  const count = Array.isArray(appState[currentSeedTab]) ? appState[currentSeedTab].length : 0;
+  const items = Array.isArray(appState[currentSeedTab]) ? appState[currentSeedTab] : [];
+  const count = items.length;
   const light = count >= 8 ? "green" : count >= 4 ? "amber" : "red";
   el("currentSeedLabel").textContent = `${labelFor(currentSeedTab)} (${count})`;
   el("currentSeedHelp").textContent = SEED_HELP[currentSeedTab] || "Edit one item per line.";
   el("currentSeedStatus").innerHTML = `<span class="light ${light}"></span>${count >= 8 ? "Healthy" : count >= 4 ? "Thin but usable" : "Needs more"}`;
+  el("seedLineTarget").textContent = count >= 8 ? "Healthy list" : `${Math.max(0, 8 - count)} more to green`;
+  el("seedLineCount").textContent = `${count} line${count === 1 ? "" : "s"} in ${labelFor(currentSeedTab).toLowerCase()}.`;
+  el("seedSampleLine").textContent = seedSample(items);
   renderSeedGuide();
+}
+
+function seedSample(items) {
+  if (!items.length) {
+    return "Add a first line.";
+  }
+  const [first, second] = items;
+  if (!second) {
+    return first;
+  }
+  return `${first} / ${second}`;
 }
 
 function renderSeedGuide() {
