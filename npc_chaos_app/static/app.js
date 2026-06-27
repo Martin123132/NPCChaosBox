@@ -152,6 +152,12 @@ function bindControls() {
   el("openExportsButton").addEventListener("click", openExports);
   el("saveSeedsButton").addEventListener("click", saveSeeds);
   el("resetSeedsButton").addEventListener("click", resetSeeds);
+  el("seedEditor").addEventListener("input", () => {
+    syncSeedEditor();
+    renderSeedHealth();
+    renderReadiness();
+    setSeedMessage("Unsaved seed edits. Save when this list feels useful.", "amber");
+  });
   el("saveFromFavouritesButton").addEventListener("click", saveFavourite);
   el("refreshFavouritesButton").addEventListener("click", loadFavourites);
 }
@@ -207,6 +213,7 @@ async function loadState() {
   renderDoctor(data.version);
   renderResultActions();
   renderExportSummary();
+  setSeedMessage("Edits stay local and save only when you press Save Seeds.", "amber");
   await loadFavourites();
 }
 
@@ -449,6 +456,54 @@ function renderCurrentSeedStatus() {
   el("currentSeedLabel").textContent = `${labelFor(currentSeedTab)} (${count})`;
   el("currentSeedHelp").textContent = SEED_HELP[currentSeedTab] || "Edit one item per line.";
   el("currentSeedStatus").innerHTML = `<span class="light ${light}"></span>${count >= 8 ? "Healthy" : count >= 4 ? "Thin but usable" : "Needs more"}`;
+  renderSeedGuide();
+}
+
+function renderSeedGuide() {
+  const guide = el("seedGuide");
+  if (!guide) {
+    return;
+  }
+  const count = Array.isArray(appState[currentSeedTab]) ? appState[currentSeedTab].length : 0;
+  const label = labelFor(currentSeedTab);
+  const currentLight = count >= 8 ? "green" : count >= 4 ? "amber" : "red";
+  const overall = overallSeedStatus();
+  const cards = [
+    {
+      light: currentLight,
+      title: "Current List",
+      body: count >= 8
+        ? `${label} has enough variety for clean pulls.`
+        : count >= 4
+          ? `${label} works, but a few more lines will reduce repeats.`
+          : `${label} needs more lines before the pack feels healthy.`,
+    },
+    {
+      light: overall.light,
+      title: overall.light === "green" ? "Ready To Generate" : "Add Variety",
+      body: overall.body,
+    },
+    {
+      light: "amber",
+      title: "Save Then Test",
+      body: "Save the pack, then generate once to feel whether the new ingredients land.",
+    },
+  ];
+  guide.innerHTML = cards.map((card) => `
+    <div class="next-card ${card.light}">
+      <strong>${escapeHtml(card.title)}</strong>
+      <p>${escapeHtml(card.body)}</p>
+    </div>
+  `).join("");
+}
+
+function setSeedMessage(message, tone = "amber") {
+  const node = el("seedActionMessage");
+  if (!node) {
+    return;
+  }
+  node.textContent = message;
+  node.dataset.tone = tone;
 }
 
 async function saveSeeds() {
@@ -462,8 +517,10 @@ async function saveSeeds() {
     renderReadiness();
     renderStorageStatus();
     renderDoctor();
+    setSeedMessage("Seed pack saved locally.", "green");
     setMessage("Seed pack saved.");
   } catch (error) {
+    setSeedMessage(error.message, "red");
     setMessage(error.message);
   }
 }
@@ -485,8 +542,10 @@ async function resetSeeds() {
     renderReadiness();
     renderStorageStatus();
     renderDoctor();
+    setSeedMessage("Default Crooked Lantern pack restored locally.", "green");
     setMessage("Crooked Lantern restored.");
   } catch (error) {
+    setSeedMessage(error.message, "red");
     setMessage(error.message);
   }
 }

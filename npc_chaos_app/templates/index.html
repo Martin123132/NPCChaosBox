@@ -112,28 +112,38 @@
         </section>
 
         <section class="page" id="page-seeds" aria-label="Seed pack editor">
-          <section class="work-panel">
-            <div class="panel-head">
-              <div>
+          <div class="seeds-layout">
+            <section class="work-panel">
+              <div class="page-intro">
                 <h3 id="seedPackTitle">Seed Pack</h3>
                 <p id="seedPackNote">Edit one item per line.</p>
               </div>
-              <div class="button-row">
+              <div class="seed-health" id="seedHealth"></div>
+              <div class="seed-editor-meta">
+                <div>
+                  <strong id="currentSeedLabel">Names</strong>
+                  <p id="currentSeedHelp">Edit one item per line.</p>
+                </div>
+                <div class="traffic-item" id="currentSeedStatus"><span class="light amber"></span>Loading</div>
+              </div>
+              <nav class="tabs" aria-label="Seed categories" id="seedTabs"></nav>
+              <textarea id="seedEditor" class="seed-editor" spellcheck="false"></textarea>
+              <div class="seed-save-row">
                 <button id="saveSeedsButton">Save Seeds</button>
+                <p class="action-message" id="seedActionMessage">Edits stay local and save only when you press Save Seeds.</p>
+              </div>
+            </section>
+
+            <aside class="guidance-panel">
+              <h3>Seed Pack Loop</h3>
+              <div id="seedGuide" class="next-step-list"></div>
+              <div class="maintenance-card">
+                <strong>Restore Default Pack</strong>
+                <p>Use this only when you want the original Crooked Lantern ingredients back.</p>
                 <button id="resetSeedsButton">Reset Crooked Lantern</button>
               </div>
-            </div>
-            <div class="seed-health" id="seedHealth"></div>
-            <div class="seed-editor-meta">
-              <div>
-                <strong id="currentSeedLabel">Names</strong>
-                <p id="currentSeedHelp">Edit one item per line.</p>
-              </div>
-              <div class="traffic-item" id="currentSeedStatus"><span class="light amber"></span>Loading</div>
-            </div>
-            <nav class="tabs" aria-label="Seed categories" id="seedTabs"></nav>
-            <textarea id="seedEditor" class="seed-editor" spellcheck="false"></textarea>
-          </section>
+            </aside>
+          </div>
         </section>
 
         <section class="page" id="page-favourites" aria-label="Saved favourites">

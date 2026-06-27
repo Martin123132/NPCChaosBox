@@ -47,6 +47,19 @@ class StaticUiTests(unittest.TestCase):
         self.assertIn(".exports-layout", css)
         self.assertIn(".export-folder-card", css)
 
+    def test_seed_page_has_guided_edit_loop(self) -> None:
+        html = (ROOT / "npc_chaos_app" / "templates" / "index.html").read_text(encoding="utf-8")
+        js = (ROOT / "npc_chaos_app" / "static" / "app.js").read_text(encoding="utf-8")
+        css = (ROOT / "npc_chaos_app" / "static" / "app.css").read_text(encoding="utf-8")
+
+        self.assertIn('id="seedGuide"', html)
+        self.assertIn('id="seedActionMessage"', html)
+        self.assertIn("Seed Pack Loop", html)
+        self.assertIn("renderSeedGuide", js)
+        self.assertIn("Unsaved seed edits", js)
+        self.assertIn(".seeds-layout", css)
+        self.assertIn(".maintenance-card", css)
+
 
 if __name__ == "__main__":
     unittest.main()

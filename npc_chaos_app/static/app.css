@@ -266,6 +266,13 @@ textarea:focus-visible {
   align-items: start;
 }
 
+.seeds-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 820px) 330px;
+  gap: 18px;
+  align-items: start;
+}
+
 .work-panel,
 .guidance-panel {
   background: var(--panel-surface);
@@ -456,6 +463,18 @@ button:disabled {
   color: var(--teal-dark);
   font-size: 14px;
   font-weight: 700;
+}
+
+.action-message[data-tone="amber"] {
+  color: var(--amber);
+}
+
+.action-message[data-tone="green"] {
+  color: var(--green);
+}
+
+.action-message[data-tone="red"] {
+  color: var(--red);
 }
 
 .copy-fallback,
@@ -749,6 +768,58 @@ input[type="checkbox"] {
   line-height: 1.45;
 }
 
+.seed-save-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid var(--line);
+  margin-top: 12px;
+  padding-top: 12px;
+}
+
+.seed-save-row button {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+  flex: 0 0 auto;
+}
+
+.seed-save-row button:hover {
+  background: var(--teal-dark);
+  border-color: var(--teal-dark);
+  color: #fff;
+}
+
+.seed-save-row .action-message {
+  margin: 0;
+  text-align: right;
+}
+
+.maintenance-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fbfcfa;
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 12px;
+}
+
+.maintenance-card strong {
+  line-height: 1.35;
+}
+
+.maintenance-card p {
+  color: var(--muted);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.maintenance-card button {
+  justify-self: start;
+}
+
 .list-panel,
 .doctor-panel {
   display: grid;
@@ -913,6 +984,10 @@ input[type="checkbox"] {
     grid-template-columns: 1fr;
   }
 
+  .seeds-layout {
+    grid-template-columns: 1fr;
+  }
+
   .guidance-panel {
     position: static;
   }
@@ -965,6 +1040,19 @@ input[type="checkbox"] {
   }
 
   .export-folder-card button {
+    justify-self: stretch;
+  }
+
+  .seed-save-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .seed-save-row .action-message {
+    text-align: left;
+  }
+
+  .maintenance-card button {
     justify-self: stretch;
   }
 
