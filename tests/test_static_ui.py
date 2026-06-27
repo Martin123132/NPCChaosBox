@@ -60,6 +60,19 @@ class StaticUiTests(unittest.TestCase):
         self.assertIn(".seeds-layout", css)
         self.assertIn(".maintenance-card", css)
 
+    def test_generate_card_has_scan_first_character_sheet(self) -> None:
+        js = (ROOT / "npc_chaos_app" / "static" / "app.js").read_text(encoding="utf-8")
+        css = (ROOT / "npc_chaos_app" / "static" / "app.css").read_text(encoding="utf-8")
+
+        self.assertIn("npc-sheet", js)
+        self.assertIn("Use Now", js)
+        self.assertIn("Read Aloud", js)
+        self.assertIn("trace-details", js)
+        self.assertIn("npcSpotlight", js)
+        self.assertIn(".npc-table-callout", css)
+        self.assertIn(".npc-priority-grid", css)
+        self.assertIn(".trace-details", css)
+
 
 if __name__ == "__main__":
     unittest.main()

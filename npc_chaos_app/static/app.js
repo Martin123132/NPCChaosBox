@@ -281,22 +281,60 @@ function renderNpcCard() {
     return;
   }
   const npc = currentNpc.npc;
+  const traceLines = currentNpc.trace_lines || [];
   el("npcCard").innerHTML = `
-    <h3 class="npc-title">${escapeHtml(currentNpc.title)}</h3>
-    <p class="npc-subtitle">${escapeHtml(npc.role)} from ${escapeHtml(npc.home)}.</p>
-    <div class="field-grid">
-      ${field("Wants", npc.wants)}
-      ${field("Secret", npc.secret)}
-      ${field("Contradiction", npc.contradiction)}
-      ${field("Problem Now", npc.problem_now)}
-      ${field("Faction", npc.faction)}
-      ${field("Object", npc.object)}
-      ${field("First Move", npc.first_move, true)}
-      ${field("What They Know", npc.what_they_know)}
-      ${field("Wants From Players", npc.wants_from_players)}
-      <div class="field wide"><span>Quote</span><p class="quote">"${escapeHtml(npc.quote)}"</p></div>
-      ${field("Use In Play", npc.use_in_play, true)}
-      ${field("Chaos Trace", (currentNpc.trace_lines || []).join(" "), true)}
+    <div class="npc-sheet">
+      <header class="npc-sheet-head">
+        <div>
+          <p class="npc-kicker">${escapeHtml(currentNpc.mode)} | Chaos ${escapeHtml(currentNpc.chaos)} | Seed ${escapeHtml(currentNpc.seed)}</p>
+          <h3 class="npc-title">${escapeHtml(currentNpc.title)}</h3>
+          <p class="npc-subtitle">${escapeHtml(npc.role)} from ${escapeHtml(npc.home)}.</p>
+        </div>
+        <div class="npc-ready-badge">
+          <span>Table Role</span>
+          <strong>${escapeHtml(npc.role)}</strong>
+        </div>
+      </header>
+
+      <section class="npc-table-callout">
+        <span>Use Now</span>
+        <p>${escapeHtml(npc.use_in_play)}</p>
+      </section>
+
+      <section class="npc-quote-block">
+        <span>Read Aloud</span>
+        <p>"${escapeHtml(npc.quote)}"</p>
+      </section>
+
+      <div class="npc-priority-grid">
+        ${npcSpotlight("Problem Now", npc.problem_now)}
+        ${npcSpotlight("First Move", npc.first_move)}
+      </div>
+
+      <div class="npc-section-grid">
+        <section class="npc-section">
+          <h4>Pressure</h4>
+          ${npcMiniField("Wants", npc.wants)}
+          ${npcMiniField("Contradiction", npc.contradiction)}
+          ${npcMiniField("Secret", npc.secret)}
+        </section>
+        <section class="npc-section">
+          <h4>Table Levers</h4>
+          ${npcMiniField("What They Know", npc.what_they_know)}
+          ${npcMiniField("Wants From Players", npc.wants_from_players)}
+          ${npcMiniField("Object", npc.object)}
+        </section>
+        <section class="npc-section">
+          <h4>Context</h4>
+          ${npcMiniField("Home", npc.home)}
+          ${npcMiniField("Faction", npc.faction)}
+        </section>
+      </div>
+
+      <details class="trace-details">
+        <summary>Chaos Trace</summary>
+        ${traceLines.length ? `<ol>${traceLines.map((line) => `<li>${escapeHtml(line)}</li>`).join("")}</ol>` : "<p>No trace lines returned.</p>"}
+      </details>
     </div>
   `;
 }
@@ -305,8 +343,22 @@ function renderResultActions() {
   el("resultActions").hidden = !currentNpc;
 }
 
-function field(label, value, wide = false) {
-  return `<div class="field ${wide ? "wide" : ""}"><span>${escapeHtml(label)}</span><p>${escapeHtml(value || "")}</p></div>`;
+function npcSpotlight(label, value) {
+  return `
+    <section class="npc-spotlight">
+      <span>${escapeHtml(label)}</span>
+      <p>${escapeHtml(value || "")}</p>
+    </section>
+  `;
+}
+
+function npcMiniField(label, value) {
+  return `
+    <div class="npc-mini-field">
+      <span>${escapeHtml(label)}</span>
+      <p>${escapeHtml(value || "")}</p>
+    </div>
+  `;
 }
 
 function renderStorageStatus() {

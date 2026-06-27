@@ -34,6 +34,7 @@ Core NPC card fields:
 - Do not cram every control onto the first page.
 - Use traffic-light guidance for readiness and next steps.
 - The Generate page is the first screen.
+- Generated NPC cards should be scan-first: use-now guidance, read-aloud quote, immediate pressure, then supporting detail.
 - The Generate page should show only the current result actions, not every possible file-format choice.
 - Advanced tuning lives on the Tune page, with quick feel presets and a live effect summary.
 - TXT/HTML file choices live on the Exports page, with a clear export/open-folder loop.
