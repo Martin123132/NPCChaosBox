@@ -207,11 +207,22 @@
                 <p id="lastExportText">Choose a format when an NPC is ready.</p>
               </div>
               <div class="export-card" id="exportCurrentCard"></div>
-              <div class="export-choice-grid">
-                <button id="exportTxtButton">Export TXT</button>
-                <button id="exportHtmlButton">Export HTML</button>
+              <div class="export-option-grid" id="exportFormatGuide">
+                <article class="export-option-card">
+                  <span>Table Notes</span>
+                  <strong>TXT</strong>
+                  <p>Plain text for campaign notes, Discord drafts, and quick copying.</p>
+                  <button id="exportTxtButton">Export TXT</button>
+                </article>
+                <article class="export-option-card recommended">
+                  <span>Clean Card</span>
+                  <strong>HTML</strong>
+                  <p>A readable saved card you can open in a browser later.</p>
+                  <button id="exportHtmlButton">Export HTML</button>
+                </article>
               </div>
               <div class="export-folder-card">
+                <strong>Exports Folder</strong>
                 <button id="openExportsButton">Open Exports Folder</button>
                 <p id="lastExportPath">Exports stay local on this machine.</p>
               </div>

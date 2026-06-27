@@ -673,15 +673,13 @@ textarea:focus-visible {
   min-width: 0;
 }
 
-.result-action-buttons button:first-child,
-.export-choice-grid button:first-child {
+.result-action-buttons button:first-child {
   background: var(--ink);
   color: #fff;
   border-color: var(--ink);
 }
 
-.result-action-buttons button:first-child:hover,
-.export-choice-grid button:first-child:hover {
+.result-action-buttons button:first-child:hover {
   background: var(--teal-dark);
   border-color: var(--teal-dark);
 }
@@ -1300,8 +1298,24 @@ input[type="checkbox"] {
   margin-bottom: 12px;
 }
 
+.export-current-head {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.export-card-label {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
 .export-card h4 {
   margin: 0 0 6px;
+  overflow-wrap: anywhere;
 }
 
 .export-card p {
@@ -1311,26 +1325,65 @@ input[type="checkbox"] {
   overflow-wrap: anywhere;
 }
 
-.export-choice-grid {
+.export-card blockquote {
+  border-left: 4px solid var(--green);
+  color: var(--ink);
+  line-height: 1.45;
+  margin: 12px 0 0;
+  padding-left: 10px;
+}
+
+.export-option-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
 }
 
-.export-format-note {
-  display: flex;
-  flex-wrap: wrap;
+.export-option-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  display: grid;
   gap: 8px;
-  margin-top: 12px;
+  min-width: 0;
+  padding: 12px;
 }
 
-.export-format-note span {
-  border: 1px solid var(--line);
-  border-radius: 999px;
+.export-option-card span {
   color: var(--muted);
   font-size: 12px;
-  font-weight: 800;
-  padding: 7px 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.export-option-card strong {
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.export-option-card p {
+  color: var(--muted);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.export-option-card button {
+  justify-self: start;
+}
+
+.export-option-card.recommended {
+  border-left: 4px solid var(--teal);
+}
+
+.export-option-card.recommended button {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+
+.export-option-card.recommended button:hover {
+  background: var(--teal-dark);
+  border-color: var(--teal-dark);
 }
 
 .export-folder-card {
@@ -1341,6 +1394,10 @@ input[type="checkbox"] {
   gap: 8px;
   margin-top: 12px;
   padding: 12px;
+}
+
+.export-folder-card strong {
+  line-height: 1.35;
 }
 
 .export-folder-card button {
@@ -1498,7 +1555,7 @@ input[type="checkbox"] {
   .preset-grid,
   .seed-editor-coach,
   .tabs,
-  .export-choice-grid {
+  .export-option-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1570,6 +1627,15 @@ input[type="checkbox"] {
 
   .load-favourite-button {
     width: 100%;
+  }
+
+  .export-current-head {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .export-option-card button {
+    justify-self: stretch;
   }
 
   .export-folder-card button {

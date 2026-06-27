@@ -795,8 +795,7 @@ async function exportNpc(format) {
   try {
     const data = await api("/api/export", { method: "POST", body: JSON.stringify({ scene: currentNpc, format }) });
     lastExport = data.export;
-    el("lastExportText").textContent = `${data.export.format.toUpperCase()} saved in your exports folder.`;
-    el("lastExportPath").textContent = data.export.path;
+    el("lastExportText").textContent = `${data.export.format.toUpperCase()} saved. Open the exports folder when you want the file.`;
     renderExportSummary();
     renderExportsStrip();
     setMessage(`${data.export.format.toUpperCase()} exported.`);
@@ -810,7 +809,7 @@ async function openExports() {
     const data = await api("/api/open-exports", { method: "POST", body: JSON.stringify({}) });
     const result = data.export_folder;
     el("lastExportText").textContent = result.opened ? "Exports folder opened." : "Exports folder is ready.";
-    el("lastExportPath").textContent = result.path;
+    el("lastExportPath").textContent = `Folder: ${result.path}`;
     renderExportsStrip(result);
     renderExportsGuide(result);
   } catch (error) {
@@ -833,24 +832,28 @@ function renderExportSummary() {
 
   if (!currentNpc) {
     el("exportCurrentCard").innerHTML = `
+      <span class="export-card-label">Step 1</span>
       <h4>No NPC ready yet</h4>
-      <p>Generate an NPC first. Then choose TXT for notes or HTML for a browser-friendly copy.</p>
+      <p>Generate or load an NPC first. Export choices unlock once there is a card worth keeping.</p>
     `;
-    el("lastExportPath").textContent = lastExport?.path || "Exports stay local on this machine.";
+    el("lastExportPath").textContent = lastExport ? `Last file: ${lastExport.path}` : "Exports stay local on this machine.";
     renderExportsStrip();
     renderExportsGuide();
     return;
   }
 
+  const npc = currentNpc.npc || {};
+  const useLine = npc.use_in_play || "Ready to save into your notes.";
   el("exportCurrentCard").innerHTML = `
-    <h4>${escapeHtml(currentNpc.title)}</h4>
-    <p>${escapeHtml(currentNpc.npc?.role || "NPC")} | Seed ${escapeHtml(currentNpc.seed)} | ${escapeHtml(currentNpc.mode)} | Chaos ${escapeHtml(currentNpc.chaos)}</p>
-    <div class="export-format-note">
-      <span>TXT is best for notes.</span>
-      <span>HTML is best for a clean saved card.</span>
+    <div class="export-current-head">
+      <span class="export-card-label">Ready To Export</span>
+      <div class="traffic-item"><span class="light green"></span>NPC ready</div>
     </div>
+    <h4>${escapeHtml(currentNpc.title)}</h4>
+    <p>${escapeHtml(npc.role || "NPC")} | Seed ${escapeHtml(currentNpc.seed)} | ${escapeHtml(currentNpc.mode)} | Chaos ${escapeHtml(currentNpc.chaos)}</p>
+    <blockquote>${escapeHtml(useLine)}</blockquote>
   `;
-  el("lastExportPath").textContent = lastExport?.path || "No file exported from this session yet.";
+  el("lastExportPath").textContent = lastExport ? `Last file: ${lastExport.path}` : "No file exported from this session yet.";
   renderExportsStrip();
   renderExportsGuide();
 }
@@ -860,12 +863,12 @@ function renderExportsGuide(result = null) {
   if (!currentNpc) {
     cards.push({ light: "amber", title: "Generate", body: "Make or load an NPC before exporting." });
   } else {
-    cards.push({ light: "green", title: "Choose Format", body: "TXT for notes, HTML for a readable saved card." });
+    cards.push({ light: "green", title: "Choose Format", body: "TXT for table notes, HTML for a clean saved card." });
   }
   if (lastExport) {
     cards.push({ light: "green", title: "Find File", body: "Open the exports folder when you want the saved file." });
   } else {
-    cards.push({ light: "amber", title: "Export Once", body: "Pick one format. You can export the other later." });
+    cards.push({ light: "amber", title: "Export Once", body: "Pick one format now. You can export the other later." });
   }
   if (result?.error) {
     cards.push({ light: "amber", title: "Folder", body: "The file was saved, but Windows did not open the folder." });

@@ -46,10 +46,16 @@ class StaticUiTests(unittest.TestCase):
 
         self.assertIn('id="exportsGuide"', html)
         self.assertIn('id="lastExportPath"', html)
+        self.assertIn('id="exportFormatGuide"', html)
+        self.assertIn("Table Notes", html)
+        self.assertIn("Clean Card", html)
         self.assertIn("Export Loop", html)
         self.assertIn("renderExportsGuide", js)
-        self.assertIn("HTML is best for a clean saved card", js)
+        self.assertIn("TXT for table notes", js)
+        self.assertIn("Last file:", js)
         self.assertIn(".exports-layout", css)
+        self.assertIn(".export-option-grid", css)
+        self.assertIn(".export-option-card", css)
         self.assertIn(".export-folder-card", css)
 
     def test_seed_page_has_guided_edit_loop(self) -> None:
