@@ -13,6 +13,37 @@ from urllib import request
 
 
 class AppSmokeTests(unittest.TestCase):
+    def test_first_run_acceptance_script_walks_happy_path(self) -> None:
+        temp_parent = "D:\\Temp" if Path("D:\\Temp").exists() else None
+        repo = Path(__file__).resolve().parents[1]
+        with tempfile.TemporaryDirectory(dir=temp_parent) as tmp:
+            env = os.environ.copy()
+            env["TEMP"] = tmp
+            env["TMP"] = tmp
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    "scripts/first_run_acceptance.py",
+                    "--data-dir",
+                    tmp,
+                    "--temp-dir",
+                    tmp,
+                    "--timeout",
+                    "8",
+                ],
+                cwd=repo,
+                env=env,
+                text=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                timeout=35,
+            )
+            self.assertEqual(result.returncode, 0, result.stdout)
+            self.assertIn("PASS: first-run happy path is working.", result.stdout)
+            exports = list(Path(tmp, "exports").glob("*"))
+            self.assertTrue(any(path.suffix == ".txt" for path in exports), result.stdout)
+            self.assertTrue(any(path.suffix == ".html" for path in exports), result.stdout)
+
     def test_server_doctor_generate_and_open_exports(self) -> None:
         temp_parent = "D:\\Temp" if Path("D:\\Temp").exists() else None
         with tempfile.TemporaryDirectory(dir=temp_parent) as tmp:
@@ -83,4 +114,3 @@ class AppSmokeTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

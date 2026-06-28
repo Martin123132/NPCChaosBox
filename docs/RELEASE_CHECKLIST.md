@@ -17,6 +17,7 @@ $env:NPC_CHAOS_DISABLE_OPEN = "1"
 ```powershell
 python -m unittest discover -s tests
 python -m compileall npc_chaos_app tests scripts
+python scripts\first_run_acceptance.py --data-dir D:\NPCChaosAcceptanceData --temp-dir D:\Temp
 python scripts\sample_npcs.py --count 5
 python scripts\review_npcs.py --count 50
 python -m npc_chaos_app.app --doctor

@@ -29,3 +29,13 @@ and export an NPC without opening a command prompt.
 
 The tester should generate, save, and export an NPC in under 10 minutes with
 plain-English guidance only.
+
+## Maintainer Shortcut
+
+Before handing a build to a human tester, run:
+
+```powershell
+python scripts\first_run_acceptance.py --data-dir D:\NPCChaosAcceptanceData --temp-dir D:\Temp
+```
+
+This does not replace the phone-call test, but it proves the local happy path is alive first.
