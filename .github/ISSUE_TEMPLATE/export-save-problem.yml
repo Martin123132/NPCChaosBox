@@ -1,0 +1,42 @@
+name: Export or save problem
+description: Report favourites, TXT export, HTML export, or exports folder problems.
+title: "[Save/export]: "
+labels: ["save-export", "support"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please say whether the NPC generated correctly before the save or export problem happened.
+  - type: dropdown
+    id: area
+    attributes:
+      label: What failed?
+      options:
+        - Save Favourite
+        - Export TXT
+        - Export HTML
+        - Open Exports Folder
+        - Loading saved NPCs
+        - Other save/export issue
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: Generate NPC -> Export -> Export HTML -> ...
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: What happened?
+      placeholder: Include any visible app message.
+    validations:
+      required: true
+  - type: textarea
+    id: debug
+    attributes:
+      label: Debug report
+      description: Help -> Copy Debug Report is ideal.
+      render: text

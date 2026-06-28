@@ -1,0 +1,33 @@
+name: Feature idea
+description: Suggest a small improvement, mode, export option, or workflow.
+title: "[Idea]: "
+labels: ["idea"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What would this help you do?
+      placeholder: I want to prep a one-shot faster, share NPC cards, make a whole session pack...
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Your idea
+      placeholder: Describe the feature in plain English.
+    validations:
+      required: true
+  - type: dropdown
+    id: size
+    attributes:
+      label: Rough size
+      options:
+        - Tiny polish
+        - New button or export option
+        - New page or workflow
+        - Big future idea
+  - type: textarea
+    id: notes
+    attributes:
+      label: Extra notes
+      placeholder: Screenshots, examples, links, or generated NPCs that inspired this.

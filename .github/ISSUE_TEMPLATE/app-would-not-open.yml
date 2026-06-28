@@ -1,0 +1,41 @@
+name: It would not open
+description: Report launcher, Python, browser, or Windows first-run problems.
+title: "[Open problem]: "
+labels: ["first-run", "support"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for trying NPC Chaos Box. Paste the app's Help -> Copy Debug Report output if you can get that far.
+  - type: textarea
+    id: steps
+    attributes:
+      label: What did you do?
+      description: Example: downloaded ZIP, unzipped it, double-clicked START_NPCChaos_WINDOWS.bat.
+      placeholder: Tell us the exact steps.
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: What happened?
+      description: Include any message from Windows, Python, or the launcher window.
+      placeholder: What did you see?
+    validations:
+      required: true
+  - type: input
+    id: windows
+    attributes:
+      label: Windows version
+      placeholder: Windows 10, Windows 11, not sure
+  - type: input
+    id: python
+    attributes:
+      label: Python version, if known
+      placeholder: Python 3.13.3, Python missing, not sure
+  - type: textarea
+    id: debug
+    attributes:
+      label: Debug report or screenshot
+      description: Paste the debug report, launcher text, or a screenshot if available.
+      render: text

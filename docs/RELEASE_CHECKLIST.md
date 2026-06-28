@@ -42,6 +42,25 @@ In the browser:
 9. Check traffic lights.
 10. Confirm the game-scene background is visible but panels remain readable.
 11. Open Doctor and confirm the data folder is on D.
+12. Open Help and confirm known limitations are plain English.
+13. Press Copy Debug Report and confirm it contains version, storage paths, seed counts, and current browser details.
+14. Confirm the GitHub Issues button points at the public issue chooser.
+
+## Public Alpha Feedback Setup
+
+Check the repo contains these issue forms before publishing:
+
+- `.github\ISSUE_TEMPLATE\app-would-not-open.yml`
+- `.github\ISSUE_TEMPLATE\export-save-problem.yml`
+- `.github\ISSUE_TEMPLATE\generated-npc-felt-wrong.yml`
+- `.github\ISSUE_TEMPLATE\feature-idea.yml`
+
+The release copy should be honest:
+
+- Windows-first public alpha.
+- Python 3.10 or newer required.
+- No accounts, API keys, cloud calls, Ollama, npm, or installer.
+- Feedback goes through GitHub Issues.
 
 ## Cleanup
 

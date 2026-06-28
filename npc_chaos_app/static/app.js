@@ -151,6 +151,7 @@ function bindControls() {
   el("exportTxtButton").addEventListener("click", () => exportNpc("txt"));
   el("exportHtmlButton").addEventListener("click", () => exportNpc("html"));
   el("openExportsButton").addEventListener("click", openExports);
+  el("copyDebugButton").addEventListener("click", copyDebugReport);
   el("saveSeedsButton").addEventListener("click", saveSeeds);
   el("resetSeedsButton").addEventListener("click", resetSeeds);
   el("seedEditor").addEventListener("input", () => {
@@ -213,6 +214,7 @@ async function loadState() {
   renderTuneStrip();
   renderTunePreview();
   renderDoctor(data.version);
+  renderHelpGuide();
   renderResultActions();
   renderExportSummary();
   setSeedMessage("Edits stay local and save only when you press Save Seeds.", "amber");
@@ -231,6 +233,7 @@ function showPage(page) {
     seeds: ["Seed Packs", "Keep the ingredients healthy"],
     favourites: ["Favourites", "Bring back the useful ones"],
     exports: ["Exports", "Export the current NPC"],
+    help: ["Help", "Public alpha support"],
     doctor: ["Doctor", "Check the local setup"],
   };
   const [label, title] = titles[safePage] || titles.generate;
@@ -241,6 +244,9 @@ function showPage(page) {
   }
   if (safePage === "favourites") {
     renderFavouritesStatus();
+  }
+  if (safePage === "help") {
+    renderHelpGuide();
   }
 }
 
@@ -691,6 +697,7 @@ async function saveSeeds() {
     renderReadiness();
     renderStorageStatus();
     renderDoctor();
+    renderHelpGuide();
     setSeedMessage("Seed pack saved locally.", "green");
     setMessage("Seed pack saved.");
   } catch (error) {
@@ -716,6 +723,7 @@ async function resetSeeds() {
     renderReadiness();
     renderStorageStatus();
     renderDoctor();
+    renderHelpGuide();
     setSeedMessage("Default Crooked Lantern pack restored locally.", "green");
     setMessage("Crooked Lantern restored.");
   } catch (error) {
@@ -1012,6 +1020,49 @@ function renderDoctor(version = null) {
   renderExportsStrip();
 }
 
+function renderHelpGuide() {
+  const hasNpc = Boolean(currentNpc);
+  const hasExport = Boolean(lastExport);
+  const storageReady = Boolean(doctor.state_ok);
+  const cards = [
+    {
+      light: storageReady ? "green" : "red",
+      title: storageReady ? "Ready To Try" : "Check Doctor",
+      body: storageReady
+        ? "Generate one NPC, then try save and export before changing seed packs."
+        : "Open Doctor and check which seed or storage item is blocking first run.",
+    },
+    {
+      light: hasNpc ? "green" : "amber",
+      title: hasNpc ? "NPC Generated" : "First Test",
+      body: hasNpc
+        ? "This session has a current NPC. Copy, save, or export it to test the full loop."
+        : "Press Generate NPC. That is the fastest public-alpha smoke test.",
+    },
+    {
+      light: hasExport ? "green" : "amber",
+      title: hasExport ? "Export Tested" : "Export Next",
+      body: hasExport
+        ? "A file was exported this session. If the folder opens too, the happy path is strong."
+        : "After generating, export TXT or HTML so file saving gets tested.",
+    },
+    {
+      light: "green",
+      title: "Report Cleanly",
+      body: "Use Copy Debug Report, then paste it into the closest GitHub issue form.",
+    },
+  ];
+  const guide = el("helpGuide");
+  if (guide) {
+    guide.innerHTML = cards.map((card) => `
+      <div class="next-card ${card.light}">
+        <strong>${escapeHtml(card.title)}</strong>
+        <p>${escapeHtml(card.body)}</p>
+      </div>
+    `).join("");
+  }
+}
+
 function doctorSection(title, rows) {
   return `
     <section class="doctor-section">
@@ -1034,6 +1085,73 @@ function seedCountSummary(lowCounts, thinCounts) {
     return `${thinCounts} seed list${thinCounts === 1 ? "" : "s"} usable but could repeat sooner.`;
   }
   return "All required seed lists are comfortably filled.";
+}
+
+async function copyDebugReport() {
+  const report = buildDebugReport();
+  const output = el("debugReportOutput");
+  output.value = report;
+  output.hidden = false;
+  try {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(report);
+      setDebugReportMessage("Debug report copied. Paste it into GitHub Issues.", "green");
+      return;
+    }
+  } catch {
+    // Fall through to the selection fallback.
+  }
+  output.focus();
+  output.select();
+  try {
+    document.execCommand("copy");
+    setDebugReportMessage("Debug report copied. Paste it into GitHub Issues.", "green");
+  } catch {
+    setDebugReportMessage("Clipboard blocked. The debug report is selected below.", "amber");
+  }
+}
+
+function buildDebugReport() {
+  const counts = doctor.category_counts || countCategories();
+  const currentLines = currentNpc ? [
+    `Current NPC: ${currentNpc.title}`,
+    `Current seed: ${currentNpc.seed}`,
+    `Current mode: ${currentNpc.mode}`,
+    `Current chaos: ${currentNpc.chaos}`,
+  ] : ["Current NPC: none generated in this session"];
+  return [
+    "NPC Chaos Box Debug Report",
+    `Created: ${new Date().toISOString()}`,
+    `Version: ${appVersion || "local"}`,
+    "Public alpha: yes",
+    "",
+    "Environment",
+    `Page: ${location.href}`,
+    `Browser: ${navigator.userAgent}`,
+    `Storage ready: ${doctor.state_ok ? "yes" : "no"}`,
+    `Data folder: ${doctor.data_dir || "not reported"}`,
+    `Exports folder: ${doctor.exports_dir || "not reported"}`,
+    `Portable default: ${doctor.portable_default || "not reported"}`,
+    `Saved favourites: ${doctor.favourite_count ?? favouritesCache.length ?? 0}`,
+    "",
+    "Session",
+    ...currentLines,
+    `Last export: ${lastExport ? `${lastExport.format} at ${lastExport.path}` : "none in this session"}`,
+    "",
+    "Seed Counts",
+    ...Object.entries(counts).map(([key, count]) => `${labelFor(key)}: ${count}`),
+    "",
+    "What happened?",
+    "- What did you click?",
+    "- What did you expect?",
+    "- What actually happened?",
+  ].join("\n");
+}
+
+function setDebugReportMessage(message, tone = "amber") {
+  const node = el("debugReportMessage");
+  node.textContent = message;
+  node.dataset.tone = tone;
 }
 
 async function copyText(text) {

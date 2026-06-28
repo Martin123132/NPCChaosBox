@@ -92,6 +92,42 @@ class StaticUiTests(unittest.TestCase):
         self.assertIn(".doctor-grid", css)
         self.assertIn(".doctor-count-pill", css)
 
+    def test_help_page_has_public_alpha_feedback_loop(self) -> None:
+        html = (ROOT / "npc_chaos_app" / "templates" / "index.html").read_text(encoding="utf-8")
+        js = (ROOT / "npc_chaos_app" / "static" / "app.js").read_text(encoding="utf-8")
+        css = (ROOT / "npc_chaos_app" / "static" / "app.css").read_text(encoding="utf-8")
+
+        self.assertIn('data-page="help"', html)
+        self.assertIn('id="page-help"', html)
+        self.assertIn("Public Alpha Help", html)
+        self.assertIn("Known Limitations", html)
+        self.assertIn("Copy Debug Report", html)
+        self.assertIn("GitHub Issues", html)
+        self.assertIn("Martin123132/NPCChaosBox/issues/new/choose", html)
+        self.assertIn("renderHelpGuide", js)
+        self.assertIn("copyDebugReport", js)
+        self.assertIn("buildDebugReport", js)
+        self.assertIn("NPC Chaos Box Debug Report", js)
+        self.assertIn(".help-layout", css)
+        self.assertIn(".help-step-grid", css)
+        self.assertIn(".debug-report-output", css)
+
+    def test_public_alpha_issue_templates_exist(self) -> None:
+        issue_dir = ROOT / ".github" / "ISSUE_TEMPLATE"
+        expected = {
+            "app-would-not-open.yml": "It would not open",
+            "export-save-problem.yml": "Export or save problem",
+            "generated-npc-felt-wrong.yml": "Generated NPC felt wrong",
+            "feature-idea.yml": "Feature idea",
+        }
+
+        self.assertTrue((issue_dir / "config.yml").exists())
+        for filename, title in expected.items():
+            body = (issue_dir / filename).read_text(encoding="utf-8")
+            self.assertIn(f"name: {title}", body)
+            self.assertIn("description:", body)
+            self.assertIn("body:", body)
+
     def test_seed_page_has_guided_edit_loop(self) -> None:
         html = (ROOT / "npc_chaos_app" / "templates" / "index.html").read_text(encoding="utf-8")
         js = (ROOT / "npc_chaos_app" / "static" / "app.js").read_text(encoding="utf-8")

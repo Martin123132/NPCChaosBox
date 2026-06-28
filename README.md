@@ -45,7 +45,25 @@ Tick `Add python.exe to PATH`, then double-click the launcher again.
 - `Seed Packs`: edit ingredients with live format, count, and preview guidance.
 - `Favourites`: scan saved NPCs, preview their use, and reload useful ones.
 - `Exports`: pick an outcome, TXT for table notes or HTML for a clean saved card.
+- `Help`: public alpha help, known limits, GitHub Issues link, and copyable debug report.
 - `Doctor`: read plain-English local health, file paths, and seed-count evidence.
+
+## Public Alpha Feedback
+
+This release is meant to be tested in public. If something breaks, open the
+`Help` page in the app, press `Copy Debug Report`, and paste it into the closest
+GitHub issue form:
+
+```text
+https://github.com/Martin123132/NPCChaosBox/issues/new/choose
+```
+
+Use:
+
+- `It would not open` for Python, launcher, browser, or Windows first-run trouble.
+- `Export or save problem` for favourites, TXT, HTML, or folder opening.
+- `Generated NPC felt wrong` when the output is repetitive, weak, or confusing.
+- `Feature idea` for small improvements and future workflows.
 
 ## D-Drive Development Setup
 

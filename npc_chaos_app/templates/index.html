@@ -23,6 +23,7 @@
           <button class="nav-item" data-page="seeds" aria-label="Seed Packs"><span class="nav-icon">#</span><span class="nav-copy"><span class="nav-label">Seed Packs</span><span class="nav-hint">Edit ingredients</span></span></button>
           <button class="nav-item" data-page="favourites" aria-label="Favourites"><span class="nav-icon">*</span><span class="nav-copy"><span class="nav-label">Favourites</span><span class="nav-hint">Bring back keepers</span></span></button>
           <button class="nav-item" data-page="exports" aria-label="Exports"><span class="nav-icon">></span><span class="nav-copy"><span class="nav-label">Exports</span><span class="nav-hint">Save files</span></span></button>
+          <button class="nav-item" data-page="help" aria-label="Help"><span class="nav-icon">?</span><span class="nav-copy"><span class="nav-label">Help</span><span class="nav-hint">Public alpha</span></span></button>
           <button class="nav-item" data-page="doctor" aria-label="Doctor"><span class="nav-icon">i</span><span class="nav-copy"><span class="nav-label">Doctor</span><span class="nav-hint">Check setup</span></span></button>
         </nav>
         <div class="sidebar-foot">
@@ -245,6 +246,60 @@
             </div>
             <div id="doctorPanel" class="doctor-panel"></div>
           </section>
+        </section>
+
+        <section class="page" id="page-help" aria-label="Help and feedback">
+          <div class="help-layout">
+            <section class="work-panel">
+              <div class="page-intro">
+                <h3>Public Alpha Help</h3>
+                <p>Try the short loop first. If something breaks, copy a debug report and paste it into GitHub Issues.</p>
+              </div>
+              <div class="help-step-grid">
+                <article class="help-card green">
+                  <span>Start</span>
+                  <strong>Generate one NPC</strong>
+                  <p>Use the first card as proof the app opens, stores data, and can make something table-ready.</p>
+                </article>
+                <article class="help-card amber">
+                  <span>Keep</span>
+                  <strong>Save or export</strong>
+                  <p>Save a favourite, then export TXT or HTML. These files stay on your machine.</p>
+                </article>
+                <article class="help-card green">
+                  <span>Report</span>
+                  <strong>Copy the debug report</strong>
+                  <p>The report is plain text. It includes app version, local paths, seed health, and browser details.</p>
+                </article>
+              </div>
+              <section class="help-section">
+                <h4>Known Limitations</h4>
+                <div class="known-limit-list">
+                  <div><span class="light amber"></span><p>Windows-first public alpha. Python 3.10 or newer is still required.</p></div>
+                  <div><span class="light green"></span><p>No accounts, API keys, cloud calls, Ollama, npm, or installer.</p></div>
+                  <div><span class="light amber"></span><p>NPCs are deterministic. Some chaos is funny, some needs seed tuning.</p></div>
+                  <div><span class="light amber"></span><p>Session packs, share cards, and packaged EXE builds are later steps.</p></div>
+                </div>
+              </section>
+              <section class="feedback-card">
+                <div>
+                  <h4>Feedback</h4>
+                  <p>Best reports say what you clicked, what happened, and what you expected. The debug report gives the boring setup details.</p>
+                </div>
+                <div class="help-actions">
+                  <button id="copyDebugButton">Copy Debug Report</button>
+                  <a class="button-link" id="githubIssuesLink" href="https://github.com/Martin123132/NPCChaosBox/issues/new/choose" target="_blank" rel="noreferrer">Open GitHub Issues</a>
+                </div>
+                <textarea id="debugReportOutput" class="debug-report-output" readonly hidden></textarea>
+                <p class="action-message" id="debugReportMessage">Nothing leaves your machine until you paste it somewhere.</p>
+              </section>
+            </section>
+
+            <aside class="guidance-panel">
+              <h3>Public Alpha Loop</h3>
+              <div id="helpGuide" class="next-step-list"></div>
+            </aside>
+          </div>
         </section>
       </main>
     </div>
