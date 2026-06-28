@@ -41,6 +41,12 @@ class ReleaseScriptTests(unittest.TestCase):
         if sys.platform != "win32":
             self.skipTest("PowerShell release verification is Windows-first.")
 
+        repo = Path(__file__).resolve().parents[1]
+        verifier_text = (repo / "scripts" / "verify_release_zip.ps1").read_text(encoding="utf-8")
+        self.assertIn("pyproject.toml", verifier_text)
+        self.assertIn("npc-chaos-mural.png", verifier_text)
+        self.assertIn("first_run_acceptance.py", verifier_text)
+
         temp_parent = "D:\\Temp" if Path("D:\\Temp").exists() else None
         with tempfile.TemporaryDirectory(dir=temp_parent) as tmp:
             root = Path(tmp)
@@ -48,9 +54,12 @@ class ReleaseScriptTests(unittest.TestCase):
             with zipfile.ZipFile(zip_path, "w") as release:
                 release.writestr("START_NPCChaos_WINDOWS.bat", "@echo off\n")
                 release.writestr("README.md", "# NPC Chaos Box\n")
+                release.writestr("pyproject.toml", "[project]\nname = 'npc-chaos-box'\n")
                 release.writestr("npc_chaos_app/app.py", "print('doctor')\n")
                 release.writestr("npc_chaos_app/seeds/crooked_lantern.json", "{}\n")
+                release.writestr("npc_chaos_app/static/art/npc-chaos-mural.png", b"fake png\n")
                 release.writestr("npc_chaos_app/templates/index.html", "<!doctype html>\n")
+                release.writestr("scripts/first_run_acceptance.py", "print('acceptance')\n")
 
             work_root = root / "verify-work"
             result = subprocess.run(
@@ -66,7 +75,7 @@ class ReleaseScriptTests(unittest.TestCase):
                     str(work_root),
                     "-SkipDoctor",
                 ],
-                cwd=Path(__file__).resolve().parents[1],
+                cwd=repo,
                 text=True,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,

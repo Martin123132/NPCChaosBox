@@ -8,6 +8,24 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class StaticUiTests(unittest.TestCase):
+    def test_release_docs_include_first_run_acceptance(self) -> None:
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        checklist = (ROOT / "docs" / "RELEASE_CHECKLIST.md").read_text(encoding="utf-8")
+        tester_script = (ROOT / "docs" / "TESTER_SCRIPT.md").read_text(encoding="utf-8")
+
+        self.assertIn("first_run_acceptance.py", readme)
+        self.assertIn("first_run_acceptance.py", checklist)
+        self.assertIn("Maintainer Shortcut", tester_script)
+        self.assertIn("plain-English local health", readme)
+
+    def test_launcher_copy_stays_phone_call_simple(self) -> None:
+        launcher = (ROOT / "START_NPCChaos_WINDOWS.bat").read_text(encoding="utf-8")
+
+        self.assertIn("Python 3.10 or newer", launcher)
+        self.assertIn("Add python.exe to PATH", launcher)
+        self.assertIn("Temp folder:", launcher)
+        self.assertIn("Press Generate NPC when it opens.", launcher)
+
     def test_tune_page_has_self_teaching_controls(self) -> None:
         html = (ROOT / "npc_chaos_app" / "templates" / "index.html").read_text(encoding="utf-8")
         js = (ROOT / "npc_chaos_app" / "static" / "app.js").read_text(encoding="utf-8")

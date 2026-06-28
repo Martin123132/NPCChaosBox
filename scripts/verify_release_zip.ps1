@@ -70,9 +70,12 @@ try {
   $required = @(
     "START_NPCChaos_WINDOWS.bat",
     "README.md",
+    "pyproject.toml",
     "npc_chaos_app\app.py",
     "npc_chaos_app\seeds\crooked_lantern.json",
-    "npc_chaos_app\templates\index.html"
+    "npc_chaos_app\static\art\npc-chaos-mural.png",
+    "npc_chaos_app\templates\index.html",
+    "scripts\first_run_acceptance.py"
   )
   foreach ($relative in $required) {
     $path = Join-Path $extractDir $relative
@@ -107,4 +110,3 @@ try {
 } finally {
   Remove-TempWork
 }
-

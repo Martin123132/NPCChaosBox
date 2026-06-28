@@ -18,8 +18,8 @@ echo NPC Chaos Box needs Python 3.10 or newer.
 echo.
 echo What to do:
 echo   1. Go to https://www.python.org/downloads/windows/
-echo   2. Download and install Python.
-echo   3. Tick "Add python.exe to PATH" during install.
+echo   2. Download the latest Python 3 for Windows.
+echo   3. During install, tick "Add python.exe to PATH".
 echo   4. Double-click START_NPCChaos_WINDOWS.bat again.
 echo.
 echo NPC Chaos Box has not changed your system settings.
@@ -33,8 +33,11 @@ exit /b 1
 echo Starting NPC Chaos Box with %PYTHON_CMD% ...
 echo Data folder:
 echo   %NPC_CHAOS_HOME%
+echo Temp folder:
+echo   %TEMP%
 echo.
 echo Your browser should open in a moment.
+echo Press Generate NPC when it opens.
 echo.
 %PYTHON_CMD% -m npc_chaos_app.app
 pause
@@ -44,4 +47,3 @@ exit /b 0
 %* -c "import sys; raise SystemExit(0 if sys.version_info >= (3, 10) else 1)" >nul 2>nul
 if not errorlevel 1 set "PYTHON_CMD=%*"
 exit /b 0
-

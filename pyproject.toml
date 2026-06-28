@@ -1,14 +1,27 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
 [project]
-name = "house-rules-party"
+name = "npc-chaos-box"
 version = "0.1.0"
-description = "Local-first deterministic party chaos game."
-readme = "docs/HOUSE_RULES.md"
+description = "Local-first deterministic NPC generator for tabletop games and writing."
+readme = "README.md"
 requires-python = ">=3.10"
-authors = [{ name = "House Rules" }]
+authors = [{ name = "NPC Chaos Box" }]
 dependencies = []
 
 [project.scripts]
-house-rules = "house_rules_app.app:main"
+npc-chaos-box = "npc_chaos_app.app:main"
 
-[tool.pytest.ini_options]
-testpaths = ["tests"]
+[tool.setuptools.packages.find]
+include = ["npc_chaos_app*"]
+
+[tool.setuptools.package-data]
+npc_chaos_app = [
+  "seeds/*.json",
+  "templates/*.html",
+  "static/*.css",
+  "static/*.js",
+  "static/art/*.png",
+]
