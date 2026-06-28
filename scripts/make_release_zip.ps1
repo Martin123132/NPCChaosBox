@@ -50,7 +50,7 @@ function Should-Include($File) {
   if ($File -in @(".gitignore", "LICENSE", "README.md", "START_NPCChaos_WINDOWS.bat", "pyproject.toml")) {
     return $true
   }
-  if ($File -eq ".github/workflows/tests.yml") {
+  if ($File -eq ".github/workflows/tests.yaml") {
     return $true
   }
   if ($File -like "npc_chaos_app/*") {
