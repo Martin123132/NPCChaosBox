@@ -62,7 +62,8 @@ class AppSmokeTests(unittest.TestCase):
                 doctor = self._json(url + "/api/doctor")
                 self.assertTrue(doctor["ok"])
                 self.assertTrue(doctor["doctor"]["state_ok"])
-                self.assertTrue(doctor["doctor"]["data_dir"].startswith(tmp))
+                tmp_path = Path(tmp).resolve()
+                self.assertTrue(Path(doctor["doctor"]["data_dir"]).resolve().is_relative_to(tmp_path))
 
                 started = time.perf_counter()
                 generated = self._post_json(
@@ -77,7 +78,7 @@ class AppSmokeTests(unittest.TestCase):
                 opened = self._post_json(url + "/api/open-exports", {})
                 self.assertTrue(opened["ok"])
                 self.assertFalse(opened["export_folder"]["opened"])
-                self.assertTrue(opened["export_folder"]["path"].startswith(tmp))
+                self.assertTrue(Path(opened["export_folder"]["path"]).resolve().is_relative_to(tmp_path))
             finally:
                 proc.terminate()
                 try:

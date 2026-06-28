@@ -12,7 +12,11 @@ class EngineTests(unittest.TestCase):
 
     def test_same_seed_is_deterministic(self) -> None:
         options = {"seed": 12345, "mode": "Fantasy Tavern", "chaos": 60}
-        self.assertEqual(generate_npc(self.state, options), generate_npc(self.state, options))
+        first = generate_npc(self.state, options)
+        second = generate_npc(self.state, options)
+        first.pop("created_at", None)
+        second.pop("created_at", None)
+        self.assertEqual(first, second)
 
     def test_different_seed_changes_output(self) -> None:
         first = generate_npc(self.state, {"seed": 111, "mode": "Village Weird"})
