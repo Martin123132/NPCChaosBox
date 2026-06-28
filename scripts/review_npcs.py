@@ -48,9 +48,13 @@ def main() -> None:
     weak_cues = []
     for scene in scenes:
         npc = scene["npc"]
+        cues = npc.get("table_cues") if isinstance(npc.get("table_cues"), dict) else {}
         for key in ["first_move", "what_they_know", "wants_from_players", "use_in_play"]:
             if not str(npc.get(key) or "").strip():
                 missing.append((scene["seed"], key))
+        for key in ["use_now", "open_with", "if_ignored", "ask", "reward", "catch", "clue", "reveal_trigger", "push"]:
+            if not str(cues.get(key) or "").strip():
+                missing.append((scene["seed"], f"table_cues.{key}"))
         for key, marker in [
             ("problem_now", "If ignored:"),
             ("first_move", "Open with:"),

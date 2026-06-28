@@ -1,5 +1,15 @@
 Elspeth Grin, of the unpaid prophecy
 
+RUN THIS SCENE
+Use Now: the party needs charm, threat, and admin at the same table
+Open With: they offer free supper if nobody says the mayor's name. Then let the room notice that The Bell-Ringers Who Deny Everything is listening
+If Ignored: it stays local for now, but costs someone pride, coin, or leverage
+Ask: the old well is repeating private conversations
+Reward: they can identify the relic if nobody asks where they learned how
+Catch: nobody can make this louder
+Read Aloud: "I brought cake because knives felt repetitive."
+
+EXTRA DETAIL
 Role: lamplighter who blackmails shadows
 Home: the courthouse broom cupboard
 Faction: The Bell-Ringers Who Deny Everything
@@ -8,11 +18,9 @@ Secret: they sold the same alibi to both sides of a feud
 Contradiction: bad at courage, excellent at consequences
 Problem Now: the old well is repeating private conversations. If ignored: it stays local for now, but costs someone pride, coin, or leverage.
 Object: a silver button that remembers uniforms
-First Move: Open with: they offer free supper if nobody says the mayor's name. Then let the room notice that The Bell-Ringers Who Deny Everything is listening.
-What They Know: where the missing person goes when the bells ring twice. Reveal trigger: the players ask directly and keep the scene calm.
-Wants From Players: They ask the players to deal with this quietly: the old well is repeating private conversations. In return: they can identify the relic if nobody asks where they learned how. Catch: nobody can make this louder.
-Quote: "I brought cake because knives felt repetitive."
-Use In Play: Use when the party needs charm, threat, and admin at the same table. Scene: they offer free supper if nobody says the mayor's name. Push: They are easiest to introduce when a silver button that remembers uniforms interrupts a normal drink. Low chaos: keep the problem grounded and let one odd detail carry it.
+Clue: where the missing person goes when the bells ring twice
+Reveal Trigger: the players ask directly and keep the scene calm
+Push: They are easiest to introduce when a silver button that remembers uniforms interrupts a normal drink. Low chaos: keep the problem grounded and let one odd detail carry it
 Danger: Green: safe to introduce now
 
 Seed: 606 | Mode: Fantasy Tavern | Chaos: 25

@@ -1,5 +1,15 @@
 Silas Brindle, with a pocket full of verdicts
 
+RUN THIS SCENE
+Use Now: the village needs a secret that can talk back
+Open With: they interrupt a toast with a legal objection nobody expected. Then unwrap a folded warrant addressed to whoever reads it from a parish notice and ask who recognises it
+If Ignored: the village turns it into a rule
+Ask: the tavern sign has started listing crimes in alphabetical order
+Reward: they can make a guard look the wrong way at the right time
+Catch: a ghost considers this legally binding
+Read Aloud: "I am helping. The panic is decorative."
+
+EXTRA DETAIL
 Role: locksmith for doors that are still deciding
 Home: the bridge that invoices travellers
 Faction: The Committee for Unclaimed Relics
@@ -8,11 +18,9 @@ Secret: they have been feeding evidence to the wrong shrine, though they only ad
 Contradiction: kind to strangers, suspicious of furniture
 Problem Now: the tavern sign has started listing crimes in alphabetical order. If ignored: the village turns it into a rule.
 Object: a folded warrant addressed to whoever reads it
-First Move: Open with: they interrupt a toast with a legal objection nobody expected. Then unwrap a folded warrant addressed to whoever reads it from a parish notice and ask who recognises it.
-What They Know: which door in town opens only for cowards, though they only admit half of it. Reveal trigger: the players help with the immediate problem first.
-Wants From Players: They ask the players to deal with this: the tavern sign has started listing crimes in alphabetical order. In return: they can make a guard look the wrong way at the right time. Catch: a ghost considers this legally binding.
-Quote: "I am helping. The panic is decorative."
-Use In Play: Use when the village needs a secret that can talk back. Scene: they interrupt a toast with a legal objection nobody expected. Push: Let one ordinary village rule suddenly matter far too much.
+Clue: which door in town opens only for cowards, though they only admit half of it
+Reveal Trigger: the players help with the immediate problem first
+Push: Let one ordinary village rule suddenly matter far too much
 Danger: Amber: complicated but usable
 
 Seed: 202 | Mode: Village Weird | Chaos: 72

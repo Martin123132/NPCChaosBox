@@ -1,5 +1,15 @@
 Tomas Wren, of the breakfast warrant
 
+RUN THIS SCENE
+Use Now: a tavern scene needs instant tension
+Open With: they hand over a sealed note and ask the players not to read it aloud. Then lock the shop door from the outside
+If Ignored: the price goes up and the shop shuts
+Ask: a sealed letter has started coughing up names before the next bell, closing time, or villain move
+Reward: they will introduce the players to a useful liar
+Catch: someone has already written the players' names into the minutes
+Read Aloud: "We can solve this quietly, or we can involve the choir."
+
+EXTRA DETAIL
 Role: graveyard clerk with excellent handwriting
 Home: the bell tower tea room
 Faction: The Widow's Choir of Evidence
@@ -8,11 +18,9 @@ Secret: they know why the moon refuses the west window, except their version kee
 Contradiction: never lies, but edits silence professionally
 Problem Now: a sealed letter has started coughing up names. If ignored: the price goes up and the shop shuts.
 Object: a ledger page that bleeds ink near cowards
-First Move: Open with: they hand over a sealed note and ask the players not to read it aloud. Then lock the shop door from the outside.
-What They Know: which witness lied because they were paid and which lied for love, except their version keeps changing. Reveal trigger: the players accept a messy favour or apply public pressure.
-Wants From Players: They ask the players to deal with this: a sealed letter has started coughing up names before the next bell, closing time, or villain move. In return: they will introduce the players to a useful liar. Catch: someone has already written the players' names into the minutes.
-Quote: "We can solve this quietly, or we can involve the choir."
-Use In Play: Use when a tavern scene needs instant tension. Scene: they hand over a sealed note and ask the players not to read it aloud. Push: They will sell a ledger page that bleeds ink near cowards, but only if the players fix the immediate mess. High chaos: the NPC's memory changes under pressure.
+Clue: which witness lied because they were paid and which lied for love, except their version keeps changing
+Reveal Trigger: the players accept a messy favour or apply public pressure
+Push: They will sell a ledger page that bleeds ink near cowards, but only if the players fix the immediate mess. High chaos: the NPC's memory changes under pressure
 Danger: Amber: complicated but usable
 
 Seed: 1001 | Mode: Shopkeeper With A Problem | Chaos: 76

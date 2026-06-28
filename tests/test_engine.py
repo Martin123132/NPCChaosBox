@@ -38,8 +38,10 @@ class EngineTests(unittest.TestCase):
             "wants_from_players",
             "quote",
             "use_in_play",
+            "table_cues",
         ]:
             self.assertTrue(npc[key])
+        cues = npc["table_cues"]
         self.assertIn("If ignored:", npc["problem_now"])
         self.assertIn("Open with:", npc["first_move"])
         self.assertIn("Reveal trigger:", npc["what_they_know"])
@@ -47,6 +49,8 @@ class EngineTests(unittest.TestCase):
         self.assertIn("Catch:", npc["wants_from_players"])
         self.assertIn("Scene:", npc["use_in_play"])
         self.assertIn("Push:", npc["use_in_play"])
+        for key in ["use_now", "open_with", "if_ignored", "ask", "reward", "catch", "clue", "reveal_trigger", "push"]:
+            self.assertTrue(cues[key])
         self.assertIn("CHAOS TRACE", scene["card_text"])
 
     def test_chaos_changes_intensity(self) -> None:
@@ -65,9 +69,15 @@ class EngineTests(unittest.TestCase):
             scene = generate_npc(self.state, option)
             with self.subTest(seed=option["seed"]):
                 text = scene["card_text"]
-                self.assertIn("First Move:", text)
-                self.assertIn("What They Know:", text)
-                self.assertIn("Wants From Players:", text)
+                self.assertLess(text.index("RUN THIS SCENE"), text.index("EXTRA DETAIL"))
+                self.assertIn("Use Now:", text)
+                self.assertIn("Open With:", text)
+                self.assertIn("If Ignored:", text)
+                self.assertIn("Ask:", text)
+                self.assertIn("Reward:", text)
+                self.assertIn("Catch:", text)
+                self.assertIn("Clue:", text)
+                self.assertIn("Reveal Trigger:", text)
                 self.assertNotIn("TODO", text)
                 self.assertNotIn("placeholder", text.lower())
 
@@ -94,11 +104,16 @@ class EngineTests(unittest.TestCase):
         for option in options:
             scene = generate_npc(self.state, option)
             npc = scene["npc"]
+            cues = npc["table_cues"]
             with self.subTest(seed=option["seed"]):
                 for key, marker in required_markers.items():
                     self.assertIn(marker, npc[key])
                 self.assertIn("Catch:", npc["wants_from_players"])
                 self.assertIn("Push:", npc["use_in_play"])
+                for key in ["use_now", "open_with", "if_ignored", "ask", "reward", "catch"]:
+                    self.assertTrue(cues[key])
+                    self.assertNotIn("Open with:", cues[key])
+                    self.assertNotIn("If ignored:", cues[key])
                 self.assertLessEqual(len(npc["first_move"]), 240)
                 self.assertLessEqual(len(npc["use_in_play"]), 320)
 

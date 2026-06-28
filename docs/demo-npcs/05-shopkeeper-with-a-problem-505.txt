@@ -1,5 +1,15 @@
 Rook Marlow, who keeps receipts for thunder
 
+RUN THIS SCENE
+Use Now: the players need a social scene with a real lever
+Open With: they ask for protection from something polite enough to knock. Then lock the shop door from the outside
+If Ignored: it stays local for now, but costs someone pride, coin, or leverage
+Ask: a respectable family is trying to auction off an inherited accusation
+Reward: they can hide the players for one night above the kitchen
+Catch: someone has already written the players' names into the minutes
+Read Aloud: "We can solve this quietly, or we can involve the choir."
+
+EXTRA DETAIL
 Role: tax collector for imaginary kingdoms
 Home: the duck pond with a witness box
 Faction: The Lantern Regulars
@@ -8,11 +18,9 @@ Secret: they have been feeding evidence to the wrong shrine, but for the opposit
 Contradiction: helps everyone, trusts nobody who says thank you
 Problem Now: a respectable family is trying to auction off an inherited accusation. If ignored: it stays local for now, but costs someone pride, coin, or leverage.
 Object: a referee whistle for moral fouls
-First Move: Open with: they ask for protection from something polite enough to knock. Then lock the shop door from the outside.
-What They Know: where the next public mistake will happen. Reveal trigger: the players help with the immediate problem first.
-Wants From Players: They ask the players to deal with this: a respectable family is trying to auction off an inherited accusation. In return: they can hide the players for one night above the kitchen. Catch: someone has already written the players' names into the minutes.
-Quote: "We can solve this quietly, or we can involve the choir."
-Use In Play: Use when the players need a social scene with a real lever. Scene: they ask for protection from something polite enough to knock. Push: Every price includes one favour and one uncomfortable question.
+Clue: where the next public mistake will happen
+Reveal Trigger: the players help with the immediate problem first
+Push: Every price includes one favour and one uncomfortable question
 Danger: Green: safe to introduce now
 
 Seed: 505 | Mode: Shopkeeper With A Problem | Chaos: 48

@@ -283,6 +283,7 @@ function renderNpcCard() {
     return;
   }
   const npc = currentNpc.npc;
+  const cues = tableCuesFor(npc);
   const traceLines = currentNpc.trace_lines || [];
   el("npcCard").innerHTML = `
     <div class="npc-sheet">
@@ -298,9 +299,19 @@ function renderNpcCard() {
         </div>
       </header>
 
-      <section class="npc-table-callout">
-        <span>Use Now</span>
-        <p>${escapeHtml(npc.use_in_play)}</p>
+      <section class="npc-run-panel">
+        <div class="npc-run-head">
+          <span>Run This Scene</span>
+          <strong>Use Now</strong>
+        </div>
+        <p class="npc-use-now">${escapeHtml(cues.use_now)}</p>
+        <div class="npc-run-grid">
+          ${npcRunCue("Open With", cues.open_with)}
+          ${npcRunCue("If Ignored", cues.if_ignored, "danger")}
+          ${npcRunCue("Ask", cues.ask)}
+          ${npcRunCue("Reward", cues.reward)}
+          ${npcRunCue("Catch", cues.catch)}
+        </div>
       </section>
 
       <section class="npc-quote-block">
@@ -308,30 +319,29 @@ function renderNpcCard() {
         <p>"${escapeHtml(npc.quote)}"</p>
       </section>
 
-      <div class="npc-priority-grid">
-        ${npcSpotlight("Problem Now", npc.problem_now)}
-        ${npcSpotlight("First Move", npc.first_move)}
-      </div>
-
-      <div class="npc-section-grid">
-        <section class="npc-section">
-          <h4>Pressure</h4>
-          ${npcMiniField("Wants", npc.wants)}
-          ${npcMiniField("Contradiction", npc.contradiction)}
-          ${npcMiniField("Secret", npc.secret)}
-        </section>
-        <section class="npc-section">
-          <h4>Table Levers</h4>
-          ${npcMiniField("What They Know", npc.what_they_know)}
-          ${npcMiniField("Wants From Players", npc.wants_from_players)}
-          ${npcMiniField("Object", npc.object)}
-        </section>
-        <section class="npc-section">
-          <h4>Context</h4>
-          ${npcMiniField("Home", npc.home)}
-          ${npcMiniField("Faction", npc.faction)}
-        </section>
-      </div>
+      <details class="npc-extra-details">
+        <summary>Extra Detail</summary>
+        <div class="npc-section-grid">
+          <section class="npc-section">
+            <h4>Levers</h4>
+            ${npcMiniField("Clue", cues.clue)}
+            ${npcMiniField("Reveal Trigger", cues.reveal_trigger)}
+            ${npcMiniField("Push", cues.push)}
+          </section>
+          <section class="npc-section">
+            <h4>Pressure</h4>
+            ${npcMiniField("Wants", npc.wants)}
+            ${npcMiniField("Contradiction", npc.contradiction)}
+            ${npcMiniField("Secret", npc.secret)}
+          </section>
+          <section class="npc-section">
+            <h4>Context</h4>
+            ${npcMiniField("Object", npc.object)}
+            ${npcMiniField("Home", npc.home)}
+            ${npcMiniField("Faction", npc.faction)}
+          </section>
+        </div>
+      </details>
 
       <details class="trace-details">
         <summary>Chaos Trace</summary>
@@ -349,9 +359,9 @@ function renderResultActions() {
   }
 }
 
-function npcSpotlight(label, value) {
+function npcRunCue(label, value, tone = "") {
   return `
-    <section class="npc-spotlight">
+    <section class="npc-run-cue ${escapeHtml(tone)}">
       <span>${escapeHtml(label)}</span>
       <p>${escapeHtml(value || "")}</p>
     </section>
@@ -365,6 +375,68 @@ function npcMiniField(label, value) {
       <p>${escapeHtml(value || "")}</p>
     </div>
   `;
+}
+
+function tableCuesFor(npc) {
+  const cues = npc.table_cues || {};
+  return {
+    use_now: cues.use_now || useNowCue(npc.use_in_play || ""),
+    open_with: cues.open_with || textAfter(npc.first_move || "", "Open with:"),
+    if_ignored: cues.if_ignored || textAfter(npc.problem_now || "", "If ignored:"),
+    ask: cues.ask || askCue(npc.wants_from_players || ""),
+    reward: cues.reward || textBetween(npc.wants_from_players || "", "In return:", ". Catch:"),
+    catch: cues.catch || textAfter(npc.wants_from_players || "", "Catch:"),
+    clue: cues.clue || textBetween(npc.what_they_know || "", "", ". Reveal trigger:"),
+    reveal_trigger: cues.reveal_trigger || textAfter(npc.what_they_know || "", "Reveal trigger:"),
+    push: cues.push || textAfter(npc.use_in_play || "", "Push:"),
+  };
+}
+
+function useNowCue(value) {
+  let text = String(value || "").trim();
+  if (text.includes(". Scene:")) {
+    text = text.split(". Scene:", 1)[0];
+  }
+  if (text.startsWith("Use when ")) {
+    text = text.slice("Use when ".length);
+  }
+  return stripPeriod(text);
+}
+
+function askCue(value) {
+  let text = textBetween(value, "", ". In return:");
+  ["They ask the players to deal with this quietly:", "They ask the players to deal with this:"].forEach((prefix) => {
+    if (text.startsWith(prefix)) {
+      text = text.slice(prefix.length).trim();
+    }
+  });
+  return text;
+}
+
+function textBetween(value, start, end) {
+  let text = String(value || "").trim();
+  if (start) {
+    if (!text.includes(start)) {
+      return stripPeriod(text);
+    }
+    text = text.split(start, 2)[1].trim();
+  }
+  if (end && text.includes(end)) {
+    text = text.split(end, 1)[0].trim();
+  }
+  return stripPeriod(text);
+}
+
+function textAfter(value, marker) {
+  let text = String(value || "").trim();
+  if (marker && text.includes(marker)) {
+    text = text.split(marker, 2)[1].trim();
+  }
+  return stripPeriod(text);
+}
+
+function stripPeriod(value) {
+  return String(value || "").trim().replace(/\.+$/, "");
 }
 
 function renderStorageStatus() {
@@ -697,7 +769,7 @@ async function loadFavourites() {
       npc.role || "Saved NPC",
       npc.home ? `from ${npc.home}` : "",
     ].filter(Boolean).join(" ");
-    const preview = npc.use_in_play || npc.problem_now || npc.quote || "Load this NPC back onto the Generate page.";
+    const preview = tableCuesFor(npc).use_now || npc.problem_now || npc.quote || "Load this NPC back onto the Generate page.";
     return `
       <article class="list-item favourite-card">
         <div class="favourite-card-main">
@@ -845,7 +917,7 @@ function renderExportSummary() {
   }
 
   const npc = currentNpc.npc || {};
-  const useLine = npc.use_in_play || "Ready to save into your notes.";
+  const useLine = tableCuesFor(npc).use_now || "Ready to save into your notes.";
   el("exportCurrentCard").innerHTML = `
     <div class="export-current-head">
       <span class="export-card-label">Ready To Export</span>
@@ -982,6 +1054,7 @@ async function copyText(text) {
   fallback.select();
   try {
     document.execCommand("copy");
+    fallback.hidden = true;
     setMessage("Copied.");
   } catch {
     setMessage("Clipboard blocked. Text is selected below.");

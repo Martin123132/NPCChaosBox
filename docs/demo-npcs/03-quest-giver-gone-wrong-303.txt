@@ -1,5 +1,15 @@
 Tilda Ash, of the seventh receipt
 
+RUN THIS SCENE
+Use Now: a quest giver should be funny without becoming useless
+Open With: they warn the room that the bell tower has chosen a defendant. Then admit the reward has developed opinions
+If Ignored: the job becomes harder and less honest
+Ask: the tavern cellar is refusing to return a missing customer
+Reward: they will name the villain's contact
+Catch: a rival wants the same favour done louder
+Read Aloud: "I have retired from violence, but not from standards."
+
+EXTRA DETAIL
 Role: retired bandit now running etiquette lessons
 Home: the lane that returns borrowed lies
 Faction: The Soft Knife Society
@@ -8,11 +18,9 @@ Secret: their diary is writing back in legal language, except their version keep
 Contradiction: soft-spoken until money becomes theological
 Problem Now: the tavern cellar is refusing to return a missing customer. If ignored: the job becomes harder and less honest.
 Object: a wooden saint with a removable smile
-First Move: Open with: they warn the room that the bell tower has chosen a defendant. Then admit the reward has developed opinions.
-What They Know: why the harmless object is being watched by three factions, except their version keeps changing. Reveal trigger: the players help with the immediate problem first.
-Wants From Players: They ask the players to deal with this: the tavern cellar is refusing to return a missing customer. In return: they will name the villain's contact. Catch: a rival wants the same favour done louder.
-Quote: "I have retired from violence, but not from standards."
-Use In Play: Use when a quest giver should be funny without becoming useless. Scene: they warn the room that the bell tower has chosen a defendant. Push: They give a real quest, but the reason is badly bent.
+Clue: why the harmless object is being watched by three factions, except their version keeps changing
+Reveal Trigger: the players help with the immediate problem first
+Push: They give a real quest, but the reason is badly bent
 Danger: Amber: complicated but usable
 
 Seed: 303 | Mode: Quest Giver Gone Wrong | Chaos: 66

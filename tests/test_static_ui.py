@@ -118,11 +118,20 @@ class StaticUiTests(unittest.TestCase):
 
         self.assertIn("npc-sheet", js)
         self.assertIn("Use Now", js)
+        self.assertIn("Run This Scene", js)
+        self.assertIn("Open With", js)
+        self.assertIn("If Ignored", js)
+        self.assertIn("Ask", js)
+        self.assertIn("Reward", js)
+        self.assertIn("Catch", js)
         self.assertIn("Read Aloud", js)
+        self.assertIn("Extra Detail", js)
+        self.assertIn("tableCuesFor", js)
         self.assertIn("trace-details", js)
-        self.assertIn("npcSpotlight", js)
-        self.assertIn(".npc-table-callout", css)
-        self.assertIn(".npc-priority-grid", css)
+        self.assertIn("npcRunCue", js)
+        self.assertIn(".npc-run-panel", css)
+        self.assertIn(".npc-run-grid", css)
+        self.assertIn(".npc-extra-details", css)
         self.assertIn(".trace-details", css)
 
     def test_generate_page_has_quiet_repeat_seed_control(self) -> None:

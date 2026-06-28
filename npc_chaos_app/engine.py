@@ -64,7 +64,12 @@ def generate_npc(state: dict[str, Any], options: dict[str, Any] | None = None) -
 
     danger = _danger_level(chaos, trace[-1])
     twist = _twist(mode, chaos, drift, faction, obj, rng)
+    problem_now = _problem_with_stakes(problem, danger, mode)
     first_move = _first_move(mode, hook, obj, faction, rng)
+    what_they_know = _knowledge_line(knowledge, drift, chaos)
+    wants_from_players = _player_request(problem, offer, complication, chaos)
+    use_in_play = _use_in_play(use_case, hook, twist)
+    table_cues = _table_cues(problem_now, first_move, what_they_know, wants_from_players, use_in_play)
     guidance = _guidance_for_npc(mode, chaos, danger)
     title = f"{name}, {epithet}"
 
@@ -77,13 +82,14 @@ def generate_npc(state: dict[str, Any], options: dict[str, Any] | None = None) -
         "wants": _drift_text(want, drift, chaos),
         "secret": _drift_text(secret, drift, chaos),
         "contradiction": contradiction,
-        "problem_now": _problem_with_stakes(problem, danger, mode),
+        "problem_now": problem_now,
         "object": obj,
         "first_move": first_move,
-        "what_they_know": _knowledge_line(knowledge, drift, chaos),
-        "wants_from_players": _player_request(problem, offer, complication, chaos),
+        "what_they_know": what_they_know,
+        "wants_from_players": wants_from_players,
         "quote": quote,
-        "use_in_play": _use_in_play(use_case, hook, twist),
+        "use_in_play": use_in_play,
+        "table_cues": table_cues,
         "danger": danger,
     }
     trace_lines = [
@@ -110,9 +116,20 @@ def generate_npc(state: dict[str, Any], options: dict[str, Any] | None = None) -
 
 def npc_to_text(scene: dict[str, Any]) -> str:
     npc = scene.get("npc") or {}
+    cues = _normalized_table_cues(npc)
     lines = [
         str(scene.get("title") or npc.get("name") or "NPC"),
         "",
+        "RUN THIS SCENE",
+        f"Use Now: {cues['use_now']}",
+        f"Open With: {cues['open_with']}",
+        f"If Ignored: {cues['if_ignored']}",
+        f"Ask: {cues['ask']}",
+        f"Reward: {cues['reward']}",
+        f"Catch: {cues['catch']}",
+        f"Read Aloud: \"{npc.get('quote', '')}\"",
+        "",
+        "EXTRA DETAIL",
         f"Role: {npc.get('role', '')}",
         f"Home: {npc.get('home', '')}",
         f"Faction: {npc.get('faction', '')}",
@@ -121,11 +138,9 @@ def npc_to_text(scene: dict[str, Any]) -> str:
         f"Contradiction: {npc.get('contradiction', '')}",
         f"Problem Now: {npc.get('problem_now', '')}",
         f"Object: {npc.get('object', '')}",
-        f"First Move: {npc.get('first_move', '')}",
-        f"What They Know: {npc.get('what_they_know', '')}",
-        f"Wants From Players: {npc.get('wants_from_players', '')}",
-        f"Quote: \"{npc.get('quote', '')}\"",
-        f"Use In Play: {npc.get('use_in_play', '')}",
+        f"Clue: {cues['clue']}",
+        f"Reveal Trigger: {cues['reveal_trigger']}",
+        f"Push: {cues['push']}",
         f"Danger: {npc.get('danger', '')}",
         "",
         f"Seed: {scene.get('seed')} | Mode: {scene.get('mode')} | Chaos: {scene.get('chaos')}",
@@ -137,23 +152,147 @@ def npc_to_text(scene: dict[str, Any]) -> str:
 
 
 def npc_to_html(scene: dict[str, Any]) -> str:
-    text = html.escape(npc_to_text(scene))
+    npc = scene.get("npc") or {}
+    cues = _normalized_table_cues(npc)
     title = html.escape(str(scene.get("title") or "NPC Chaos Box Export"))
+    trace_lines = scene.get("trace_lines") or []
     return f"""<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <title>{title}</title>
     <style>
-      body {{ font-family: Arial, sans-serif; margin: 2rem; color: #18201f; }}
-      pre {{ white-space: pre-wrap; line-height: 1.5; }}
+      body {{ background: #f7f8f5; color: #18201f; font-family: Arial, sans-serif; margin: 0; padding: 2rem; }}
+      main {{ background: #fff; border: 1px solid #d9e0dc; border-radius: 8px; margin: 0 auto; max-width: 880px; padding: 1.5rem; }}
+      h1 {{ font-size: 1.8rem; margin: 0 0 0.35rem; }}
+      h2 {{ font-size: 0.95rem; letter-spacing: 0; margin: 1.25rem 0 0.65rem; text-transform: uppercase; }}
+      p {{ line-height: 1.5; margin: 0.35rem 0; }}
+      .meta {{ color: #64716d; }}
+      .run-grid, .detail-grid {{ display: grid; gap: 0.65rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }}
+      .cue {{ background: #fbfcfa; border: 1px solid #d9e0dc; border-radius: 8px; padding: 0.75rem; }}
+      .cue strong {{ display: block; font-size: 0.75rem; margin-bottom: 0.25rem; text-transform: uppercase; }}
+      blockquote {{ background: #17211f; border-radius: 8px; color: #f7fbf9; margin: 1rem 0; padding: 1rem; }}
+      ol {{ color: #64716d; line-height: 1.5; }}
+      @media (max-width: 680px) {{ body {{ padding: 1rem; }} .run-grid, .detail-grid {{ grid-template-columns: 1fr; }} }}
     </style>
   </head>
   <body>
-    <pre>{text}</pre>
+    <main>
+      <h1>{title}</h1>
+      <p class="meta">{html.escape(str(npc.get('role', '')))} from {html.escape(str(npc.get('home', '')))}.</p>
+      <h2>Run This Scene</h2>
+      <p><strong>Use Now:</strong> {html.escape(cues['use_now'])}</p>
+      <div class="run-grid">
+        {_html_cue("Open With", cues["open_with"])}
+        {_html_cue("If Ignored", cues["if_ignored"])}
+        {_html_cue("Ask", cues["ask"])}
+        {_html_cue("Reward", cues["reward"])}
+        {_html_cue("Catch", cues["catch"])}
+      </div>
+      <blockquote>{html.escape(str(npc.get('quote', '')))}</blockquote>
+      <h2>Extra Detail</h2>
+      <div class="detail-grid">
+        {_html_cue("Clue", cues["clue"])}
+        {_html_cue("Reveal Trigger", cues["reveal_trigger"])}
+        {_html_cue("Wants", str(npc.get("wants", "")))}
+        {_html_cue("Contradiction", str(npc.get("contradiction", "")))}
+        {_html_cue("Secret", str(npc.get("secret", "")))}
+        {_html_cue("Object", str(npc.get("object", "")))}
+        {_html_cue("Faction", str(npc.get("faction", "")))}
+        {_html_cue("Danger", str(npc.get("danger", "")))}
+      </div>
+      <h2>Chaos Trace</h2>
+      <ol>{"".join(f"<li>{html.escape(str(line))}</li>" for line in trace_lines)}</ol>
+    </main>
   </body>
 </html>
 """
+
+
+def _html_cue(label: str, value: str) -> str:
+    return f"""<div class="cue"><strong>{html.escape(label)}</strong><p>{html.escape(value)}</p></div>"""
+
+
+def _table_cues(
+    problem_now: str,
+    first_move: str,
+    what_they_know: str,
+    wants_from_players: str,
+    use_in_play: str,
+) -> dict[str, str]:
+    return {
+        "use_now": _use_now_cue(use_in_play),
+        "open_with": _extract_after(first_move, "Open with:"),
+        "if_ignored": _extract_after(problem_now, "If ignored:"),
+        "ask": _ask_cue(wants_from_players),
+        "reward": _extract_between(wants_from_players, "In return:", ". Catch:"),
+        "catch": _extract_after(wants_from_players, "Catch:"),
+        "clue": _extract_between(what_they_know, "", ". Reveal trigger:"),
+        "reveal_trigger": _extract_after(what_they_know, "Reveal trigger:"),
+        "push": _extract_after(use_in_play, "Push:"),
+    }
+
+
+def _normalized_table_cues(npc: dict[str, Any]) -> dict[str, str]:
+    cues = npc.get("table_cues") if isinstance(npc.get("table_cues"), dict) else {}
+    fallback = _table_cues(
+        str(npc.get("problem_now", "")),
+        str(npc.get("first_move", "")),
+        str(npc.get("what_they_know", "")),
+        str(npc.get("wants_from_players", "")),
+        str(npc.get("use_in_play", "")),
+    )
+    return {
+        key: str(cues.get(key) or fallback.get(key) or "").strip()
+        for key in [
+            "use_now",
+            "open_with",
+            "if_ignored",
+            "ask",
+            "reward",
+            "catch",
+            "clue",
+            "reveal_trigger",
+            "push",
+        ]
+    }
+
+
+def _use_now_cue(value: str) -> str:
+    if ". Scene:" in value:
+        value = value.split(". Scene:", 1)[0]
+    if value.startswith("Use when "):
+        value = value.removeprefix("Use when ")
+    return _strip_period(value)
+
+
+def _ask_cue(value: str) -> str:
+    ask = _extract_between(value, "", ". In return:")
+    for prefix in [
+        "They ask the players to deal with this quietly:",
+        "They ask the players to deal with this:",
+    ]:
+        if ask.startswith(prefix):
+            return ask.removeprefix(prefix).strip()
+    return ask
+
+
+def _extract_between(value: str, start: str, end: str) -> str:
+    text = str(value).strip()
+    if start:
+        if start not in text:
+            return _strip_period(text)
+        text = text.split(start, 1)[1].strip()
+    if end and end in text:
+        text = text.split(end, 1)[0].strip()
+    return _strip_period(text)
+
+
+def _extract_after(value: str, marker: str) -> str:
+    text = str(value).strip()
+    if marker and marker in text:
+        text = text.split(marker, 1)[1].strip()
+    return _strip_period(text)
 
 
 def _prime_trace(seed: int, prime: int, rng: random.Random) -> list[int]:

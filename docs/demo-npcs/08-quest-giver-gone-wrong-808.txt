@@ -1,5 +1,15 @@
 Father Button, who once married a map
 
+RUN THIS SCENE
+Use Now: the party needs charm, threat, and admin at the same table
+Open With: they arrive followed by a child, a constable, and a guilty-looking chicken. Then start with the apology instead of the quest
+If Ignored: it stays local for now, but costs someone pride, coin, or leverage
+Ask: someone has pawned a memory that belongs to the players
+Reward: they can turn a private rumour into public leverage
+Catch: the price includes returning something that wants to stay lost
+Read Aloud: "I can forgive betrayal, but not bad minutes."
+
+EXTRA DETAIL
 Role: stablehand responsible for one impossible horse
 Home: the lane that returns borrowed lies
 Faction: The Bell-Ringers Who Deny Everything
@@ -8,11 +18,9 @@ Secret: they signed the village charter under the wrong species, except their ve
 Contradiction: helps everyone, trusts nobody who says thank you
 Problem Now: someone has pawned a memory that belongs to the players. If ignored: it stays local for now, but costs someone pride, coin, or leverage.
 Object: a silver button that remembers uniforms
-First Move: Open with: they arrive followed by a child, a constable, and a guilty-looking chicken. Then start with the apology instead of the quest.
-What They Know: where the stolen relic will be hidden after midnight. Reveal trigger: the players help with the immediate problem first.
-Wants From Players: They ask the players to deal with this: someone has pawned a memory that belongs to the players. In return: they can turn a private rumour into public leverage. Catch: the price includes returning something that wants to stay lost.
-Quote: "I can forgive betrayal, but not bad minutes."
-Use In Play: Use when the party needs charm, threat, and admin at the same table. Scene: they arrive followed by a child, a constable, and a guilty-looking chicken. Push: They give a real quest, but the reason is badly bent.
+Clue: where the stolen relic will be hidden after midnight
+Reveal Trigger: the players help with the immediate problem first
+Push: They give a real quest, but the reason is badly bent
 Danger: Green: safe to introduce now
 
 Seed: 808 | Mode: Quest Giver Gone Wrong | Chaos: 42

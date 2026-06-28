@@ -1,5 +1,15 @@
 Tomas Wren, who rents out grudges
 
+RUN THIS SCENE
+Use Now: the next scene needs a witness with a problem
+Open With: they confess to a crime that has not happened yet. Then put a folded warrant addressed to whoever reads it on the nearest dry table where everyone can see it
+If Ignored: the room chooses sides before anyone can leave
+Ask: the mayor wants them gone before the bell rings thirteen
+Reward: they can identify the relic if nobody asks where they learned how
+Catch: the witness will only talk if fed, flattered, or frightened
+Read Aloud: "I brought cake because knives felt repetitive."
+
+EXTRA DETAIL
 Role: lamplighter who blackmails shadows
 Home: the bridge that invoices travellers
 Faction: The Society for Returning Bad Luck
@@ -8,11 +18,9 @@ Secret: they signed the village charter under the wrong species, though they onl
 Contradiction: hates drama, travels with receipts
 Problem Now: the mayor wants them gone before the bell rings thirteen. If ignored: the room chooses sides before anyone can leave.
 Object: a folded warrant addressed to whoever reads it
-First Move: Open with: they confess to a crime that has not happened yet. Then put a folded warrant addressed to whoever reads it on the nearest dry table where everyone can see it.
-What They Know: which door in town opens only for cowards, though they only admit half of it. Reveal trigger: the players help with the immediate problem first.
-Wants From Players: They ask the players to deal with this: the mayor wants them gone before the bell rings thirteen. In return: they can identify the relic if nobody asks where they learned how. Catch: the witness will only talk if fed, flattered, or frightened.
-Quote: "I brought cake because knives felt repetitive."
-Use In Play: Use when the next scene needs a witness with a problem. Scene: they confess to a crime that has not happened yet. Push: Let the tavern room go quiet when The Society for Returning Bad Luck is mentioned.
+Clue: which door in town opens only for cowards, though they only admit half of it
+Reveal Trigger: the players help with the immediate problem first
+Push: Let the tavern room go quiet when The Society for Returning Bad Luck is mentioned
 Danger: Amber: complicated but usable
 
 Seed: 101 | Mode: Fantasy Tavern | Chaos: 55
