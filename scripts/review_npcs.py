@@ -42,19 +42,35 @@ def main() -> None:
     _print_counter("Danger", (scene["npc"]["danger"].split(":", 1)[0] for scene in scenes))
     _print_counter("Roles", (scene["npc"]["role"] for scene in scenes))
     _print_counter("Quotes", (scene["npc"]["quote"] for scene in scenes))
-    _print_counter("Problems", (scene["npc"]["problem_now"] for scene in scenes))
+    _print_counter("Problems", (_base_problem(scene["npc"]["problem_now"]) for scene in scenes))
 
     missing = []
+    weak_cues = []
     for scene in scenes:
         npc = scene["npc"]
         for key in ["first_move", "what_they_know", "wants_from_players", "use_in_play"]:
             if not str(npc.get(key) or "").strip():
                 missing.append((scene["seed"], key))
+        for key, marker in [
+            ("problem_now", "If ignored:"),
+            ("first_move", "Open with:"),
+            ("what_they_know", "Reveal trigger:"),
+            ("wants_from_players", "In return:"),
+            ("wants_from_players", "Catch:"),
+            ("use_in_play", "Scene:"),
+            ("use_in_play", "Push:"),
+        ]:
+            if marker not in str(npc.get(key) or ""):
+                weak_cues.append((scene["seed"], key, marker))
     print()
     print(f"Missing practical fields: {len(missing)}")
     if missing:
         for seed, key in missing[:10]:
             print(f"- seed {seed}: {key}")
+    print(f"Weak table cues: {len(weak_cues)}")
+    if weak_cues:
+        for seed, key, marker in weak_cues[:10]:
+            print(f"- seed {seed}: {key} missing {marker}")
 
 
 def _print_counter(label: str, values) -> None:
@@ -63,6 +79,10 @@ def _print_counter(label: str, values) -> None:
     for value, count in counter.most_common(8):
         print(f"- {count:>2} {value}")
     print()
+
+
+def _base_problem(value: str) -> str:
+    return str(value).split(". If ignored:", 1)[0]
 
 
 if __name__ == "__main__":

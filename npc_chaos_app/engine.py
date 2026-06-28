@@ -17,6 +17,15 @@ MODES = [
 
 PRIMES = [17, 19, 23, 29, 31, 37, 41]
 DRIFTS = ["preserve", "tilt", "fragment", "invert", "amplify", "misremember", "bind"]
+DRIFT_BEATS = {
+    "preserve": "the plain truth is awkward enough.",
+    "tilt": "the truth tilts toward whoever applies pressure first.",
+    "fragment": "half the truth helps and half of it is bait.",
+    "invert": "the safest answer is probably backwards.",
+    "amplify": "one small lie has already become local policy.",
+    "misremember": "the NPC's memory changes under pressure.",
+    "bind": "a promise makes the truth expensive.",
+}
 
 
 def generate_npc(state: dict[str, Any], options: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -53,9 +62,9 @@ def generate_npc(state: dict[str, Any], options: dict[str, Any] | None = None) -
     complication = _pick(state, "complications", rng, "someone important is watching")
     chaos_rule = _pick(state, "chaos_rules", rng, "The trace makes the motive wobble.")
 
+    danger = _danger_level(chaos, trace[-1])
     twist = _twist(mode, chaos, drift, faction, obj, rng)
     first_move = _first_move(mode, hook, obj, faction, rng)
-    danger = _danger_level(chaos, trace[-1])
     guidance = _guidance_for_npc(mode, chaos, danger)
     title = f"{name}, {epithet}"
 
@@ -68,13 +77,13 @@ def generate_npc(state: dict[str, Any], options: dict[str, Any] | None = None) -
         "wants": _drift_text(want, drift, chaos),
         "secret": _drift_text(secret, drift, chaos),
         "contradiction": contradiction,
-        "problem_now": problem,
+        "problem_now": _problem_with_stakes(problem, danger, mode),
         "object": obj,
         "first_move": first_move,
-        "what_they_know": _drift_text(knowledge, drift, max(chaos - 20, 0)),
-        "wants_from_players": _player_offer(offer, complication, chaos),
+        "what_they_know": _knowledge_line(knowledge, drift, chaos),
+        "wants_from_players": _player_request(problem, offer, complication, chaos),
         "quote": quote,
-        "use_in_play": f"Use them when {use_case}. {twist}",
+        "use_in_play": _use_in_play(use_case, hook, twist),
         "danger": danger,
     }
     trace_lines = [
@@ -188,7 +197,7 @@ def _twist(mode: str, chaos: int, drift: str, faction: str, obj: str, rng: rando
     }
     line = rng.choice(mode_lines.get(mode, ["They make a simple scene harder in a useful way."]))
     if chaos >= 75:
-        return f"{line} High chaos: {drift} the truth until the table has to choose a side."
+        return f"{line} High chaos: {DRIFT_BEATS.get(drift, 'the truth bends under pressure')}"
     if chaos <= 25:
         return f"{line} Low chaos: keep the problem grounded and let one odd detail carry it."
     return line
@@ -197,35 +206,75 @@ def _twist(mode: str, chaos: int, drift: str, faction: str, obj: str, rng: rando
 def _first_move(mode: str, hook: str, obj: str, faction: str, rng: random.Random) -> str:
     mode_moves = {
         "Fantasy Tavern": [
-            f"{hook}, then put {obj} on the nearest dry table.",
-            f"{hook}, while pretending {faction} is not listening.",
+            f"put {obj} on the nearest dry table where everyone can see it.",
+            f"let the room notice that {faction} is listening.",
         ],
         "Village Weird": [
-            f"{hook}, then ask everyone to vote before the bells notice.",
-            f"{hook}, carrying {obj} wrapped in a parish notice.",
+            "ask everyone nearby to vote before the bells notice.",
+            f"unwrap {obj} from a parish notice and ask who recognises it.",
         ],
         "Quest Giver Gone Wrong": [
-            f"{hook}, but start with the apology instead of the quest.",
-            f"{hook}, then admit the reward has developed opinions.",
+            "start with the apology instead of the quest.",
+            "admit the reward has developed opinions.",
         ],
         "Villain Contact": [
-            f"{hook}, then name the villain only after checking the windows.",
-            f"{hook}, while offering a meeting that {faction} will deny arranging.",
+            "name the villain only after checking the windows.",
+            f"offer a meeting that {faction} will deny arranging.",
         ],
         "Shopkeeper With A Problem": [
-            f"{hook}, then lock the shop door from the outside.",
-            f"{hook}, while pricing {obj} as if it might bite.",
+            "lock the shop door from the outside.",
+            f"price {obj} as if it might bite.",
         ],
     }
-    return rng.choice(mode_moves.get(mode, [f"{hook}, then makes the room choose a side."]))
+    next_beat = rng.choice(mode_moves.get(mode, ["make the room choose a side."]))
+    return f"Open with: {_strip_period(hook)}. Then {next_beat}"
 
 
-def _player_offer(offer: str, complication: str, chaos: int) -> str:
+def _problem_with_stakes(problem: str, danger: str, mode: str) -> str:
+    mode_stakes = {
+        "Fantasy Tavern": "the room chooses sides before anyone can leave",
+        "Village Weird": "the village turns it into a rule",
+        "Quest Giver Gone Wrong": "the job becomes harder and less honest",
+        "Villain Contact": "the villain learns the players are interested",
+        "Shopkeeper With A Problem": "the price goes up and the shop shuts",
+    }
+    if danger.startswith("Red"):
+        stake = "it spills into the next scene before the players get a clean rest"
+    elif danger.startswith("Green"):
+        stake = "it stays local for now, but costs someone pride, coin, or leverage"
+    else:
+        stake = mode_stakes.get(mode, "someone else takes control of the situation")
+    return f"{_strip_period(problem)}. If ignored: {stake}."
+
+
+def _knowledge_line(knowledge: str, drift: str, chaos: int) -> str:
+    clue = _drift_text(knowledge, drift, max(chaos - 20, 0))
     if chaos >= 75:
-        return f"{offer}, but {complication} before sunset."
+        trigger = "the players accept a messy favour or apply public pressure"
+    elif chaos <= 25:
+        trigger = "the players ask directly and keep the scene calm"
+    else:
+        trigger = "the players help with the immediate problem first"
+    return f"{_strip_period(clue)}. Reveal trigger: {trigger}."
+
+
+def _player_request(problem: str, offer: str, complication: str, chaos: int) -> str:
+    urgency = ""
+    if chaos >= 75:
+        urgency = " before the next bell, closing time, or villain move"
     if chaos <= 25:
-        return f"{offer}, as long as nobody makes this louder."
-    return f"{offer}, though {complication}."
+        return (
+            f"They ask the players to deal with this quietly: {_strip_period(problem)}. "
+            f"In return: {_strip_period(offer)}. Catch: nobody can make this louder."
+        )
+    return (
+        f"They ask the players to deal with this: {_strip_period(problem)}{urgency}. "
+        f"In return: {_strip_period(offer)}. Catch: {_strip_period(complication)}."
+    )
+
+
+def _use_in_play(use_case: str, hook: str, twist: str) -> str:
+    return f"Use when {use_case}. Scene: {_strip_period(hook)}. Push: {twist}"
 
 
 def _danger_level(chaos: int, last_trace: int) -> str:
@@ -265,6 +314,10 @@ def _drift_text(value: str, drift: str, chaos: int) -> str:
     if drift == "bind":
         return f"{value}, tied to a promise they cannot break"
     return f"{value}, slightly wrong in a useful way"
+
+
+def _strip_period(value: str) -> str:
+    return str(value).strip().rstrip(".")
 
 
 def _pick(state: dict[str, Any], key: str, rng: random.Random, fallback: str) -> str:

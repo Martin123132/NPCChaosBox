@@ -40,6 +40,13 @@ class EngineTests(unittest.TestCase):
             "use_in_play",
         ]:
             self.assertTrue(npc[key])
+        self.assertIn("If ignored:", npc["problem_now"])
+        self.assertIn("Open with:", npc["first_move"])
+        self.assertIn("Reveal trigger:", npc["what_they_know"])
+        self.assertIn("In return:", npc["wants_from_players"])
+        self.assertIn("Catch:", npc["wants_from_players"])
+        self.assertIn("Scene:", npc["use_in_play"])
+        self.assertIn("Push:", npc["use_in_play"])
         self.assertIn("CHAOS TRACE", scene["card_text"])
 
     def test_chaos_changes_intensity(self) -> None:
@@ -63,6 +70,37 @@ class EngineTests(unittest.TestCase):
                 self.assertIn("Wants From Players:", text)
                 self.assertNotIn("TODO", text)
                 self.assertNotIn("placeholder", text.lower())
+
+    def test_demo_style_seeds_have_actionable_scene_cues(self) -> None:
+        options = [
+            {"seed": 101, "mode": "Fantasy Tavern", "chaos": 55},
+            {"seed": 202, "mode": "Village Weird", "chaos": 72},
+            {"seed": 303, "mode": "Quest Giver Gone Wrong", "chaos": 66},
+            {"seed": 404, "mode": "Villain Contact", "chaos": 80},
+            {"seed": 505, "mode": "Shopkeeper With A Problem", "chaos": 48},
+            {"seed": 606, "mode": "Fantasy Tavern", "chaos": 25},
+            {"seed": 707, "mode": "Village Weird", "chaos": 90},
+            {"seed": 808, "mode": "Quest Giver Gone Wrong", "chaos": 42},
+            {"seed": 909, "mode": "Villain Contact", "chaos": 58},
+            {"seed": 1001, "mode": "Shopkeeper With A Problem", "chaos": 76},
+        ]
+        required_markers = {
+            "problem_now": "If ignored:",
+            "first_move": "Open with:",
+            "what_they_know": "Reveal trigger:",
+            "wants_from_players": "In return:",
+            "use_in_play": "Scene:",
+        }
+        for option in options:
+            scene = generate_npc(self.state, option)
+            npc = scene["npc"]
+            with self.subTest(seed=option["seed"]):
+                for key, marker in required_markers.items():
+                    self.assertIn(marker, npc[key])
+                self.assertIn("Catch:", npc["wants_from_players"])
+                self.assertIn("Push:", npc["use_in_play"])
+                self.assertLessEqual(len(npc["first_move"]), 240)
+                self.assertLessEqual(len(npc["use_in_play"]), 320)
 
 
 if __name__ == "__main__":

@@ -6,13 +6,13 @@ Faction: The Guild of Small Omens
 Wants: to keep the village peaceful until the pie contest ends, tied to a promise they cannot break
 Secret: they can identify the villain by the way their cup cools, tied to a promise they cannot break
 Contradiction: never lies, but edits silence professionally
-Problem Now: a rival has started telling the truth as a form of sabotage
+Problem Now: a rival has started telling the truth as a form of sabotage. If ignored: the villain learns the players are interested.
 Object: a wooden saint with a removable smile
-First Move: they warn the room that the bell tower has chosen a defendant, then name the villain only after checking the windows.
-What They Know: which witness lied because they were paid and which lied for love, tied to a promise they cannot break
-Wants From Players: they will trade a clue for a promise made in public, but a ghost considers this legally binding before sunset.
+First Move: Open with: they warn the room that the bell tower has chosen a defendant. Then name the villain only after checking the windows.
+What They Know: which witness lied because they were paid and which lied for love, tied to a promise they cannot break. Reveal trigger: the players accept a messy favour or apply public pressure.
+Wants From Players: They ask the players to deal with this: a rival has started telling the truth as a form of sabotage before the next bell, closing time, or villain move. In return: they will trade a clue for a promise made in public. Catch: a ghost considers this legally binding.
 Quote: "Please stop making eye contact with the evidence."
-Use In Play: Use them when a simple errand needs a human complication. They are not the villain, which somehow makes them worse. High chaos: bind the truth until the table has to choose a side.
+Use In Play: Use when a simple errand needs a human complication. Scene: they warn the room that the bell tower has chosen a defendant. Push: They are not the villain, which somehow makes them worse. High chaos: a promise makes the truth expensive.
 Danger: Amber: complicated but usable
 
 Seed: 404 | Mode: Villain Contact | Chaos: 80

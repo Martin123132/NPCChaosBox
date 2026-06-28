@@ -6,13 +6,13 @@ Faction: The Bell-Ringers Who Deny Everything
 Wants: to keep the village peaceful until the pie contest ends
 Secret: they sold the same alibi to both sides of a feud
 Contradiction: cowardly in battle, fearless in paperwork
-Problem Now: a map insists their house is a dungeon
+Problem Now: a map insists their house is a dungeon. If ignored: the village turns it into a rule.
 Object: a ledger page that bleeds ink near cowards
-First Move: they hand over a sealed note and ask the players not to read it aloud, carrying a ledger page that bleeds ink near cowards wrapped in a parish notice.
-What They Know: which rumour is true but too useful to say plainly
-Wants From Players: they will remove one accusation from the record, but a ghost considers this legally binding before sunset.
+First Move: Open with: they hand over a sealed note and ask the players not to read it aloud. Then unwrap a ledger page that bleeds ink near cowards from a parish notice and ask who recognises it.
+What They Know: which rumour is true but too useful to say plainly. Reveal trigger: the players accept a messy favour or apply public pressure.
+Wants From Players: They ask the players to deal with this: a map insists their house is a dungeon before the next bell, closing time, or villain move. In return: they will remove one accusation from the record. Catch: a ghost considers this legally binding.
 Quote: "The truth is upstairs refusing visitors."
-Use In Play: Use them when a simple errand needs a human complication. Make The Bell-Ringers Who Deny Everything treat this like a civic emergency. High chaos: preserve the truth until the table has to choose a side.
+Use In Play: Use when a simple errand needs a human complication. Scene: they hand over a sealed note and ask the players not to read it aloud. Push: Make The Bell-Ringers Who Deny Everything treat this like a civic emergency. High chaos: the plain truth is awkward enough.
 Danger: Amber: complicated but usable
 
 Seed: 707 | Mode: Village Weird | Chaos: 90

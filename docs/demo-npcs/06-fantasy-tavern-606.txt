@@ -6,13 +6,13 @@ Faction: The Bell-Ringers Who Deny Everything
 Wants: to prove the mayor is three children in a cloak of law
 Secret: they sold the same alibi to both sides of a feud
 Contradiction: bad at courage, excellent at consequences
-Problem Now: the old well is repeating private conversations
+Problem Now: the old well is repeating private conversations. If ignored: it stays local for now, but costs someone pride, coin, or leverage.
 Object: a silver button that remembers uniforms
-First Move: they offer free supper if nobody says the mayor's name, while pretending The Bell-Ringers Who Deny Everything is not listening.
-What They Know: where the missing person goes when the bells ring twice
-Wants From Players: they can identify the relic if nobody asks where they learned how, as long as nobody makes this louder.
+First Move: Open with: they offer free supper if nobody says the mayor's name. Then let the room notice that The Bell-Ringers Who Deny Everything is listening.
+What They Know: where the missing person goes when the bells ring twice. Reveal trigger: the players ask directly and keep the scene calm.
+Wants From Players: They ask the players to deal with this quietly: the old well is repeating private conversations. In return: they can identify the relic if nobody asks where they learned how. Catch: nobody can make this louder.
 Quote: "I brought cake because knives felt repetitive."
-Use In Play: Use them when the party needs charm, threat, and admin at the same table. They are easiest to introduce when a silver button that remembers uniforms interrupts a normal drink. Low chaos: keep the problem grounded and let one odd detail carry it.
+Use In Play: Use when the party needs charm, threat, and admin at the same table. Scene: they offer free supper if nobody says the mayor's name. Push: They are easiest to introduce when a silver button that remembers uniforms interrupts a normal drink. Low chaos: keep the problem grounded and let one odd detail carry it.
 Danger: Green: safe to introduce now
 
 Seed: 606 | Mode: Fantasy Tavern | Chaos: 25

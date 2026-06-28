@@ -6,13 +6,13 @@ Faction: The Lantern Regulars
 Wants: to hide a door that keeps choosing witnesses, but for the opposite reason
 Secret: they have been feeding evidence to the wrong shrine, but for the opposite reason
 Contradiction: helps everyone, trusts nobody who says thank you
-Problem Now: a respectable family is trying to auction off an inherited accusation
+Problem Now: a respectable family is trying to auction off an inherited accusation. If ignored: it stays local for now, but costs someone pride, coin, or leverage.
 Object: a referee whistle for moral fouls
-First Move: they ask for protection from something polite enough to knock, then lock the shop door from the outside.
-What They Know: where the next public mistake will happen
-Wants From Players: they can hide the players for one night above the kitchen, though someone has already written the players' names into the minutes.
+First Move: Open with: they ask for protection from something polite enough to knock. Then lock the shop door from the outside.
+What They Know: where the next public mistake will happen. Reveal trigger: the players help with the immediate problem first.
+Wants From Players: They ask the players to deal with this: a respectable family is trying to auction off an inherited accusation. In return: they can hide the players for one night above the kitchen. Catch: someone has already written the players' names into the minutes.
 Quote: "We can solve this quietly, or we can involve the choir."
-Use In Play: Use them when the players need a social scene with a real lever. Every price includes one favour and one uncomfortable question.
+Use In Play: Use when the players need a social scene with a real lever. Scene: they ask for protection from something polite enough to knock. Push: Every price includes one favour and one uncomfortable question.
 Danger: Green: safe to introduce now
 
 Seed: 505 | Mode: Shopkeeper With A Problem | Chaos: 48
