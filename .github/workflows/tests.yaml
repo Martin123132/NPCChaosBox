@@ -10,7 +10,7 @@ jobs:
     runs-on: windows-latest
     env:
       PYTHONDONTWRITEBYTECODE: "1"
-      NPC_CHAOS_HOME: ${{ runner.temp }}\NPCChaosData
+      NPC_CHAOS_HOME: ${{ github.workspace }}\NPCChaosData
       NPC_CHAOS_DISABLE_OPEN: "1"
     steps:
       - name: Check out repo
