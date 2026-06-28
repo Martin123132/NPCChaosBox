@@ -43,6 +43,7 @@ class ReleaseScriptTests(unittest.TestCase):
 
         repo = Path(__file__).resolve().parents[1]
         verifier_text = (repo / "scripts" / "verify_release_zip.ps1").read_text(encoding="utf-8")
+        self.assertIn("LICENSE", verifier_text)
         self.assertIn("pyproject.toml", verifier_text)
         self.assertIn("npc-chaos-table-mural-v2.png", verifier_text)
         self.assertIn("first_run_acceptance.py", verifier_text)
@@ -53,6 +54,7 @@ class ReleaseScriptTests(unittest.TestCase):
             zip_path = root / "release.zip"
             with zipfile.ZipFile(zip_path, "w") as release:
                 release.writestr("START_NPCChaos_WINDOWS.bat", "@echo off\n")
+                release.writestr("LICENSE", "Required Notice: Copyright (c) 2026 TWO HANDS NETWORK LTD.\n")
                 release.writestr("README.md", "# NPC Chaos Box\n")
                 release.writestr("pyproject.toml", "[project]\nname = 'npc-chaos-box'\n")
                 release.writestr("npc_chaos_app/app.py", "print('doctor')\n")

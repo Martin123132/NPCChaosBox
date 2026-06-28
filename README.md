@@ -130,6 +130,11 @@ $zip = (Get-ChildItem dist\NPCChaosBox-v*.zip | Sort-Object LastWriteTime -Desce
 powershell -ExecutionPolicy Bypass -File scripts\verify_release_zip.ps1 -ZipPath $zip -WorkRoot D:\NPCChaosVerifyWork
 ```
 
+## License
+
+NPC Chaos Box is source-available for personal and non-commercial use under the
+PolyForm Noncommercial License 1.0.0. See `LICENSE`.
+
 ## V0.1 Promise
 
 NPC Chaos Box should be explainable over the phone: unzip, double-click,

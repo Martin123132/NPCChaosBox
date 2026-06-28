@@ -83,6 +83,7 @@ powershell -ExecutionPolicy Bypass -File scripts\verify_release_zip.ps1 -ZipPath
 Check the ZIP contains:
 
 - `START_NPCChaos_WINDOWS.bat`
+- `LICENSE`
 - `README.md`
 - `npc_chaos_app\`
 - `npc_chaos_app\static\art\npc-chaos-table-mural-v2.png`

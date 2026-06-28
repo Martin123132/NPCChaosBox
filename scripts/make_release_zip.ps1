@@ -47,7 +47,7 @@ if (Test-Path -LiteralPath $zipPath) {
 New-Item -ItemType Directory -Force -Path $stage | Out-Null
 
 function Should-Include($File) {
-  if ($File -in @(".gitignore", "README.md", "START_NPCChaos_WINDOWS.bat", "pyproject.toml")) {
+  if ($File -in @(".gitignore", "LICENSE", "README.md", "START_NPCChaos_WINDOWS.bat", "pyproject.toml")) {
     return $true
   }
   if ($File -eq ".github/workflows/tests.yml") {

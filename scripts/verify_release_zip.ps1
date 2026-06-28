@@ -69,6 +69,7 @@ try {
 
   $required = @(
     "START_NPCChaos_WINDOWS.bat",
+    "LICENSE",
     "README.md",
     "pyproject.toml",
     "npc_chaos_app\app.py",
