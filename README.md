@@ -1,34 +1,25 @@
 # NPC Chaos Box
 
-NPC Chaos Box is a local-first deterministic NPC generator for tabletop games,
-writing, solo RPGs, and worldbuilding. It uses seed banks, prime traces, drift,
-and collision rules to make immediately usable characters without API keys,
-cloud accounts, Ollama, npm, or a build step.
+**A local-first NPC generator for tabletop games, writing, solo RPGs, and worldbuilding.**
 
-The design principle is simple: every page should teach the next useful action.
-The app uses traffic-light status:
+Press one button and get a character you can actually use at the table: what they want, what they know, what they ask the players to do, what happens if ignored, and the strange little twist that makes them memorable.
 
-- Green: ready.
-- Amber: usable, but worth improving.
-- Red: blocked or too thin.
+- [Download the public alpha ZIP](https://github.com/Martin123132/NPCChaosBox/releases/download/v0.1.0/NPCChaosBox-v0.1.0.zip)
+- [Open the release page](https://github.com/Martin123132/NPCChaosBox/releases/tag/v0.1.0)
 
-The game-scene background is original generated art made for this project. It
-is there to make the tool feel like an NPC box for games, without using anyone
-else's characters, logos, or settings.
+No accounts. No AI API keys. No cloud calls. No Ollama. No npm. No build step.
 
-## Start On Windows
+<img src="docs/assets/readme-generate.png" alt="NPC Chaos Box Generate page showing a generated NPC card" width="920">
 
-1. Unzip the folder somewhere easy, preferably on the D drive.
-2. Double-click `START_NPCChaos_WINDOWS.bat`.
-3. Your browser opens.
-4. Press `Generate NPC`.
+## Quick Start
 
-The launcher stores data beside the app by default:
+Windows public alpha:
 
-```text
-user-data\
-temp\
-```
+1. Download `NPCChaosBox-v0.1.0.zip`.
+2. Unzip it somewhere easy, preferably on the D drive.
+3. Double-click `START_NPCChaos_WINDOWS.bat`.
+4. Your browser opens.
+5. Press `Generate NPC`.
 
 If Python is missing, install Python 3.10 or newer from:
 
@@ -38,36 +29,83 @@ https://www.python.org/downloads/windows/
 
 Tick `Add python.exe to PATH`, then double-click the launcher again.
 
-## Pages
+## What It Makes
 
-- `Generate`: pull one NPC card, then copy, save, or move to export.
-- `Tune`: pick a feel preset, then adjust mode, role, chaos, and seed lock.
-- `Seed Packs`: edit ingredients with live format, count, and preview guidance.
-- `Favourites`: scan saved NPCs, preview their use, and reload useful ones.
-- `Exports`: pick an outcome, TXT for table notes or HTML for a clean saved card.
-- `Help`: public alpha help, known limits, GitHub Issues link, and copyable debug report.
-- `Doctor`: read plain-English local health, file paths, and seed-count evidence.
+Each NPC card is built for use, not just flavour text:
+
+- `Use Now`: when to drop them into the session.
+- `Open With`: how the scene starts.
+- `If Ignored`: what gets worse.
+- `Ask`: what they want from the players.
+- `Reward`: what the players can gain.
+- `Catch`: the complication attached to helping.
+- `Read Aloud`: a line you can say at the table.
+- `Chaos Trace`: the deterministic seed trail behind the result.
+
+The generator uses local seed banks, prime traces, drift, and collision rules to make strange but playable NPCs without calling any AI service.
+
+## Screenshots
+
+| Public alpha help | Mobile view |
+|---|---|
+| <img src="docs/assets/readme-help.png" alt="NPC Chaos Box Help page with public alpha feedback loop" width="520"> | <img src="docs/assets/readme-mobile.png" alt="NPC Chaos Box mobile Generate page" width="240"> |
+
+## App Pages
+
+- `Generate`: make one NPC card, then copy, save, or export it.
+- `Tune`: pick the mode, role, chaos level, and seed behaviour.
+- `Seed Packs`: edit the ingredients one line at a time.
+- `Favourites`: keep useful NPCs and load them back later.
+- `Exports`: save TXT table notes or a clean HTML card.
+- `Help`: public alpha guide, known limits, GitHub Issues link, and debug report.
+- `Doctor`: plain-English local health, file paths, and seed-count evidence.
+
+The app uses traffic-light guidance:
+
+- Green: ready.
+- Amber: usable, but worth improving.
+- Red: blocked or too thin.
+
+## Where Files Go
+
+The launcher stores runtime data beside the app by default:
+
+```text
+user-data\
+temp\
+```
+
+Exports, favourites, and seed edits stay local on your machine.
+
+For development or portable runs, set:
+
+```powershell
+$env:NPC_CHAOS_HOME = "D:\NPCChaosData"
+```
 
 ## Public Alpha Feedback
 
-This release is meant to be tested in public. If something breaks, open the
-`Help` page in the app, press `Copy Debug Report`, and paste it into the closest
-GitHub issue form:
+This release is meant to be tested in public. If something breaks:
 
-```text
-https://github.com/Martin123132/NPCChaosBox/issues/new/choose
-```
+1. Open the app.
+2. Go to `Help`.
+3. Press `Copy Debug Report`.
+4. Paste it into the closest GitHub issue form.
 
-Use:
+[Open GitHub Issues](https://github.com/Martin123132/NPCChaosBox/issues/new/choose)
 
-- `It would not open` for Python, launcher, browser, or Windows first-run trouble.
-- `Export or save problem` for favourites, TXT, HTML, or folder opening.
-- `Generated NPC felt wrong` when the output is repetitive, weak, or confusing.
-- `Feature idea` for small improvements and future workflows.
+Issue forms are included for:
 
-## D-Drive Development Setup
+- `It would not open`: Python, launcher, browser, or Windows first-run trouble.
+- `Export or save problem`: favourites, TXT, HTML, or folder opening.
+- `Generated NPC felt wrong`: repetitive, weak, confusing, or not table-ready output.
+- `Feature idea`: small improvements and future workflows.
 
-Use these environment variables before local checks:
+Known limitation: this is a Windows-first public alpha and still requires Python 3.10 or newer.
+
+## For Maintainers
+
+D-drive safe local setup:
 
 ```powershell
 New-Item -ItemType Directory -Force -Path D:\Temp, D:\NPCChaosData, D:\NPCChaosVerifyWork | Out-Null
@@ -77,34 +115,19 @@ $env:NPC_CHAOS_HOME = "D:\NPCChaosData"
 $env:NPC_CHAOS_DISABLE_OPEN = "1"
 ```
 
-## Manual Start
+Manual start:
 
 ```powershell
 python -m npc_chaos_app.app
 ```
 
-The app opens at a local address such as:
-
-```text
-http://127.0.0.1:53842
-```
-
-Close the terminal window, or press `Ctrl+C`, to stop it.
-
-If a test run or agent leaves a local app process open, stop only NPC Chaos Box
-dev processes with:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts\stop_dev.ps1
-```
-
-## Health Check
+Health check:
 
 ```powershell
 python -m npc_chaos_app.app --doctor
 ```
 
-## Development Checks
+Development checks:
 
 ```powershell
 python -m unittest discover -s tests
@@ -114,15 +137,7 @@ python scripts\sample_npcs.py --count 5
 python scripts\review_npcs.py --count 50
 ```
 
-Curated reproducible examples can be regenerated with:
-
-```powershell
-python scripts\sample_npcs.py --count 10 --output-dir docs\demo-npcs
-```
-
-## Release ZIP
-
-Maintainers can build and verify a local ZIP with:
+Build and verify a release ZIP:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts\make_release_zip.ps1
@@ -130,12 +145,16 @@ $zip = (Get-ChildItem dist\NPCChaosBox-v*.zip | Sort-Object LastWriteTime -Desce
 powershell -ExecutionPolicy Bypass -File scripts\verify_release_zip.ps1 -ZipPath $zip -WorkRoot D:\NPCChaosVerifyWork
 ```
 
+Stop any local dev server left open:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\stop_dev.ps1
+```
+
 ## License
 
-NPC Chaos Box is source-available for personal and non-commercial use under the
-PolyForm Noncommercial License 1.0.0. See `LICENSE`.
+NPC Chaos Box is source-available for personal and non-commercial use under the PolyForm Noncommercial License 1.0.0. See `LICENSE`.
 
 ## V0.1 Promise
 
-NPC Chaos Box should be explainable over the phone: unzip, double-click,
-generate, save/export. It should stay useful before it gets clever.
+NPC Chaos Box should be explainable over the phone: download ZIP, unzip, double-click, press `Generate NPC`. It should stay useful before it gets clever.
