@@ -143,10 +143,13 @@ class StaticUiTests(unittest.TestCase):
         css = (ROOT / "npc_chaos_app" / "static" / "app.css").read_text(encoding="utf-8")
 
         self.assertIn("Next Move", html)
+        self.assertIn("scene-window", html)
         self.assertIn("coachCard", js)
         self.assertIn("coachOption", js)
         self.assertIn("Use this NPC", js)
         self.assertIn("Tune if nearly right", js)
+        self.assertIn("npc-chaos-table-mural-v2.png", css)
+        self.assertIn(".scene-window", css)
         self.assertIn(".coach-card", css)
         self.assertIn(".coach-option-grid", css)
 

@@ -14,6 +14,7 @@
   --panel-soft: rgba(251, 252, 250, 0.94);
   --shadow: 0 16px 36px rgba(23, 33, 31, 0.08);
   --radius: 8px;
+  --scene-art: url("/static/art/npc-chaos-table-mural-v2.png");
 }
 
 * {
@@ -33,10 +34,10 @@ body {
   margin: 0;
   background-color: var(--bg);
   background-image:
-    linear-gradient(90deg, rgba(247, 248, 245, 0.97) 0%, rgba(247, 248, 245, 0.84) 34%, rgba(247, 248, 245, 0.68) 63%, rgba(247, 248, 245, 0.9) 100%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(247, 248, 245, 0.94)),
+    linear-gradient(90deg, rgba(247, 248, 245, 0.95) 0%, rgba(247, 248, 245, 0.82) 34%, rgba(247, 248, 245, 0.66) 63%, rgba(247, 248, 245, 0.9) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(247, 248, 245, 0.93)),
     repeating-linear-gradient(90deg, rgba(23, 33, 31, 0.018) 0, rgba(23, 33, 31, 0.018) 1px, transparent 1px, transparent 28px),
-    url("/static/art/npc-chaos-mural.png");
+    var(--scene-art);
   background-size: auto, auto, auto, cover;
   background-position: center, center, 0 0, center;
   background-repeat: no-repeat, no-repeat, repeat, no-repeat;
@@ -577,8 +578,8 @@ textarea:focus-visible {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(rgba(255, 255, 255, 0.74), rgba(255, 255, 255, 0.82)),
-    url("/static/art/npc-chaos-mural.png") center / cover;
+    linear-gradient(rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.86)),
+    var(--scene-art) center / cover;
   opacity: 0.72;
   z-index: -1;
 }
@@ -752,6 +753,20 @@ button:disabled {
 .guidance-panel {
   position: sticky;
   top: 20px;
+}
+
+.scene-window {
+  aspect-ratio: 16 / 7;
+  background-image:
+    linear-gradient(180deg, rgba(23, 33, 31, 0.08), rgba(23, 33, 31, 0.34)),
+    var(--scene-art);
+  background-position: center 46%;
+  background-size: cover;
+  border: 1px solid rgba(23, 33, 31, 0.18);
+  border-radius: var(--radius);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+  margin-bottom: 14px;
+  min-height: 120px;
 }
 
 .next-step-list {
@@ -1620,7 +1635,7 @@ input[type="checkbox"] {
     background-image:
       linear-gradient(rgba(247, 248, 245, 0.92), rgba(247, 248, 245, 0.98)),
       repeating-linear-gradient(90deg, rgba(23, 33, 31, 0.018) 0, rgba(23, 33, 31, 0.018) 1px, transparent 1px, transparent 28px),
-      url("/static/art/npc-chaos-mural.png");
+      var(--scene-art);
     background-attachment: scroll, scroll, scroll;
     background-position: center top, 0 0, center top;
     background-size: auto, auto, auto 520px;

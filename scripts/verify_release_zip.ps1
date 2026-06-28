@@ -73,7 +73,7 @@ try {
     "pyproject.toml",
     "npc_chaos_app\app.py",
     "npc_chaos_app\seeds\crooked_lantern.json",
-    "npc_chaos_app\static\art\npc-chaos-mural.png",
+    "npc_chaos_app\static\art\npc-chaos-table-mural-v2.png",
     "npc_chaos_app\templates\index.html",
     "scripts\first_run_acceptance.py"
   )

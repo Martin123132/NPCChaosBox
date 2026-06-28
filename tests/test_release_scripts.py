@@ -44,7 +44,7 @@ class ReleaseScriptTests(unittest.TestCase):
         repo = Path(__file__).resolve().parents[1]
         verifier_text = (repo / "scripts" / "verify_release_zip.ps1").read_text(encoding="utf-8")
         self.assertIn("pyproject.toml", verifier_text)
-        self.assertIn("npc-chaos-mural.png", verifier_text)
+        self.assertIn("npc-chaos-table-mural-v2.png", verifier_text)
         self.assertIn("first_run_acceptance.py", verifier_text)
 
         temp_parent = "D:\\Temp" if Path("D:\\Temp").exists() else None
@@ -57,7 +57,7 @@ class ReleaseScriptTests(unittest.TestCase):
                 release.writestr("pyproject.toml", "[project]\nname = 'npc-chaos-box'\n")
                 release.writestr("npc_chaos_app/app.py", "print('doctor')\n")
                 release.writestr("npc_chaos_app/seeds/crooked_lantern.json", "{}\n")
-                release.writestr("npc_chaos_app/static/art/npc-chaos-mural.png", b"fake png\n")
+                release.writestr("npc_chaos_app/static/art/npc-chaos-table-mural-v2.png", b"fake png\n")
                 release.writestr("npc_chaos_app/templates/index.html", "<!doctype html>\n")
                 release.writestr("scripts/first_run_acceptance.py", "print('acceptance')\n")
 

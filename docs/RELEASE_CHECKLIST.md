@@ -66,7 +66,7 @@ Check the ZIP contains:
 - `START_NPCChaos_WINDOWS.bat`
 - `README.md`
 - `npc_chaos_app\`
-- `npc_chaos_app\static\art\npc-chaos-mural.png`
+- `npc_chaos_app\static\art\npc-chaos-table-mural-v2.png`
 - `scripts\`
 - `docs\`
 - `tests\`
